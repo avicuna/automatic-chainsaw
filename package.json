@@ -26,6 +26,7 @@
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "test:coverage": "npm test -- --coverage --watchAll",
+    "test:watch": "npm test -- --watchAll",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
