@@ -1,15 +1,18 @@
-// import * as React from 'react';
-// import { shallow } from 'enzyme';
-// import { CreateUser } from '../../components/create-user'
+import * as React from 'react';
+import { shallow } from 'enzyme';
+import { CreateUser } from '../../components/create-user'
 
 
-// describe('<CreateUser/>', () => {
 
-//     it('Create User Component Renders', () => {
+describe('<CreateUser/>', () => { // start of the tests for Create Users
 
-//         const wrapper = shallow(<CreateUser/>);
+    it('Create User Component Renders', () => {// tests to check if the component will render
 
-//     });
+        const wrapper = shallow(<CreateUser/>);
+        expect(wrapper.exists()).toBe(true);
 
-// });
+    }); // end of check rendering test
+
+
+});
 
