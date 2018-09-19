@@ -78,15 +78,13 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
             return;
         }
       const newresp = resp.json();
-      window.console.log(newresp);
+      // window.console.log(newresp);
       return newresp;
     })
     .then((resp: any) => {
         if (resp === null || resp === undefined){
             return;
         }
-      window.console.log(resp);
-
       dispatch({
         payload: {
           accountNumber: resp.id,
