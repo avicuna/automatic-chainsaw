@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { IState } from "../../reducers";
 import { getExerciseList,getViewWorkout, getWorkoutHistory,getWorkoutList } from "../../actions/info/info.actions";
 import {clearSuccess} from "../../actions/misc/misc.actions";
-import { getExerciseList } from "../../actions/info/info.actions";
 import { HomeNavComponent } from "../navs/home-nav.component";
 import ViewWorkout from "../view-workout";
 // import NewWorkout from "../new-workout";
@@ -28,10 +27,9 @@ interface IProps {
   clearSuccess: () => any;
 }
 
-class Dashboard extends React.Component<IProps, any> {
+export class Dashboard extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
-    // remember to bind your functions here
   }
   public componentDidMount() {
     this.props.getExerciseList();
