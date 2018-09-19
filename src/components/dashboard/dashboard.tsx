@@ -1,8 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { IState } from "../../reducers";
-
-import {HomeNavComponent} from "../navs/home-nav.component";
+import { getExerciseList } from "../../actions/info/info.actions";
+import { HomeNavComponent } from "../navs/home-nav.component";
 import ViewWorkout from "../view-workout";
 import NewWorkout from "../new-workout";
 
@@ -12,6 +12,7 @@ import NewWorkout from "../new-workout";
  */
 interface IProps {
   exampleProp: string;
+  getExerciseList: () => any;
 }
 
 class Dashboard extends React.Component<IProps, any> {
@@ -19,18 +20,18 @@ class Dashboard extends React.Component<IProps, any> {
     super(props);
     // remember to bind your functions here
   }
-
-
-    public render() {
-        return (
-            <div>
-                <HomeNavComponent/>
-                <ViewWorkout/>
-                <NewWorkout/>
-            </div>
-        );
-    }
-
+  public componentDidMount() {
+    this.props.getExerciseList();
+  }
+  public render() {
+    return (
+      <div>
+        <HomeNavComponent />
+        <ViewWorkout />
+        <NewWorkout />
+      </div>
+    );
+  }
 }
 const mapStateToProps = (state: IState) => {
   return {
@@ -39,7 +40,7 @@ const mapStateToProps = (state: IState) => {
 };
 
 const mapDispatchToProps = {
-  // insert actions here
+  getExerciseList
 };
 
 export default connect(

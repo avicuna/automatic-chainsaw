@@ -42,6 +42,7 @@ export interface IWorkoutState {
  * Similarly, exerciseList is a list of all possible exercises.
  */
 export interface IInfoState {
+  viewWorkoutId: number;
   workoutHistory: WorkoutSnapshot[];
   viewWorkout: Workout;
   workoutList: WorkoutType[];
