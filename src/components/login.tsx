@@ -5,13 +5,16 @@ import { changeUsernameAndPassword } from "../actions/login/login.actions";
 import { submitLogin } from "../actions/login/login.actions";
 import "../App.css";
 import {RouteComponentProps} from "react-router";
+import {getExerciseList,getWorkoutList} from "../../src/actions/info/info.actions";
 interface IProps extends RouteComponentProps<{}>{
   errorMessage: string;
   username: string;
   password: string;
   accountNumber: string;
+  getWorkoutList:() => any;
   changeUsernameAndPassword: (username: string, password: string) => any;
   submitLogin: (logUsername: string, logPassword: string) => any;
+  getExerciseList: any;
 }
 
 class Login extends React.Component<IProps, any> {
@@ -34,6 +37,12 @@ class Login extends React.Component<IProps, any> {
     } else {
       this.props.changeUsernameAndPassword(this.props.username, e.target.value);
     }
+  }
+
+  public componentDidMount() {
+    this.props.getExerciseList();
+
+    this.props.getWorkoutList();
   }
   public render() {
     return (
@@ -79,11 +88,11 @@ const mapStateToProps = (state: IState) => {
     accountNumber: state.user.accountNumber,
     errorMessage: state.misc.errorMessage,
     password: state.user.password,
-    username: state.user.username
+    username: state.user.username,
   };
 };
 
-const mapDispatchToProps = { submitLogin, changeUsernameAndPassword };
+const mapDispatchToProps = { getExerciseList, submitLogin,getWorkoutList, changeUsernameAndPassword };
 
 export default connect(
   mapStateToProps,

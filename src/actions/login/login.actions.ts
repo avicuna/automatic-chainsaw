@@ -68,11 +68,11 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
     })
     .then((resp: any) => {
       const newresp = resp.json();
-      window.console.log(newresp);
+      // window.console.log(newresp);
       return newresp;
     })
     .then((resp: any) => {
-      window.console.log(resp);
+      // window.console.log(resp);
 
       dispatch({
         payload: {
