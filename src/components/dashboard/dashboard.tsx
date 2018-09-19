@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { IState } from "../../reducers";
+import {clearSuccess} from "../../actions/misc/misc.actions";
 import { getExerciseList } from "../../actions/info/info.actions";
 import { HomeNavComponent } from "../navs/home-nav.component";
 import ViewWorkout from "../view-workout";
@@ -13,6 +14,7 @@ import NewWorkout from "../new-workout";
 interface IProps {
   exampleProp: string;
   getExerciseList: () => any;
+  clearSuccess: () => any;
 }
 
 class Dashboard extends React.Component<IProps, any> {
@@ -22,6 +24,7 @@ class Dashboard extends React.Component<IProps, any> {
   }
   public componentDidMount() {
     this.props.getExerciseList();
+    this.props.clearSuccess();
   }
   public render() {
     return (
@@ -40,7 +43,8 @@ const mapStateToProps = (state: IState) => {
 };
 
 const mapDispatchToProps = {
-  getExerciseList
+  getExerciseList,
+    clearSuccess
 };
 
 export default connect(

@@ -56,7 +56,7 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
       }
       else if (resp.status === 404) {
           window.console.log("Incorrect login reached")
-        dispatch(updateErrorMessage(`Username or password are incoorect.`));
+        dispatch(updateErrorMessage(`Username or password are incorrect.`));
           return;
       }
       else if (resp.status === 500) {
@@ -100,7 +100,6 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
         },
         type: loginTypes.SUBMIT_LOGIN
       });
-      // dispatch(updateErrorMessage(""));
     })
     .catch((err: any) => {
       dispatch(

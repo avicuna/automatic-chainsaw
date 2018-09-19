@@ -1,5 +1,4 @@
-import
-    * as React from 'react';
+import * as React from 'react';
 import logo from '../../logo.svg';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink } from 'mdbreact';
 

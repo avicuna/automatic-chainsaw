@@ -5,6 +5,8 @@ import { changeUsernameAndPassword } from "../actions/login/login.actions";
 import { submitLogin } from "../actions/login/login.actions";
 import "../App.css";
 import {RouteComponentProps} from "react-router";
+import { Container, Row, Col, Input, Button } from 'mdbreact';
+
 interface IProps extends RouteComponentProps<{}>{
   errorMessage: string;
   username: string;
@@ -24,8 +26,6 @@ class Login extends React.Component<IProps, any> {
   public login(e: any) {
     e.preventDefault();
     this.props.submitLogin(this.props.username, this.props.password);
-    console.log(this.props.errorMessage);
-
   }
   public updateLogin(e: any) {
     e.preventDefault();
@@ -43,38 +43,37 @@ class Login extends React.Component<IProps, any> {
     return (
       <div>
 
-        <div className="form-group">
-          <label>Username</label>
-          <br />
-          <input
-            id="UN"
-            type="username"
-            className="form-control"
-            aria-describedby="emailHelp"
-            placeholder="Enter username"
-            value={this.props.username}
-            onChange={this.updateLogin}
-          />
-        </div>
-        <br />
-        <div className="form-group">
-          <label>Password</label>
-          <br />
-          <input
-            id="PW"
-            type="password"
-            className="form-control"
-            placeholder="Enter password"
-            value={this.props.password}
-            onChange={this.updateLogin}
-          />
-        </div>
-        <br />
-        <button type=" button" className="btn btn-primary" onClick={this.login}>
-          Login
-        </button>
-        <p> {this.props.accountNumber}</p>
-        <p> {this.props.errorMessage} </p>
+          <Container id="sign-in-container">
+              <Row>
+                  <Col md="6">
+                      <form>
+                          <p className="h5 text-center mb-4">Sign in</p>
+                          <div className="grey-text">
+                              <Input label="Enter username"
+                                     id="UN"
+                                     icon="user"
+                                     group type="text"
+                                     validate error="wrong"
+                                     success="right"
+                                     value={this.props.username}
+                                     onChange={this.updateLogin}
+                              />
+                              <Input label="Enter password"
+                                     icon="lock"
+                                     group type="password"
+                                     validate
+                                     value={this.props.password}
+                                     onChange={this.updateLogin}
+                              />
+                          </div>
+                          <div className="text-center">
+                              <p id="error-message">{this.props.errorMessage}</p>
+                              <Button onClick={this.login}>Login</Button>
+                          </div>
+                      </form>
+                  </Col>
+              </Row>
+          </Container>
       </div>
     );
   }
