@@ -10,6 +10,7 @@ interface IProps extends RouteComponentProps<{}>{
   username: string;
   password: string;
   accountNumber: string;
+  loginSuccess: boolean;
   changeUsernameAndPassword: (username: string, password: string) => any;
   submitLogin: (logUsername: string, logPassword: string) => any;
 }
@@ -23,9 +24,8 @@ class Login extends React.Component<IProps, any> {
   public login(e: any) {
     e.preventDefault();
     this.props.submitLogin(this.props.username, this.props.password);
-    if(this.props.errorMessage === ""){
-        this.props.history.push("/dashboard");
-    }
+    console.log(this.props.errorMessage);
+
   }
   public updateLogin(e: any) {
     e.preventDefault();
@@ -36,8 +36,13 @@ class Login extends React.Component<IProps, any> {
     }
   }
   public render() {
+      window.console.log(this.props.loginSuccess);
+      if(this.props.loginSuccess){
+          this.props.history.push("/dashboard");
+      }
     return (
       <div>
+
         <div className="form-group">
           <label>Username</label>
           <br />
@@ -79,7 +84,8 @@ const mapStateToProps = (state: IState) => {
     accountNumber: state.user.accountNumber,
     errorMessage: state.misc.errorMessage,
     password: state.user.password,
-    username: state.user.username
+    username: state.user.username,
+      loginSuccess: state.misc.loginSuccess
   };
 };
 
