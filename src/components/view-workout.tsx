@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { IState } from "../reducers";
 import { WorkoutType } from "../models/workout-type";
 import { Exercise } from "../models/exercise";
-import { getUserExerciseList } from "../actions/info/info.actions";
 import { Workout } from "../models/workout";
 import { ExerciseType } from "../models/exercise-type";
 interface IProps {
@@ -14,11 +13,7 @@ interface IProps {
   type: WorkoutType;
   viewWorkoutId: number;
   viewWorkout: Workout;
-  getUserExerciseList: (
-    viewWorkoutId: number,
-    exerciseList: ExerciseType[],
-    viewWorkout: Workout
-  ) => any;
+ 
 }
 
 class ViewWorkout extends React.Component<IProps, any> {
@@ -26,16 +21,9 @@ class ViewWorkout extends React.Component<IProps, any> {
     super(props);
   }
 
-  public componentDidMount() {
-    if (this.props.viewWorkoutId !== 0) {
-      this.props.getUserExerciseList(
-        this.props.viewWorkoutId,
-        this.props.exerciseList,
-        this.props.viewWorkout
-      );
-    }
-  }
+
   public render() {
+    console.log(this.props.viewWorkout);
     const exerciseEntries = this.props.exercises.map(exercise => {
       return (
         <tr key={exercise.id}>
@@ -85,7 +73,7 @@ const mapStateToProps = (state: IState) => {
 };
 
 const mapDispatchToProps = {
-  getUserExerciseList
+ 
 };
 
 export default connect(
