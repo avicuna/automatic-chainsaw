@@ -12,12 +12,11 @@ import NewWorkout from "../new-workout";
  * Copy and past the text into new components.
  */
 interface IProps {
-  exampleProp: string;
   getExerciseList: () => any;
   clearSuccess: () => any;
 }
 
-class Dashboard extends React.Component<IProps, any> {
+export class Dashboard extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
     // remember to bind your functions here
