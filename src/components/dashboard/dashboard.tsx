@@ -2,6 +2,8 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { IState } from "../../reducers";
 import { getExerciseList,getViewWorkout, getWorkoutHistory,getWorkoutList } from "../../actions/info/info.actions";
+import {clearSuccess} from "../../actions/misc/misc.actions";
+import { getExerciseList } from "../../actions/info/info.actions";
 import { HomeNavComponent } from "../navs/home-nav.component";
 import ViewWorkout from "../view-workout";
 // import NewWorkout from "../new-workout";
@@ -23,6 +25,7 @@ interface IProps {
   getExerciseList: () => any;
   getWorkoutList: ()=> any;
   getWorkoutHistory: (id:number,workoutList: WorkoutType[]) => any;
+  clearSuccess: () => any;
 }
 
 class Dashboard extends React.Component<IProps, any> {
@@ -33,7 +36,7 @@ class Dashboard extends React.Component<IProps, any> {
   public componentDidMount() {
     this.props.getExerciseList();
     this.props.getWorkoutList();
-   
+    this.props.clearSuccess();
   }
   public render() {
     if(this.props.exerciseList[1] !==undefined &&this.props.workoutHistory[1] === undefined){
@@ -68,7 +71,8 @@ const mapDispatchToProps = {
   getExerciseList,
   getViewWorkout ,
   getWorkoutHistory,
-  getWorkoutList
+  getWorkoutList,
+    clearSuccess
 };
 
 export default connect(

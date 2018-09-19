@@ -45,35 +45,46 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
   })
     .then((resp: any) => {
       if (resp.status === 200) {
-          dispatch(
-              updateErrorMessage(``)
-          );
+          dispatch(updateErrorMessage(``));
+          dispatch({
+              payload: {
+                  loginSuccess: true
+              },
+          type: loginTypes.UPDATE_LOGIN_SUCCESS
+          })
         return resp;
-
-      } else if (resp.status === 403) {
+      }
+      else if (resp.status === 404) {
+          window.console.log("Incorrect login reached")
+        dispatch(updateErrorMessage(`Username or password are incorrect.`));
+          return;
+      }
+      else if (resp.status === 500) {
         dispatch(
           updateErrorMessage(`Something went pretty wrong${resp.status}`)
         );
-      } else if (resp.status === 401) {
-        dispatch(updateErrorMessage(`Username or password were incoorect.`));
-      } else if (resp.status === 500) {
-        dispatch(
-          updateErrorMessage(`Something went pretty wrong${resp.status}`)
-        );
-      } else {
+        return;
+      }
+      else {
         dispatch(
           updateErrorMessage("it sent but we did something....." + resp.status)
+
         );
+      return;
       }
     })
     .then((resp: any) => {
+        if (resp === null || resp === undefined){
+            return;
+        }
       const newresp = resp.json();
       // window.console.log(newresp);
       return newresp;
     })
     .then((resp: any) => {
-      // window.console.log(resp);
-
+        if (resp === null || resp === undefined){
+            return;
+        }
       dispatch({
         payload: {
           accountNumber: resp.id,
@@ -87,7 +98,6 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
         },
         type: loginTypes.SUBMIT_LOGIN
       });
-      dispatch(updateErrorMessage(""));
     })
     .catch((err: any) => {
       dispatch(

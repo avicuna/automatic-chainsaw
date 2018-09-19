@@ -1,11 +1,13 @@
 import { IMiscState } from "./index";
 import { miscTypes } from "../actions/misc/misc.types";
 import { registerUserTypes } from "../actions/register-user/register-user.types";
+import { loginTypes} from "../actions/login/login.types"
 const initialState: IMiscState = {
   errorMessage: "",
   exerciseTypeText: "",
   passwordCheck: "",
-  workoutTypeText: ""
+  workoutTypeText: "",
+    loginSuccess: false,
 };
 
 export const miscReducer = (state: IMiscState = initialState, action: any) => {
@@ -15,6 +17,11 @@ export const miscReducer = (state: IMiscState = initialState, action: any) => {
         ...state,
         passwordCheck: action.payload.passwordCheck
       };
+      case loginTypes.UPDATE_LOGIN_SUCCESS:
+        return {
+            ...state,
+            loginSuccess: action.payload.loginSuccess
+        };
     case miscTypes.UPDATE_ERROR_MESSAGE:
       return {
         ...state,
