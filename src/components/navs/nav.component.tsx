@@ -19,7 +19,7 @@ export class NavComponent extends React.Component<any, any> {
     }
     public render() {
         return (
-            <Navbar dark color="unique-color" expand="md" scrolling>
+            <Navbar color="transparent" dark expand="md" fixed="top" scrolling>
                 <NavbarBrand>
                     <img className="img-adjust-position rev-logo" src={logo} alt="FT"/>
                 </NavbarBrand>

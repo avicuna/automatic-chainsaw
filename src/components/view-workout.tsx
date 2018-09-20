@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { IState } from "../reducers";
 import { WorkoutType } from "../models/workout-type";
 import { Exercise } from "../models/exercise";
+import { getUserExerciseList } from "../actions/info/info.actions";
 import { Workout } from "../models/workout";
 import { ExerciseType } from "../models/exercise-type";
 import { WorkoutSnapshot } from "../models/workout-snapshot";
@@ -106,7 +107,7 @@ const mapStateToProps = (state: IState) => {
 };
 
 const mapDispatchToProps = {
- 
+  getUserExerciseList
 };
 
 export default connect(
