@@ -1,76 +1,76 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { IState } from "../../reducers";
-import { getExerciseList,getViewWorkout, getWorkoutHistory,getWorkoutList } from "../../actions/info/info.actions";
-import {clearSuccess} from "../../actions/misc/misc.actions";
-import { HomeNavComponent } from "../navs/home-nav.component";
-import ViewWorkout from "../view-workout";
-// import NewWorkout from "../new-workout";
-import { ExerciseType } from "../../models/exercise-type";
+import {
+  getExerciseList,
+  getWorkoutList,
+  getWorkoutHistory
+} from "../../actions/info/info.actions";
+// import { HomeNavComponent } from "../navs/home-nav.component";
+// import ViewWorkout from "../view-workout";
 import { WorkoutSnapshot } from "../../models/workout-snapshot";
 import { WorkoutType } from "../../models/workout-type";
+import { ExerciseType } from "../../models/exercise-type";
+import ViewWorkoutHistory from "../view-workout-history";
+// import NewWorkout from "../new-workout";
 
-
-/**
- * This is a shell component, don't impliment this!
- * Copy and past the text into new components.
- */
 interface IProps {
   userId: number;
-  workoutHistory: WorkoutSnapshot[];
+  exampleProp: string;
+  workoutHistoryCalled: boolean;
   workoutList: WorkoutType[];
+  workoutHistory: WorkoutSnapshot[];
   exerciseList: ExerciseType[];
-  getViewWorkout: (id:number,exerciseList: ExerciseType[],snapshot: WorkoutSnapshot) => any;
   getExerciseList: () => any;
-  getWorkoutList: ()=> any;
-  getWorkoutHistory: (id:number,workoutList: WorkoutType[]) => any;
-  clearSuccess: () => any;
+  getWorkoutList: (userId: number) => any;
+  getWorkoutHistory: (userId: number, workoutList: WorkoutType[]) => any;
 }
 
 export class Dashboard extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
+    this.getWork = this.getWork.bind(this);
+  }
+  public getWork(e: any) {
+    this.props.getWorkoutHistory(this.props.userId, this.props.workoutList);
   }
   public componentDidMount() {
-    this.props.getExerciseList();
-    this.props.getWorkoutList();
-    this.props.clearSuccess();
+    if (this.props.exerciseList[1] === undefined) {
+      window.console.log("getting the exercises");
+      this.props.getExerciseList();
+      this.props.getWorkoutList(this.props.userId);
+    }
   }
   public render() {
-    if(this.props.exerciseList[1] !==undefined &&this.props.workoutHistory[1] === undefined){
-      window.console.log("getting workoutHistory")
-      this.props.getWorkoutHistory(this.props.userId,this.props.workoutList);
- 
-      const lastSnap:WorkoutSnapshot = 
-      this.props.workoutHistory.find((snap:WorkoutSnapshot) =>{
-          return (snap.order === this.props.workoutHistory.length);
-      })|| {id: 0,order: 0,type: new WorkoutType("",0,"",[]),date:""}
-      this.props.getViewWorkout(lastSnap.id,this.props.exerciseList,lastSnap)
+    window.console.log("exercise list");
+    window.console.log(this.props.exerciseList);
+    window.console.log(this.props.workoutHistoryCalled);
+    if (
+      this.props.workoutHistoryCalled === false &&
+      this.props.workoutList[1] !== undefined
+    ) {
+      this.props.getWorkoutHistory(this.props.userId, this.props.workoutList);
     }
     return (
       <div>
-        <HomeNavComponent />
-        <ViewWorkout />
-        {/* <NewWorkout /> */}
+        <ViewWorkoutHistory />
       </div>
     );
   }
 }
 const mapStateToProps = (state: IState) => {
   return {
-    exerciseList: state.info.exerciseList,
+    userId: state.user.accountNumber,
+    workoutHistoryCalled: state.misc.workoutHistoryCalled,
     workoutList: state.info.workoutList,
-    workoutHistory: state.info.workoutHistory,
-    userId: state.user.accountNumber
+    exerciseList: state.info.exerciseList
   };
 };
 
 const mapDispatchToProps = {
   getExerciseList,
-  getViewWorkout ,
-  getWorkoutHistory,
   getWorkoutList,
-    clearSuccess
+  getWorkoutHistory
 };
 
 export default connect(

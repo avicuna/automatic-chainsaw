@@ -55,6 +55,7 @@ export interface IMiscState {
   exerciseTypeText: string;
   errorMessage: string;
   passwordCheck: string;
+  workoutHistoryCalled: boolean;
   loginSuccess: boolean;
 }
 

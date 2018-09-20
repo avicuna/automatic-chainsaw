@@ -31,7 +31,7 @@ export const getWorkoutHistory = (
     .then((resp: any) => {
       const yeah: WorkoutSnapshot[] = resp.map((snapshot: any) => {
         const newType = workoutList.find((type: WorkoutType) => {
-          return snapshot.id === type.id;
+          return snapshot.workoutId === type.id;
         });
         return {
           id: snapshot.id,
@@ -54,7 +54,7 @@ export const getWorkoutHistory = (
     });
 };
 
-export const getWorkoutList = () => (dispatch: any) => {
+export const getWorkoutList = (userId: number) => (dispatch: any) => {
   fetch("http://localhost:6969/workout", {
     headers: { "Content-Type": "application/json" },
     method: "GET"
@@ -96,6 +96,11 @@ export const getWorkoutList = () => (dispatch: any) => {
         type: infoTypes.GET_WORKOUT_LIST
       });
       dispatch(updateErrorMessage(""));
+      return newWorkoutList;
+    })
+    .then((workoutList: WorkoutType[]) => {
+      window.console.log(`getting the workouts for ${userId}`);
+      dispatch(getWorkoutHistory(userId, workoutList));
     })
     .catch((err: any) => {
       dispatch(updateErrorMessage(`Something went terribly wrong`));
@@ -181,6 +186,7 @@ export const getViewWorkout = (
           exerciseList.find(exerType => {
             return exerType.id === springExercise.exerciseId;
           }) || exerciseList[0];
+        window.console.log(thisType);
         return new Exercise(
           thisType.name,
           thisType.id,
@@ -198,7 +204,8 @@ export const getViewWorkout = (
       );
       dispatch({
         payload: {
-          viewWorkout: newViewWorkout
+          viewWorkout: newViewWorkout,
+          viewWorkoutId: workoutId
         },
         type: infoTypes.GET_VIEW_EXERCISES
       });

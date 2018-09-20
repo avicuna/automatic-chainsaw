@@ -5,6 +5,7 @@ import { WorkoutType } from "../models/workout-type";
 import { Exercise } from "../models/exercise";
 import { Workout } from "../models/workout";
 import { ExerciseType } from "../models/exercise-type";
+import { WorkoutSnapshot } from "../models/workout-snapshot";
 interface IProps {
   date: string;
   exercises: Exercise[];
@@ -13,7 +14,12 @@ interface IProps {
   type: WorkoutType;
   viewWorkoutId: number;
   viewWorkout: Workout;
- 
+  workoutHistory: WorkoutSnapshot[];
+  getUserExerciseList: (
+    viewWorkoutId: number,
+    exerciseList: ExerciseType[],
+    viewWorkout: Workout
+  ) => any;
 }
 
 class ViewWorkout extends React.Component<IProps, any> {
@@ -21,9 +27,35 @@ class ViewWorkout extends React.Component<IProps, any> {
     super(props);
   }
 
-
+  public componentDidMount() {
+    if (
+      this.props.viewWorkoutId !== 0 &&
+      this.props.exerciseList[1] !== undefined
+    ) {
+      this.props.getUserExerciseList(
+        this.props.viewWorkoutId,
+        this.props.exerciseList,
+        this.props.viewWorkout
+      );
+    }
+  }
   public render() {
-    console.log(this.props.viewWorkout);
+    window.console.log("I'm here workoutS history, and view workout");
+    window.console.log(this.props.workoutHistory);
+    window.console.log(this.props.viewWorkout);
+    if (this.props.viewWorkoutId === 0) {
+      const viewSnap =
+        this.props.workoutHistory.find((snap: WorkoutSnapshot) => {
+          return snap.id === this.props.workoutHistory.length;
+        }) || this.props.workoutHistory[0];
+      if (viewSnap !== undefined) {
+        this.props.getUserExerciseList(
+          viewSnap.id,
+          this.props.exerciseList,
+          new Workout(viewSnap.type, viewSnap.order, [], viewSnap.date)
+        );
+      }
+    }
     const exerciseEntries = this.props.exercises.map(exercise => {
       return (
         <tr key={exercise.id}>
@@ -68,7 +100,8 @@ const mapStateToProps = (state: IState) => {
     exercises: state.info.viewWorkout.exercises,
     order: state.info.viewWorkout.order,
     type: state.info.viewWorkout.type,
-    viewWorkoutId: state.info.viewWorkoutId
+    viewWorkoutId: state.info.viewWorkoutId,
+    workoutHistory: state.info.workoutHistory
   };
 };
 

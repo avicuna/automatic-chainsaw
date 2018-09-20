@@ -14,11 +14,13 @@ const initialState: IInfoState = {
   viewWorkout: new Workout(new WorkoutType("", 0, "", []), 0, [], ""),
   workoutHistory: [],
   workoutList: [],
-  viewWorkoutId: 10
+  viewWorkoutId: 0
 };
 export const infoReducer = (state: IInfoState = initialState, action: any) => {
   switch (action.type) {
     case infoTypes.GET_WORKOUT_HISTORY:
+      window.console.log("this is the workouthistory ");
+      window.console.log(action.payload.workoutHistory);
       return {
         ...state,
         workoutHistory: action.payload.workoutHistory
@@ -29,6 +31,8 @@ export const infoReducer = (state: IInfoState = initialState, action: any) => {
         workoutList: action.payload.workoutList
       };
     case infoTypes.GET_EXERCISE_LIST:
+      window.console.log("State store with exercise list");
+      window.console.log(action.payload.exerciseList);
       return {
         ...state,
         exerciseList: action.payload.exerciseList
@@ -37,7 +41,8 @@ export const infoReducer = (state: IInfoState = initialState, action: any) => {
       console.log(action.payload.viewWorkout);
       return {
         ...state,
-        viewWorkout: action.payload.viewWorkout
+        viewWorkout: action.payload.viewWorkout,
+        viewWorkoutId: action.payload.viewWorkoutId
       };
     default:
       return state;

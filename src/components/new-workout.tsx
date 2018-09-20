@@ -28,7 +28,7 @@ interface IProps {
   userId: number;
   enterExercise: (exercise: Exercise, workout: Workout) => any;
   changeCurrExercise: (exercise: Exercise) => any;
-  getWorkoutList: () => any;
+
   getExerciseList: () => any;
   updateErrorMessage: (message: string) => any;
   updateWorkText: (text: string) => any;
@@ -81,7 +81,6 @@ class NewWorkout extends React.Component<IProps, any> {
   public componentDidMount() {
     if (this.props.workoutList[0] === undefined) {
       this.props.getExerciseList();
-      this.props.getWorkoutList();
     }
   }
 
