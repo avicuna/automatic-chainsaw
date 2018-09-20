@@ -20,7 +20,7 @@ interface IProps extends RouteComponentProps<{}>{
   getExerciseList: any;
 }
 
-class Login extends React.Component<IProps, any> {
+export class Login extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
     this.updateLogin = this.updateLogin.bind(this);
@@ -48,7 +48,7 @@ class Login extends React.Component<IProps, any> {
     this.props.getWorkoutList();
   }
   public render() {
-      window.console.log(this.props.loginSuccess);
+      // window.console.log(this.props.loginSuccess);
       if(this.props.loginSuccess){
           this.props.history.push("/dashboard");
       }
