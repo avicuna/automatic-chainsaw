@@ -14,10 +14,6 @@ import { ExerciseType } from "../../models/exercise-type";
 import ViewWorkoutHistory from "../view-workout-history";
 // import NewWorkout from "../new-workout";
 
-/**
- * This is a shell component, don't impliment this!
- * Copy and past the text into new components.
- */
 interface IProps {
   userId: number;
   exampleProp: string;
@@ -30,10 +26,9 @@ interface IProps {
   getWorkoutHistory: (userId: number, workoutList: WorkoutType[]) => any;
 }
 
-class Dashboard extends React.Component<IProps, any> {
+export class Dashboard extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
-    // remember to bind your functions here
     this.getWork = this.getWork.bind(this);
   }
   public getWork(e: any) {

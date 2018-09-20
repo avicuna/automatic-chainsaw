@@ -16,7 +16,7 @@ export const getWorkoutHistory = (
   })
     .then((resp: any) => {
       if (resp.status === 200) {
-        window.console.log(resp);
+        // window.console.log(resp);
         return resp.json();
       } else if (resp.status === 401) {
         dispatch(
@@ -80,11 +80,11 @@ export const getWorkoutList = (userId: number) => (dispatch: any) => {
     })
     .then((resp: any) => {
       const newresp = resp.json();
-      window.console.log(newresp);
+      // window.console.log(newresp);
       return newresp;
     })
     .then((resp: any) => {
-      window.console.log(`got this for workouts${resp}`);
+      // window.console.log(`got this for workouts${resp}`);
       const newWorkoutList: WorkoutType[] = resp.map((wt: any) => {
         return new WorkoutType(wt.name, wt.id, wt.description, []);
       });
@@ -108,15 +108,15 @@ export const getWorkoutList = (userId: number) => (dispatch: any) => {
 };
 
 export const getExerciseList = () => (dispatch: any) => {
-  window.console.log("I'm being called first");
+  // window.console.log("I'm being called first");
   fetch("http://localhost:6969/exercise", {
     headers: { "Content-Type": "application/json" },
     method: "GET"
   })
     .then((resp: any) => {
       if (resp.status === 200) {
-        window.console.log(resp);
-        window.console.log("going to .json() it");
+        // window.console.log(resp);
+        // window.console.log("going to .json() it");
         return resp.json();
       } else if (resp.status === 403) {
         dispatch(
@@ -135,11 +135,11 @@ export const getExerciseList = () => (dispatch: any) => {
       }
     })
     .then((resp: any) => {
-      window.console.log(resp);
+      // window.console.log(resp);
       const newExerciseList: ExerciseType[] = resp.map((et: any) => {
         return new ExerciseType(et.name, et.id, et.description);
       });
-      window.console.log(newExerciseList);
+      // window.console.log(newExerciseList);
       dispatch({
         payload: {
           exerciseList: newExerciseList
@@ -155,15 +155,14 @@ export const getExerciseList = () => (dispatch: any) => {
     });
 };
 
-export const getUserExerciseList = (
+export const getViewWorkout = (
   workoutId: number,
   exerciseList: ExerciseType[],
-  viewWorkout: Workout
+  workoutSnapshot: WorkoutSnapshot
 ) => (dispatch: any) => {
-  window.console.log("I'm being called too guys....");
+  // window.console.log("I'm being called too guys....");
   fetch(`http://localhost:6969/exercise-list/workout/${+workoutId}`, {
     headers: { "Content-Type": "application/json" },
-    // mode: "no-cors",
     method: "GET"
   })
     .then((resp: any) => {
@@ -180,7 +179,7 @@ export const getUserExerciseList = (
       }
     })
     .then((resp: any) => {
-      window.console.log("resp we lookin at");
+      // window.console.log("resp we lookin at");
       window.console.log(resp);
       const exercises: Exercise[] = resp.map((springExercise: any) => {
         const thisType =
@@ -198,10 +197,10 @@ export const getUserExerciseList = (
         );
       });
       const newViewWorkout = new Workout(
-        viewWorkout.type,
-        viewWorkout.order,
+        workoutSnapshot.type,
+        workoutSnapshot.order,
         exercises,
-        viewWorkout.date
+        workoutSnapshot.date
       );
       dispatch({
         payload: {
