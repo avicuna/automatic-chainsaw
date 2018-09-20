@@ -6,8 +6,8 @@ import {
   getWorkoutList,
   getWorkoutHistory
 } from "../../actions/info/info.actions";
-import { HomeNavComponent } from "../navs/home-nav.component";
-import ViewWorkout from "../view-workout";
+// import { HomeNavComponent } from "../navs/home-nav.component";
+// import ViewWorkout from "../view-workout";
 import { WorkoutSnapshot } from "../../models/workout-snapshot";
 import { WorkoutType } from "../../models/workout-type";
 import { ExerciseType } from "../../models/exercise-type";
@@ -58,8 +58,7 @@ class Dashboard extends React.Component<IProps, any> {
     }
     return (
       <div>
-        <HomeNavComponent />
-        <ViewWorkout />
+        <ViewWorkoutHistory />
       </div>
     );
   }
