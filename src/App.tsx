@@ -1,29 +1,34 @@
 import * as React from "react";
-import './include/bootstrap';
-import './include/mdb';
 import "./App.css";
+import './include/mdb';
+// import RegisterUser from "./components/register-user";
+// import NewWorkout from "./components/new-workout";
+// import ViewWorkout from "./components/view-workout";
 import Login from "./components/login";
+import Dashboard from "./components/dashboard/dashboard";
+import ViewWorkoutHistory from "./components/view-workout-history";
 import { store } from "./store";
 import { Provider } from "react-redux";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {HomeComponent} from "./components/home/home.component";
-import {Route, Switch} from "react-router";
-import {BrowserRouter} from "react-router-dom";
 
 class App extends React.Component {
   public render() {
     return (
       <Provider store={store}>
-          <BrowserRouter>
-              <div>
-                  <div id="main-content-container">
-                      <Switch>
-                          <Route path="/login" component={Login} />
-                          <Route path="/home" component={HomeComponent} />
-                          <Route component={HomeComponent} />
-                      </Switch>
-                  </div>
+        <BrowserRouter>
+          <div>
+              <div id="main-content-container">
+                  <Switch>
+                      <Route path="/home" component={HomeComponent} />
+                    <Route path="/dashboard" component={Dashboard} />
+                      <Route path="/view-workout-history" component={ViewWorkoutHistory}/>
+                      <Route path="/login" component={Login} />
+                      <Route component={HomeComponent} />
+                  </Switch>
               </div>
-          </BrowserRouter>
+          </div>
+        </BrowserRouter>
       </Provider>
     );
   }

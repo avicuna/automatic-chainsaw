@@ -2,7 +2,7 @@ import * as React from 'react';
 import logo from '../../logo.svg';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink } from 'mdbreact';
 
-export class NavComponent extends React.Component<any, any> {
+export class HomeNavComponent extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -17,6 +17,7 @@ export class NavComponent extends React.Component<any, any> {
             collapse: !this.state.collapse,
         });
     }
+
     public render() {
         return (
             <Navbar dark color="unique-color" expand="md" scrolling>
@@ -26,10 +27,13 @@ export class NavComponent extends React.Component<any, any> {
                 { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
                 <Collapse isOpen = { this.state.collapse } navbar>
                     <NavbarNav left>
+                        <NavItem>
+                            <NavLink to="/view-workout-history">Workout History</NavLink>
+                        </NavItem>
                     </NavbarNav>
                     <NavbarNav right>
                         <NavItem>
-                            <NavLink to="/sign-in">Log Out</NavLink>
+                            <NavLink to="/home">Log Out</NavLink>
                         </NavItem>
                     </NavbarNav>
                 </Collapse>
