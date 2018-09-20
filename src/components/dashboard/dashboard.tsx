@@ -15,8 +15,7 @@ import ViewWorkoutHistory from "../view-workout-history";
 // import NewWorkout from "../new-workout";
 
 interface IProps {
-  userId: number;
-  exampleProp: string;
+  userId: number; 
   workoutHistoryCalled: boolean;
   workoutList: WorkoutType[];
   workoutHistory: WorkoutSnapshot[];
@@ -36,15 +35,15 @@ export class Dashboard extends React.Component<IProps, any> {
   }
   public componentDidMount() {
     if (this.props.exerciseList[1] === undefined) {
-      window.console.log("getting the exercises");
+      // window.console.log("getting the exercises");
       this.props.getExerciseList();
       this.props.getWorkoutList(this.props.userId);
     }
   }
   public render() {
-    window.console.log("exercise list");
-    window.console.log(this.props.exerciseList);
-    window.console.log(this.props.workoutHistoryCalled);
+    // window.console.log("exercise list");
+    // window.console.log(this.props.exerciseList);
+    // window.console.log(this.props.workoutHistoryCalled);
     if (
       this.props.workoutHistoryCalled === false &&
       this.props.workoutList[1] !== undefined
