@@ -1,15 +1,21 @@
 import { IMiscState } from "./index";
 import { miscTypes } from "../actions/misc/misc.types";
 import { registerUserTypes } from "../actions/register-user/register-user.types";
+import { infoTypes } from "../actions/info/info.types";
 const initialState: IMiscState = {
   errorMessage: "",
   exerciseTypeText: "",
   passwordCheck: "",
-  workoutTypeText: ""
+  workoutTypeText: "",
+  workoutHistoryCalled: false
 };
-
 export const miscReducer = (state: IMiscState = initialState, action: any) => {
   switch (action.type) {
+    case infoTypes.GET_WORKOUT_HISTORY:
+      return {
+        ...state,
+        workoutHistoryCalled: true
+      };
     case registerUserTypes.UPDATE_USER_REGISTER:
       return {
         ...state,
