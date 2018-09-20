@@ -27,7 +27,7 @@ export class HomeComponent extends React.Component<any, any> {
             <div>
                 <header>
                     <NavComponent/>
-                    <View >
+                    <View>
                         <img src="https://mdbootstrap.com/img/Photos/Others/img%20(40).jpg" className="img-fluid"/>
                         <Mask overlay="purple-light" style={{flexDirection: 'column'}} className="flex-center  text-white text-center">
                             <h1>FitTrack</h1>
