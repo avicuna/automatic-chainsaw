@@ -5,7 +5,7 @@ import { changeUsernameAndPassword } from "../actions/login/login.actions";
 import { submitLogin } from "../actions/login/login.actions";
 import "../App.css";
 import {RouteComponentProps} from "react-router";
-import {getExerciseList,getWorkoutList} from "../../src/actions/info/info.actions";
+import {getExerciseList,getWorkoutList} from "../actions/info/info.actions";
 import { Container, Row, Col, Input, Button } from 'mdbreact';
 
 interface IProps extends RouteComponentProps<{}>{
@@ -20,11 +20,12 @@ interface IProps extends RouteComponentProps<{}>{
   getExerciseList: any;
 }
 
-class Login extends React.Component<IProps, any> {
+export class Login extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
     this.updateLogin = this.updateLogin.bind(this);
     this.login = this.login.bind(this);
+    this.route = this.route.bind(this);
   }
   public login(e: any) {
     e.preventDefault();
@@ -42,13 +43,18 @@ class Login extends React.Component<IProps, any> {
     }
   }
 
+  public route(e: any) {
+      e.preventDefault();
+      this.props.history.push("/sign-up");
+  }
+
   public componentDidMount() {
     this.props.getExerciseList();
 
     this.props.getWorkoutList();
   }
   public render() {
-      window.console.log(this.props.loginSuccess);
+      // window.console.log(this.props.loginSuccess);
       if(this.props.loginSuccess){
           this.props.history.push("/dashboard");
       }
@@ -59,7 +65,7 @@ class Login extends React.Component<IProps, any> {
               <Row>
                   <Col md="6">
                       <form>
-                          <p className="h5 text-center mb-4">Sign in</p>
+                          <p className="h5 text-center mb-4">Log in</p>
                           <div className="grey-text">
                               <Input label="Enter username"
                                      id="UN"
@@ -79,6 +85,7 @@ class Login extends React.Component<IProps, any> {
                               />
                           </div>
                           <div className="text-center">
+                              <p className="font-small blue-text d-flex justify-content-end pb-3">Not a member?<a onClick={this.route} className="blue-text ml-1">Sign up here</a></p>
                               <p id="error-message">{this.props.errorMessage}</p>
                               <Button onClick={this.login}>Login</Button>
                           </div>
