@@ -1,5 +1,5 @@
 import * as React from 'react';
-import logo from '../../logo.svg';
+// import logo from '../../logo.svg';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink } from 'mdbreact';
 
 export class NavComponent extends React.Component<any, any> {
@@ -21,7 +21,7 @@ export class NavComponent extends React.Component<any, any> {
         return (
             <Navbar color="transparent" dark expand="md" fixed="top" scrolling>
                 <NavbarBrand>
-                    <img className="img-adjust-position rev-logo" src={logo} alt="FT"/>
+                    <i className="rev-logo fa fa-pied-piper"/>
                 </NavbarBrand>
                 { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
                 <Collapse isOpen = { this.state.collapse } navbar>

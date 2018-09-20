@@ -70,15 +70,8 @@ a .App-title {
   margin-left: 350px;
 }
 
-#pending-reimbs-header {
-  margin-top: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#processed-reimbs-header {
-  margin-top: 50px;
+#home-header {
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,9 +85,16 @@ a .App-title {
   NAV
 *****************************/
 .rev-logo {
-  width: auto;
-  height: 2em;
-  margin-right: 2em;
+  /*width: auto;*/
+  /*height: 2em;*/
+  /*margin-right: 2em;*/
+  font-size: 31px;
+    color: rgb(255, 255, 255);
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: rgb(30, 143, 30)
 }
 
 /*.margin-navs {*/
