@@ -22,7 +22,7 @@ describe('<Dashboard/>', () => { // start of the tests for Dashboard
     it('getExcersieList is invoked', () => { // testing to see if method is defined
 
         const getExerciseListMock = jest.fn();
-        const wrapper = shallow(<Dashboard  {...DashboardProps} getExerciseList={getExerciseListMock} />);
+        shallow(<Dashboard  {...DashboardProps} getExerciseList={getExerciseListMock} />);
         expect(getExerciseListMock).toBeDefined()
 
     });
@@ -30,7 +30,7 @@ describe('<Dashboard/>', () => { // start of the tests for Dashboard
     it('getWorkoutList is invoked', () => { // testing to see if method is defined
 
         const getWorkoutListMock = jest.fn();
-        const wrapper = shallow(<Dashboard  {...DashboardProps} getWorkoutList={getWorkoutListMock} />);
+        shallow(<Dashboard  {...DashboardProps} getWorkoutList={getWorkoutListMock} />);
         expect(getWorkoutListMock).toBeDefined();
 
     });
@@ -38,7 +38,7 @@ describe('<Dashboard/>', () => { // start of the tests for Dashboard
     it('getWorkoutHistory is invoked', () => { // testing to see if method is defined
 
         const getWorkoutHistoryMock = jest.fn();
-        const wrapper = shallow(<Dashboard  {...DashboardProps} getWorkoutHistory={getWorkoutHistoryMock} />);
+        shallow(<Dashboard  {...DashboardProps} getWorkoutHistory={getWorkoutHistoryMock} />);
         expect(getWorkoutHistoryMock).toBeDefined();
 
 
