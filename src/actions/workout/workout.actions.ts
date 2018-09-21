@@ -14,7 +14,6 @@ export const updateWorkoutType = (
     workout.exercises,
     workout.date
   );
-  window.console.log(newWorkout.exercises);
   return {
     payload: {
       currWorkout: newWorkout

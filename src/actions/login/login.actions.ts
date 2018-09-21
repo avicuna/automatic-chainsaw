@@ -55,7 +55,6 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
         return resp;
       }
       else if (resp.status === 404) {
-          window.console.log("Incorrect login reached")
         dispatch(updateErrorMessage(`Username or password are incorrect.`));
           return;
       }
@@ -78,7 +77,6 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
             return;
         }
       const newresp = resp.json();
-      // window.console.log(newresp);
       return newresp;
     })
     .then((resp: any) => {
