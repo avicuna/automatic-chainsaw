@@ -53,7 +53,6 @@ export class Login extends React.Component<IProps, any> {
     this.props.getWorkoutList();
   }
   public render() {
-      // window.console.log(this.props.loginSuccess);
       if(this.props.loginSuccess){
           this.props.history.push("/dashboard");
       }

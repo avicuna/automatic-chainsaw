@@ -41,7 +41,6 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
     this.chooseRow = this.chooseRow.bind(this);
   }
   public chooseRow(e: any) {
-    console.log(e.target.id);
     const snapshot =
       this.props.workoutHistory.find((snap: WorkoutSnapshot) => {
         return snap.id === +e.target.id;
@@ -62,7 +61,6 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
     }
   }
   public render() {
-    window.console.log(this.props.viewWorkout);
     const workoutEntries = this.props.workoutHistory.map(
       (workout: WorkoutSnapshot) => {
         if (workout.id === this.props.viewWorkoutId) {
@@ -71,7 +69,7 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
         return (
           <tr
             id={workout.id.toString()}
-            key={workout.id}
+            key={workout.id.toString()}
             onClick={this.chooseRow}
           >
             <td id={workout.id.toString()}>{workout.order}</td>
