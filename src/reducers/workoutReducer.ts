@@ -29,6 +29,11 @@ export const workoutReducer = (
         ...state,
         currExercise: action.payload.currExercise
       };
+    case workoutTypes.REMOVE_EXERCISE:
+      return {
+        ...state,
+        currWorkout: action.payload.currWorkout
+      };
     case workoutTypes.ENTER_EXERCISE:
       return {
         ...state,

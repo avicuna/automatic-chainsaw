@@ -7,7 +7,8 @@ import {
   updateWorkoutType,
   changeCurrExercise,
   enterExercise,
-  submitWorkout
+  submitWorkout,
+  removeExercise
 } from "../actions/workout/workout.actions";
 import { WorkoutType } from "../models/workout-type";
 import {
@@ -28,7 +29,7 @@ interface IProps {
   userId: number;
   enterExercise: (exercise: Exercise, workout: Workout) => any;
   changeCurrExercise: (exercise: Exercise) => any;
-
+  removeExercise: (workout: Workout, index: number) => any;
   getExerciseList: () => any;
   updateErrorMessage: (message: string) => any;
   updateWorkText: (text: string) => any;
@@ -48,8 +49,14 @@ class NewWorkout extends React.Component<IProps, any> {
     this.submit = this.submit.bind(this);
     this.changeExerciseType = this.changeExerciseType.bind(this);
     this.changeWorkoutType = this.changeWorkoutType.bind(this);
+    this.removeExercise = this.removeExercise.bind(this);
   }
-
+  public removeExercise(e: any) {
+    window.console.log("removing exercise");
+    window.console.log(e.target.id);
+    window.console.log(this.props.workout.exercises);
+    this.props.removeExercise(this.props.workout, +e.target.id);
+  }
   public submit(e: any) {
     e.preventDefault();
     this.props.submitWorkout(this.props.userId, this.props.workout);
@@ -240,15 +247,26 @@ class NewWorkout extends React.Component<IProps, any> {
 
     const exerciseTable = this.props.workout.exercises.map(
       (exercise: Exercise) => {
-        keyVal++;
         return (
           <tr key={keyVal}>
             <th scope="row">{exercise.name}</th>
             <th>{exercise.weight}</th>
             <th>{exercise.rep}</th>
             <th>{exercise.set}</th>
+            <button
+              id={keyVal.toString()}
+              type="button"
+              className="close"
+              aria-label="Close"
+              onClick={this.removeExercise}
+            >
+              <span id={keyVal.toString()} aria-hidden="true">
+                &times;
+              </span>
+            </button>
           </tr>
         );
+        keyVal++;
       }
     );
 
@@ -381,7 +399,8 @@ const mapDispatchToProps = {
   updateErrorMessage,
   updateExerText,
   updateWorkText,
-  updateWorkoutType
+  updateWorkoutType,
+  removeExercise
 };
 
 export default connect(
