@@ -11,7 +11,7 @@ import ViewWorkout from "../view-workout";
 import { WorkoutSnapshot } from "../../models/workout-snapshot";
 import { WorkoutType } from "../../models/workout-type";
 import { ExerciseType } from "../../models/exercise-type";
-import ViewWorkoutHistory from "../view-workout-history";
+// import ViewWorkoutHistory from "../view-workout-history";
 // import NewWorkout from "../new-workout";
 
 /**

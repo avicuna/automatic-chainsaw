@@ -7,7 +7,8 @@ import {
   updateWorkoutType,
   changeCurrExercise,
   enterExercise,
-  submitWorkout
+  submitWorkout,
+  removeExercise
 } from "../actions/workout/workout.actions";
 import { WorkoutType } from "../models/workout-type";
 import {
@@ -28,7 +29,7 @@ interface IProps {
   userId: number;
   enterExercise: (exercise: Exercise, workout: Workout) => any;
   changeCurrExercise: (exercise: Exercise) => any;
-
+  removeExercise: (workout: Workout, index: number) => any;
   getExerciseList: () => any;
   updateErrorMessage: (message: string) => any;
   updateWorkText: (text: string) => any;
@@ -48,8 +49,11 @@ class NewWorkout extends React.Component<IProps, any> {
     this.submit = this.submit.bind(this);
     this.changeExerciseType = this.changeExerciseType.bind(this);
     this.changeWorkoutType = this.changeWorkoutType.bind(this);
+    this.removeExercise = this.removeExercise.bind(this);
   }
-
+  public removeExercise(e: any) {
+    this.props.removeExercise(this.props.workout, +e.target.id);
+  }
   public submit(e: any) {
     e.preventDefault();
     this.props.submitWorkout(this.props.userId, this.props.workout);
@@ -231,15 +235,26 @@ class NewWorkout extends React.Component<IProps, any> {
     let keyVal = 0;
     const exerciseTable = this.props.workout.exercises.map(
       (exercise: Exercise) => {
-        keyVal++;
         return (
           <tr key={keyVal}>
             <th scope="row">{exercise.name}</th>
             <th>{exercise.weight}</th>
             <th>{exercise.rep}</th>
             <th>{exercise.set}</th>
+            <button
+              id={keyVal.toString()}
+              type="button"
+              className="close"
+              aria-label="Close"
+              onClick={this.removeExercise}
+            >
+              <span id={keyVal.toString()} aria-hidden="true">
+                &times;
+              </span>
+            </button>
           </tr>
         );
+        keyVal++;
       }
     );
 
@@ -266,69 +281,6 @@ class NewWorkout extends React.Component<IProps, any> {
         </div>
         <p>{this.props.errorMessgae}</p>
 
-        <div className="dropdown">
-          <button
-            className="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <input
-              type="text"
-              value={this.props.exerciseTypeText}
-              onChange={this.changeExerText}
-            />
-          </button>
-          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            {exerList}
-          </div>
-        </div>
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <span className="input-group-text">Weight</span>
-          </div>
-          <input
-            type="number"
-            className="form-control"
-            aria-label="With textarea"
-            id="weight"
-            value={this.props.currExercise.weight}
-            onChange={this.changeExercise}
-          />
-        </div>
-
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <span className="input-group-text">Reps</span>
-          </div>
-          <input
-            type="number"
-            className="form-control"
-            aria-label="With textarea"
-            id="rep"
-            value={this.props.currExercise.rep}
-            onChange={this.changeExercise}
-          />
-        </div>
-
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <span className="input-group-text">Sets</span>
-          </div>
-          <input
-            type="number"
-            className="form-control"
-            aria-label="With textarea"
-            id="set"
-            value={this.props.currExercise.set}
-            onChange={this.changeExercise}
-          />
-        </div>
-        <button className="btn btn-primary" onClick={this.enterExercise}>
-          Enter Exercise
-        </button>
         <button className="btn btn-primary" onClick={this.submit}>
           submit Workout
         </button>
@@ -341,7 +293,88 @@ class NewWorkout extends React.Component<IProps, any> {
               <th scope="col">set</th>
             </tr>
           </thead>
-          <tbody>{exerciseTable}</tbody>
+          <tbody>
+            {exerciseTable}
+            <tr>
+              <th scope="row">
+                <div className="dropdown">
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <input
+                      type="text"
+                      value={this.props.exerciseTypeText}
+                      onChange={this.changeExerText}
+                    />
+                  </button>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    {exerList}
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">Weight</span>
+                  </div>
+                  <input
+                    type="number"
+                    className="form-control"
+                    aria-label="With textarea"
+                    id="weight"
+                    value={this.props.currExercise.weight}
+                    onChange={this.changeExercise}
+                  />
+                </div>
+              </th>
+              <th>
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">Reps</span>
+                  </div>
+                  <input
+                    type="number"
+                    className="form-control"
+                    aria-label="With textarea"
+                    id="rep"
+                    value={this.props.currExercise.rep}
+                    onChange={this.changeExercise}
+                  />
+                </div>
+              </th>
+              <th>
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">Sets</span>
+                  </div>
+                  <input
+                    type="number"
+                    className="form-control"
+                    aria-label="With textarea"
+                    id="set"
+                    value={this.props.currExercise.set}
+                    onChange={this.changeExercise}
+                  />
+                </div>
+              </th>
+              <th>
+                <button
+                  className="btn btn-primary"
+                  onClick={this.enterExercise}
+                >
+                  Enter Exercise
+                </button>
+              </th>
+            </tr>
+          </tbody>
         </table>
       </div>
     );
@@ -369,7 +402,8 @@ const mapDispatchToProps = {
   updateErrorMessage,
   updateExerText,
   updateWorkText,
-  updateWorkoutType
+  updateWorkoutType,
+  removeExercise
 };
 
 export default connect(
