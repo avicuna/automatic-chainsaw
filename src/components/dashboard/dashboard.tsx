@@ -18,7 +18,7 @@ import ViewWorkoutHistory from "../view-workout-history";
  * Maybe some user info and some info about the most recent workout
  */
 interface IProps {
-  userId: number; 
+  userId: number;
   workoutHistoryCalled: boolean;
   workoutList: WorkoutType[];
   workoutHistory: WorkoutSnapshot[];
@@ -38,13 +38,11 @@ export class Dashboard extends React.Component<IProps, any> {
   }
   public componentDidMount() {
     if (this.props.exerciseList[1] === undefined) {
-
       this.props.getExerciseList();
       this.props.getWorkoutList(this.props.userId);
     }
   }
   public render() {
-
     if (
       this.props.workoutHistoryCalled === false &&
       this.props.workoutList[1] !== undefined
@@ -53,7 +51,6 @@ export class Dashboard extends React.Component<IProps, any> {
     }
     return (
       <div>
-
         <ViewWorkoutHistory />
       </div>
     );

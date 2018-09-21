@@ -52,9 +52,6 @@ class NewWorkout extends React.Component<IProps, any> {
     this.removeExercise = this.removeExercise.bind(this);
   }
   public removeExercise(e: any) {
-    window.console.log("removing exercise");
-    window.console.log(e.target.id);
-    window.console.log(this.props.workout.exercises);
     this.props.removeExercise(this.props.workout, +e.target.id);
   }
   public submit(e: any) {
@@ -68,7 +65,7 @@ class NewWorkout extends React.Component<IProps, any> {
       this.props.currExercise.weight !== 0 &&
       this.props.currExercise.rep !== 0 &&
       this.props.currExercise.set !== 0 &&
-        this.props.currExercise.name !==""
+      this.props.currExercise.name !== ""
     ) {
       this.props.enterExercise(this.props.currExercise, this.props.workout);
     } else {
@@ -86,7 +83,6 @@ class NewWorkout extends React.Component<IProps, any> {
     e.preventDefault();
     this.props.updateExerText(e.target.value);
   }
-
 
   public changeWorkoutType(e: any) {
     const newType =
@@ -126,23 +122,23 @@ class NewWorkout extends React.Component<IProps, any> {
     this.props.updateExerText(newType.name || "No Type");
   }
 
-    /**
-     * This can be refactored. Push more to
-     * @param e
-     */
+  /**
+   * This can be refactored. Push more to
+   * @param e
+   */
   public changeExercise(e: any) {
     e.preventDefault();
     switch (e.target.id) {
       case "weight":
-      const {name,id,description,weight,set,rep} = this.props.currExercise
-        const exercise1 = new Exercise(
+        const {
           name,
           id,
           description,
           weight,
           set,
           rep
-        );
+        } = this.props.currExercise;
+        const exercise1 = new Exercise(name, id, description, weight, set, rep);
         exercise1.weight = +e.target.value;
         window.console.log(exercise1.weight);
         this.props.changeCurrExercise(exercise1);
@@ -177,11 +173,11 @@ class NewWorkout extends React.Component<IProps, any> {
         );
     }
   }
-    public componentDidMount() {
-        if (this.props.workoutList[0] === undefined) {
-            this.props.getExerciseList();
-        }
+  public componentDidMount() {
+    if (this.props.workoutList[0] === undefined) {
+      this.props.getExerciseList();
     }
+  }
   public render() {
     const workList = (
       <div>
@@ -192,6 +188,13 @@ class NewWorkout extends React.Component<IProps, any> {
               .toLocaleLowerCase() ===
             this.props.workoutTypeText.toLocaleLowerCase()
           ) {
+            if (
+              this.props.exerciseTypeText.toLocaleLowerCase() ===
+                workType.name.toLocaleLowerCase() &&
+              this.props.workout.type !== workType
+            ) {
+              this.changeWorkoutType({ target: { id: workType.id } });
+            }
             return (
               <a
                 className="dropdown-item"
@@ -222,6 +225,13 @@ class NewWorkout extends React.Component<IProps, any> {
               .slice(0, this.props.exerciseTypeText.length)
               .toLowerCase() === this.props.exerciseTypeText.toLowerCase()
           ) {
+            if (
+              this.props.exerciseTypeText.toLocaleLowerCase() ===
+                exerType.name.toLocaleLowerCase() &&
+              this.props.currExercise.name !== exerType.name
+            ) {
+              this.changeExerciseType({ target: { id: exerType.id } });
+            }
             return (
               <a
                 className="dropdown-item"
@@ -293,69 +303,6 @@ class NewWorkout extends React.Component<IProps, any> {
         </div>
         <p>{this.props.errorMessage}</p>
 
-        <div className="dropdown">
-          <button
-            className="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <input
-              type="text"
-              value={this.props.exerciseTypeText}
-              onChange={this.changeExerText}
-            />
-          </button>
-          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            {exerList}
-          </div>
-        </div>
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <span className="input-group-text">Weight</span>
-          </div>
-          <input
-            type="number"
-            className="form-control"
-            aria-label="With textarea"
-            id="weight"
-            value={this.props.currExercise.weight}
-            onChange={this.changeExercise}
-          />
-        </div>
-
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <span className="input-group-text">Reps</span>
-          </div>
-          <input
-            type="number"
-            className="form-control"
-            aria-label="With textarea"
-            id="rep"
-            value={this.props.currExercise.rep}
-            onChange={this.changeExercise}
-          />
-        </div>
-
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <span className="input-group-text">Sets</span>
-          </div>
-          <input
-            type="number"
-            className="form-control"
-            aria-label="With textarea"
-            id="set"
-            value={this.props.currExercise.set}
-            onChange={this.changeExercise}
-          />
-        </div>
-        <button className="btn btn-primary" onClick={this.enterExercise}>
-          Enter Exercise
-        </button>
         <button className="btn btn-primary" onClick={this.submit}>
           submit Workout
         </button>
@@ -368,10 +315,86 @@ class NewWorkout extends React.Component<IProps, any> {
               <th scope="col">set</th>
             </tr>
           </thead>
-          <tbody>{exerciseTable}
-          /**
-      * change format so new exercise text fields are in the table
-      */</tbody>
+          <tbody>
+            {exerciseTable}
+            <tr>
+              <th scope="row">
+                <div
+                  className="dropdown" 
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <input
+                      type="text"
+                    value={this.props.exerciseTypeText}
+                    onChange={this.changeExerText}
+                  />
+
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    {exerList}
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">Weight</span>
+                  </div>
+                  <input
+                    type="number"
+                    className="form-control"
+                    aria-label="With textarea"
+                    id="weight"
+                    value={this.props.currExercise.weight || ""}
+                    onChange={this.changeExercise}
+                  />
+                </div>
+              </th>
+              <th>
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">Reps</span>
+                  </div>
+                  <input
+                    type="number"
+                    className="form-control"
+                    aria-label="With textarea"
+                    id="rep"
+                    value={this.props.currExercise.rep || ""}
+                    onChange={this.changeExercise}
+                  />
+                </div>
+              </th>
+              <th>
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">Sets</span>
+                  </div>
+                  <input
+                    type="number"
+                    className="form-control"
+                    aria-label="With textarea"
+                    id="set"
+                    value={this.props.currExercise.set || ""}
+                    onChange={this.changeExercise}
+                  />
+                </div>
+              </th>
+              <th>
+                <button
+                  className="btn btn-primary"
+                  onClick={this.enterExercise}
+                >
+                  Enter Exercise
+                </button>
+              </th>
+            </tr>
+          </tbody>
         </table>
       </div>
     );

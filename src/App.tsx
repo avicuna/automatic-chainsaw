@@ -2,8 +2,9 @@ import * as React from "react";
 import "./App.css";
 import "./include/mdb";
 // import RegisterUser from "./components/register-user";
-// import NewWorkout from "./components/new-workout";
+
 // import ViewWorkout from "./components/view-workout";
+
 import Login from "./components/login";
 import RegisterUser from "./components/register-user";
 import Dashboard from "./components/dashboard/dashboard";
@@ -20,17 +21,20 @@ class App extends React.Component {
       <Provider store={store}>
         <BrowserRouter>
           <div>
-              <div id="main-content-container">
-                  <Switch>
-                      <Route path="/home" component={HomeComponent} />
-                    <Route path="/dashboard" component={Dashboard} />
-                      <Route path="/post-workout" component={NewWorkout} />
-                      <Route path="/view-workout-history" component={ViewWorkoutHistory}/>
-                      <Route path="/login" component={Login} />
-                      <Route path="/sign-up" component={RegisterUser}/>
-                      <Route component={HomeComponent} />
-                  </Switch>
-              </div>
+            <div id="main-content-container">
+              <Switch>
+                <Route path="/home" component={HomeComponent} />
+                <Route path="/dashboard" component={Dashboard} />
+                <Route path="/sign-up" component={RegisterUser} />
+                <Route path="/new-workout" component={NewWorkout} />
+                <Route
+                  path="/view-workout-history"
+                  component={ViewWorkoutHistory}
+                />
+                <Route path="/login" component={Login} />
+                <Route component={HomeComponent} />
+              </Switch>
+            </div>
           </div>
         </BrowserRouter>
       </Provider>

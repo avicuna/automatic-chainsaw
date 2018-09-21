@@ -30,6 +30,8 @@
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "test": "react-scripts-ts test --env=jsdom",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build",
     "test:coverage": "npm test -- --coverage --watchAll",
     "test:watch": "npm test -- --watchAll",
     "eject": "react-scripts-ts eject"
