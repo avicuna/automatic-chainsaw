@@ -116,7 +116,7 @@ class NewWorkout extends React.Component<IProps, any> {
     this.props.changeCurrExercise(
       new Exercise(
         newType.name,
-        0,
+        newType.id,
         newType.description,
         this.props.currExercise.weight,
         this.props.currExercise.set,

@@ -8,7 +8,6 @@ export const updateWorkoutType = (
   workout: Workout,
   newWorkoutType: WorkoutType
 ) => {
-  window.console.log(workout.exercises);
   const newWorkout: Workout = new Workout(
     newWorkoutType,
     workout.order,
@@ -40,7 +39,6 @@ export const removeExercise = (workout: Workout, index: number) => {
   };
 };
 export const changeCurrExercise = (exercise: Exercise) => {
-  window.console.log("exercise being changed");
   return {
     payload: {
       currExercise: exercise
@@ -71,7 +69,6 @@ export const enterExercise = (exercise: Exercise, workout: Workout) => (
 export const submitWorkout = (userID: number, workout: Workout) => (
   dispatch: any
 ) => {
-  window.console.log(userID);
   fetch("http://localhost:6969/users/workout/create", {
     body: JSON.stringify({
       userId: userID,
@@ -103,7 +100,6 @@ export const submitWorkout = (userID: number, workout: Workout) => (
       }
     })
     .then((workoutId: any) => {
-      console.log(workoutId);
       const springExercises = workout.exercises.map((exercise: Exercise) => {
         return {
           userWorkoutId: workoutId,
@@ -113,7 +109,6 @@ export const submitWorkout = (userID: number, workout: Workout) => (
           sets: exercise.set
         };
       });
-      console.log(JSON.stringify(springExercises))
       fetch("http://localhost:6969/users/workout/create/exercises", {
           body: JSON.stringify(springExercises),
           headers: {
