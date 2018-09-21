@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { Dashboard } from '../../components/dashboard/dashboard';
 
 
-describe('<Dashboard/>', () => { // start of the tests for Create Users
+describe('<Dashboard/>', () => { // start of the tests for Dashboard
 
     const DashboardProps: any = {
         getExerciseList: jest.fn(),
@@ -13,7 +13,6 @@ describe('<Dashboard/>', () => { // start of the tests for Create Users
     }
 
     it('Dashboard Component Renders', () => {// tests to check if the component will render
-        // getExerciseList = 1;
         const wrapper = shallow(<Dashboard {...DashboardProps} />);
         expect(wrapper.length).toEqual(1);
 
