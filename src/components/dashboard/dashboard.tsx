@@ -13,7 +13,10 @@ import { WorkoutType } from "../../models/workout-type";
 import { ExerciseType } from "../../models/exercise-type";
 import ViewWorkoutHistory from "../view-workout-history";
 // import NewWorkout from "../new-workout";
-
+/**
+ * Actually format this a bit, have it display some info.
+ * Maybe some user info and some info about the most recent workout
+ */
 interface IProps {
   userId: number; 
   workoutHistoryCalled: boolean;
@@ -35,15 +38,13 @@ export class Dashboard extends React.Component<IProps, any> {
   }
   public componentDidMount() {
     if (this.props.exerciseList[1] === undefined) {
-      // window.console.log("getting the exercises");
+
       this.props.getExerciseList();
       this.props.getWorkoutList(this.props.userId);
     }
   }
   public render() {
-    // window.console.log("exercise list");
-    // window.console.log(this.props.exerciseList);
-    // window.console.log(this.props.workoutHistoryCalled);
+
     if (
       this.props.workoutHistoryCalled === false &&
       this.props.workoutList[1] !== undefined
@@ -52,6 +53,7 @@ export class Dashboard extends React.Component<IProps, any> {
     }
     return (
       <div>
+
         <ViewWorkoutHistory />
       </div>
     );

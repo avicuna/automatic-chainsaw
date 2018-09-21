@@ -24,7 +24,7 @@ interface IProps {
   workout: Workout;
   currExercise: Exercise;
   workoutList: WorkoutType[];
-  errorMessgae: string;
+  errorMessage: string;
   userId: number;
   enterExercise: (exercise: Exercise, workout: Workout) => any;
   changeCurrExercise: (exercise: Exercise) => any;
@@ -60,7 +60,8 @@ class NewWorkout extends React.Component<IProps, any> {
     if (
       this.props.currExercise.weight !== 0 &&
       this.props.currExercise.rep !== 0 &&
-      this.props.currExercise.set !== 0
+      this.props.currExercise.set !== 0 &&
+        this.props.currExercise.name !==""
     ) {
       this.props.enterExercise(this.props.currExercise, this.props.workout);
     } else {
@@ -78,11 +79,7 @@ class NewWorkout extends React.Component<IProps, any> {
     e.preventDefault();
     this.props.updateExerText(e.target.value);
   }
-  public componentDidMount() {
-    if (this.props.workoutList[0] === undefined) {
-      this.props.getExerciseList();
-    }
-  }
+
 
   public changeWorkoutType(e: any) {
     const newType =
@@ -121,17 +118,23 @@ class NewWorkout extends React.Component<IProps, any> {
     );
     this.props.updateExerText(newType.name || "No Type");
   }
+
+    /**
+     * This can be refactored. Push more to
+     * @param e
+     */
   public changeExercise(e: any) {
     e.preventDefault();
     switch (e.target.id) {
       case "weight":
+      const {name,id,description,weight,set,rep} = this.props.currExercise
         const exercise1 = new Exercise(
-          this.props.currExercise.name,
-          this.props.currExercise.id,
-          this.props.currExercise.description,
-          this.props.currExercise.weight,
-          this.props.currExercise.set,
-          this.props.currExercise.rep
+          name,
+          id,
+          description,
+          weight,
+          set,
+          rep
         );
         exercise1.weight = +e.target.value;
         window.console.log(exercise1.weight);
@@ -167,6 +170,11 @@ class NewWorkout extends React.Component<IProps, any> {
         );
     }
   }
+    public componentDidMount() {
+        if (this.props.workoutList[0] === undefined) {
+            this.props.getExerciseList();
+        }
+    }
   public render() {
     const workList = (
       <div>
@@ -229,6 +237,7 @@ class NewWorkout extends React.Component<IProps, any> {
       </div>
     );
     let keyVal = 0;
+
     const exerciseTable = this.props.workout.exercises.map(
       (exercise: Exercise) => {
         keyVal++;
@@ -264,7 +273,7 @@ class NewWorkout extends React.Component<IProps, any> {
             {workList}
           </div>
         </div>
-        <p>{this.props.errorMessgae}</p>
+        <p>{this.props.errorMessage}</p>
 
         <div className="dropdown">
           <button
@@ -341,7 +350,10 @@ class NewWorkout extends React.Component<IProps, any> {
               <th scope="col">set</th>
             </tr>
           </thead>
-          <tbody>{exerciseTable}</tbody>
+          <tbody>{exerciseTable}
+          /**
+      * change format so new exercise text fields are in the table
+      */</tbody>
         </table>
       </div>
     );

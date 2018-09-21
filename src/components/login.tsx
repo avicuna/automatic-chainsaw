@@ -48,9 +48,8 @@ export class Login extends React.Component<IProps, any> {
       this.props.history.push("/sign-up");
   }
 
-  public componentDidMount() {
+  public componentWillUnmount() {
     this.props.getExerciseList();
-
     this.props.getWorkoutList();
   }
   public render() {

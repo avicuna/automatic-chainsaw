@@ -28,6 +28,10 @@ class ViewWorkout extends React.Component<IProps, any> {
     super(props);
   }
 
+    /**
+     * zach, refactor this
+     */
+
   public componentDidMount() {
     if (
       this.props.viewWorkoutId !== 0 &&
@@ -41,9 +45,7 @@ class ViewWorkout extends React.Component<IProps, any> {
     }
   }
   public render() {
-    window.console.log("I'm here workoutS history, and view workout");
-    window.console.log(this.props.workoutHistory);
-    window.console.log(this.props.viewWorkout);
+
     if (this.props.viewWorkoutId === 0) {
       const viewSnap =
         this.props.workoutHistory.find((snap: WorkoutSnapshot) => {
