@@ -17,6 +17,7 @@ export class HomeNavComponent extends React.Component<any, any> {
             collapse: !this.state.collapse,
         });
     }
+
     public render() {
         return (
             <Navbar dark color="unique-color" expand="md" scrolling>
@@ -32,7 +33,7 @@ export class HomeNavComponent extends React.Component<any, any> {
                     </NavbarNav>
                     <NavbarNav right>
                         <NavItem>
-                            <NavLink to="/sign-in">Log Out</NavLink>
+                            <NavLink to="/home">Log Out</NavLink>
                         </NavItem>
                     </NavbarNav>
                 </Collapse>

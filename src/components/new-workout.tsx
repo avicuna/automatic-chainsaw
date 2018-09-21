@@ -25,7 +25,7 @@ interface IProps {
   workout: Workout;
   currExercise: Exercise;
   workoutList: WorkoutType[];
-  errorMessgae: string;
+  errorMessage: string;
   userId: number;
   enterExercise: (exercise: Exercise, workout: Workout) => any;
   changeCurrExercise: (exercise: Exercise) => any;
@@ -64,7 +64,8 @@ class NewWorkout extends React.Component<IProps, any> {
     if (
       this.props.currExercise.weight !== 0 &&
       this.props.currExercise.rep !== 0 &&
-      this.props.currExercise.set !== 0
+      this.props.currExercise.set !== 0 &&
+      this.props.currExercise.name !== ""
     ) {
       this.props.enterExercise(this.props.currExercise, this.props.workout);
     } else {
@@ -81,11 +82,6 @@ class NewWorkout extends React.Component<IProps, any> {
   public changeExerText(e: any) {
     e.preventDefault();
     this.props.updateExerText(e.target.value);
-  }
-  public componentDidMount() {
-    if (this.props.workoutList[0] === undefined) {
-      this.props.getExerciseList();
-    }
   }
 
   public changeWorkoutType(e: any) {
@@ -125,18 +121,24 @@ class NewWorkout extends React.Component<IProps, any> {
     );
     this.props.updateExerText(newType.name || "No Type");
   }
+
+  /**
+   * This can be refactored. Push more to
+   * @param e
+   */
   public changeExercise(e: any) {
     e.preventDefault();
     switch (e.target.id) {
       case "weight":
-        const exercise1 = new Exercise(
-          this.props.currExercise.name,
-          this.props.currExercise.id,
-          this.props.currExercise.description,
-          this.props.currExercise.weight,
-          this.props.currExercise.set,
-          this.props.currExercise.rep
-        );
+        const {
+          name,
+          id,
+          description,
+          weight,
+          set,
+          rep
+        } = this.props.currExercise;
+        const exercise1 = new Exercise(name, id, description, weight, set, rep);
         exercise1.weight = +e.target.value;
         window.console.log(exercise1.weight);
         this.props.changeCurrExercise(exercise1);
@@ -171,6 +173,11 @@ class NewWorkout extends React.Component<IProps, any> {
         );
     }
   }
+  public componentDidMount() {
+    if (this.props.workoutList[0] === undefined) {
+      this.props.getExerciseList();
+    }
+  }
   public render() {
     const workList = (
       <div>
@@ -181,6 +188,13 @@ class NewWorkout extends React.Component<IProps, any> {
               .toLocaleLowerCase() ===
             this.props.workoutTypeText.toLocaleLowerCase()
           ) {
+            if (
+              this.props.exerciseTypeText.toLocaleLowerCase() ===
+                workType.name.toLocaleLowerCase() &&
+              this.props.workout.type !== workType
+            ) {
+              this.changeWorkoutType({ target: { id: workType.id } });
+            }
             return (
               <a
                 className="dropdown-item"
@@ -211,6 +225,13 @@ class NewWorkout extends React.Component<IProps, any> {
               .slice(0, this.props.exerciseTypeText.length)
               .toLowerCase() === this.props.exerciseTypeText.toLowerCase()
           ) {
+            if (
+              this.props.exerciseTypeText.toLocaleLowerCase() ===
+                exerType.name.toLocaleLowerCase() &&
+              this.props.currExercise.name !== exerType.name
+            ) {
+              this.changeExerciseType({ target: { id: exerType.id } });
+            }
             return (
               <a
                 className="dropdown-item"
@@ -233,6 +254,7 @@ class NewWorkout extends React.Component<IProps, any> {
       </div>
     );
     let keyVal = 0;
+
     const exerciseTable = this.props.workout.exercises.map(
       (exercise: Exercise) => {
         return (
@@ -279,7 +301,7 @@ class NewWorkout extends React.Component<IProps, any> {
             {workList}
           </div>
         </div>
-        <p>{this.props.errorMessgae}</p>
+        <p>{this.props.errorMessage}</p>
 
         <button className="btn btn-primary" onClick={this.submit}>
           submit Workout
@@ -297,21 +319,19 @@ class NewWorkout extends React.Component<IProps, any> {
             {exerciseTable}
             <tr>
               <th scope="row">
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <input
+                <div
+                  className="dropdown" 
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <input
                       type="text"
-                      value={this.props.exerciseTypeText}
-                      onChange={this.changeExerText}
-                    />
-                  </button>
+                    value={this.props.exerciseTypeText}
+                    onChange={this.changeExerText}
+                  />
+
                   <div
                     className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton"
@@ -330,7 +350,7 @@ class NewWorkout extends React.Component<IProps, any> {
                     className="form-control"
                     aria-label="With textarea"
                     id="weight"
-                    value={this.props.currExercise.weight}
+                    value={this.props.currExercise.weight || ""}
                     onChange={this.changeExercise}
                   />
                 </div>
@@ -345,7 +365,7 @@ class NewWorkout extends React.Component<IProps, any> {
                     className="form-control"
                     aria-label="With textarea"
                     id="rep"
-                    value={this.props.currExercise.rep}
+                    value={this.props.currExercise.rep || ""}
                     onChange={this.changeExercise}
                   />
                 </div>
@@ -360,7 +380,7 @@ class NewWorkout extends React.Component<IProps, any> {
                     className="form-control"
                     aria-label="With textarea"
                     id="set"
-                    value={this.props.currExercise.set}
+                    value={this.props.currExercise.set || ""}
                     onChange={this.changeExercise}
                   />
                 </div>

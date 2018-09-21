@@ -24,16 +24,6 @@ export const updateWorkoutType = (
   };
 };
 
-export const changeCurrExercise = (exercise: Exercise) => {
-  window.console.log("exercise being changed");
-  return {
-    payload: {
-      currExercise: exercise
-    },
-    type: workoutTypes.CHANGE_CURR_EXERCISE
-  };
-};
-
 export const removeExercise = (workout: Workout, index: number) => {
   workout.exercises.splice(index - 1, 1);
   const newWorkout: Workout = new Workout(
@@ -47,6 +37,15 @@ export const removeExercise = (workout: Workout, index: number) => {
       currWorkout: newWorkout
     },
     type: workoutTypes.REMOVE_EXERCISE
+  };
+};
+export const changeCurrExercise = (exercise: Exercise) => {
+  window.console.log("exercise being changed");
+  return {
+    payload: {
+      currExercise: exercise
+    },
+    type: workoutTypes.CHANGE_CURR_EXERCISE
   };
 };
 

@@ -6,21 +6,19 @@ import {
   getWorkoutList,
   getWorkoutHistory
 } from "../../actions/info/info.actions";
-import { HomeNavComponent } from "../navs/home-nav.component";
-import ViewWorkout from "../view-workout";
+// import { HomeNavComponent } from "../navs/home-nav.component";
+// import ViewWorkout from "../view-workout";
 import { WorkoutSnapshot } from "../../models/workout-snapshot";
 import { WorkoutType } from "../../models/workout-type";
 import { ExerciseType } from "../../models/exercise-type";
-// import ViewWorkoutHistory from "../view-workout-history";
+import ViewWorkoutHistory from "../view-workout-history";
 // import NewWorkout from "../new-workout";
-
 /**
- * This is a shell component, don't impliment this!
- * Copy and past the text into new components.
+ * Actually format this a bit, have it display some info.
+ * Maybe some user info and some info about the most recent workout
  */
 interface IProps {
   userId: number;
-  exampleProp: string;
   workoutHistoryCalled: boolean;
   workoutList: WorkoutType[];
   workoutHistory: WorkoutSnapshot[];
@@ -30,10 +28,9 @@ interface IProps {
   getWorkoutHistory: (userId: number, workoutList: WorkoutType[]) => any;
 }
 
-class Dashboard extends React.Component<IProps, any> {
+export class Dashboard extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
-    // remember to bind your functions here
     this.getWork = this.getWork.bind(this);
   }
   public getWork(e: any) {
@@ -41,15 +38,11 @@ class Dashboard extends React.Component<IProps, any> {
   }
   public componentDidMount() {
     if (this.props.exerciseList[1] === undefined) {
-      window.console.log("getting the exercises");
       this.props.getExerciseList();
       this.props.getWorkoutList(this.props.userId);
     }
   }
   public render() {
-    window.console.log("exercise list");
-    window.console.log(this.props.exerciseList);
-    window.console.log(this.props.workoutHistoryCalled);
     if (
       this.props.workoutHistoryCalled === false &&
       this.props.workoutList[1] !== undefined
@@ -58,8 +51,7 @@ class Dashboard extends React.Component<IProps, any> {
     }
     return (
       <div>
-        <HomeNavComponent />
-        <ViewWorkout />
+        <ViewWorkoutHistory />
       </div>
     );
   }

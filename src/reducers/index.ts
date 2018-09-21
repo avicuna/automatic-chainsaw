@@ -56,6 +56,7 @@ export interface IMiscState {
   errorMessage: string;
   passwordCheck: string;
   workoutHistoryCalled: boolean;
+  loginSuccess: boolean;
 }
 
 /*Standard redux code to combine reducers into a state */

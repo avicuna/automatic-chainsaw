@@ -45,40 +45,34 @@ a .App-title {
   font-size: 125%;
 
 }
-#home-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 #manager-home-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 #sign-in-header {
-  margin-top: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+margin-top: 100px;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 #sign-in-container {
-  margin-top: 100px;
-  margin-bottom: 100px;
-  margin-left: 400px;
+margin-top: 100px;
+margin-bottom: 100px;
+margin-left: 350px;
 }
 
-#pending-reimbs-header {
-  margin-top: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+#sign-up-container {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-left: 450px;
+ }
 
-#processed-reimbs-header {
-  margin-top: 50px;
+#home-header {
+margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,9 +86,16 @@ a .App-title {
   NAV
 *****************************/
 .rev-logo {
-  width: auto;
-  height: 2em;
-  margin-right: 2em;
+  /*width: auto;*/
+  /*height: 2em;*/
+  /*margin-right: 2em;*/
+  font-size: 31px;
+    color: rgb(255, 255, 255);
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: rgb(30, 143, 30)
 }
 
 /*.margin-navs {*/
@@ -196,4 +197,19 @@ a .App-title {
   .logo {
     font-size: 150px;
   }
+}
+
+/*****************************
+  Extra stuff
+*****************************/
+.navbar {
+    background-color: transparent;
+}
+.top-nav-collapse {
+    background-color: #4285F4;
+}
+@media only screen and (max-width: 768px) {
+    .navbar {
+        background-color: #4285F4;
+    }
 }
