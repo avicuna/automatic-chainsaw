@@ -72,7 +72,7 @@ export const submitWorkout = (userID: number, workout: Workout) => (
   dispatch: any
 ) => {
   window.console.log(userID);
-  fetch("http://localhost:6969/workout/users/workout/create", {
+  fetch("http://localhost:6969/users/workout/create", {
     body: JSON.stringify({
       userId: userID,
       workoutId: workout.type.id
@@ -85,7 +85,7 @@ export const submitWorkout = (userID: number, workout: Workout) => (
   })
     .then((resp: any) => {
       if (resp.status === 200) {
-        return resp;
+        return resp.json();
       } else if (resp.status === 403) {
         dispatch(
           updateErrorMessage(`Something went pretty wrong${resp.status}`)
@@ -103,6 +103,7 @@ export const submitWorkout = (userID: number, workout: Workout) => (
       }
     })
     .then((workoutId: any) => {
+      console.log(workoutId);
       const springExercises = workout.exercises.map((exercise: Exercise) => {
         return {
           userWorkoutId: workoutId,
@@ -112,27 +113,32 @@ export const submitWorkout = (userID: number, workout: Workout) => (
           sets: exercise.set
         };
       });
-      fetch("http://localhost:6969/workout/users/workout/create", {
-        body: JSON.stringify({
-          springExercises
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          "access-control-allow-origin": "*"
-        },
-        method: "POST"
-      });
-    })
-    .then((resp: any) => {
-      if (resp.status === 200 || resp.status === 201) {
-        dispatch({
-          payload: {
-            currWorkout: new Workout(new WorkoutType("", 0, "", []), 0, [], "")
+      console.log(JSON.stringify(springExercises))
+      fetch("http://localhost:6969/users/workout/create/exercises", {
+          body: JSON.stringify(springExercises),
+          headers: {
+            "Content-Type": "application/json",
+            "access-control-allow-origin": "*"
           },
-          type: workoutTypes.RESET_WORKOUT
-        });
-      } else {
-        dispatch(updateErrorMessage("Failed to post"));
-      }
-    });
+          method: "POST"
+      })
+      .then((resp: any) => {
+        return resp;
+      })
+      .catch((err: any) => {
+        console.log(err);
+      })
+    })
+    // .then((resp: any) => {
+    //   if (resp.status === 200 || resp.status === 201) {
+    //     dispatch({
+    //       payload: {
+    //         currWorkout: new Workout(new WorkoutType("", 0, "", []), 0, [], "")
+    //       },
+    //       type: workoutTypes.RESET_WORKOUT
+    //     });
+    //   } else {
+    //     dispatch(updateErrorMessage("Failed to post"));
+    //   }
+    // });
 };

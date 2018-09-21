@@ -30,6 +30,9 @@ export class HomeNavComponent extends React.Component<any, any> {
                         <NavItem>
                             <NavLink to="/view-workout-history">Workout History</NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink to="/post-workout">Workout History</NavLink>
+                        </NavItem>
                     </NavbarNav>
                     <NavbarNav right>
                         <NavItem>
