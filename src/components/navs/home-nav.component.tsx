@@ -2,6 +2,7 @@ import * as React from 'react';
 import logo from '../../logo.svg';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink } from 'mdbreact';
 
+
 export class HomeNavComponent extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -35,6 +36,9 @@ export class HomeNavComponent extends React.Component<any, any> {
                         </NavItem>
                     </NavbarNav>
                     <NavbarNav right>
+                        <NavItem>
+                            <NavLink to="/profile">Profile</NavLink>
+                        </NavItem>
                         <NavItem>
                             <NavLink to="/home">Log Out</NavLink>
                         </NavItem>

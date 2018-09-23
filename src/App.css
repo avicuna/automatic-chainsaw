@@ -78,6 +78,11 @@ margin-top: 20px;
   align-items: center;
 }
 
+#profile {
+    margin-top: 100px;
+    margin-left: 25px;
+}
+
 #error-message {
   color: red;
 }
