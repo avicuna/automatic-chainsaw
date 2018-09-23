@@ -1,6 +1,7 @@
 import { IUserState } from ".";
 import { loginTypes } from "../actions/login/login.types";
 import { registerUserTypes } from "../actions/register-user/register-user.types";
+import { logoutTypes } from "../actions/logout/logout.types";
 /**
  * See the index.ts file for an explanation of all state properties
  * See the index.ts file for an explanation of all state properties, and model files for explanation of
@@ -59,6 +60,18 @@ export const userReducer = (state: IUserState = initialState, action: any) => {
       return {
         ...state,
         accountNumber: action.payload.accountNumber
+      };
+    case logoutTypes.Logout_User:
+      return {
+        accountNumber: action.payload.accountNumber,
+        email: action.payload.email,
+        firstName: action.payload.firstName,
+        gender: action.payload.gender,
+        height: action.payload.height,
+        lastName: action.payload.lastName,
+        password: action.payload.password,
+        username: action.payload.username,
+        weight: action.payload.weight
       };
     default:
       return state;

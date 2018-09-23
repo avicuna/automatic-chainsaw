@@ -9,7 +9,7 @@ import { WorkoutSnapshot } from "../models/workout-snapshot";
 import { Workout } from "../models/workout";
 import { WorkoutType } from "../models/workout-type";
 import { ExerciseType } from "../models/exercise-type";
-import { NavComponent } from "./navs/nav.component";
+import NavComponent from "./navs/nav.component";
 import ViewWorkout from "./view-workout";
 import {
   getUserExerciseList,
