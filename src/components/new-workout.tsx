@@ -197,7 +197,7 @@ class NewWorkout extends React.Component<IProps, any> {
               <a
                 className="dropdown-item"
                 key={workType.id}
-                onMouseOver={this.changeWorkoutType}
+                onClick={this.changeWorkoutType}
                 href="#"
                 id={workType.id.toString()}
               >
@@ -235,10 +235,17 @@ class NewWorkout extends React.Component<IProps, any> {
               <a
                 className="dropdown-item"
                 key={exerType.id}
-                onMouseOver={this.changeExerciseType}
+                onFocus={this.changeExerciseType}
+                href="#"
                 id={exerType.id.toString()}
               >
-                {exerType.name}
+                <p
+                  key={exerType.id}
+                  onFocus={this.changeExerciseType}
+                  id={exerType.id.toString()}
+                >
+                  {exerType.name}
+                </p>
               </a>
             );
           }
