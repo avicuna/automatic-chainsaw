@@ -1,16 +1,19 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import logo from "../../logo.svg";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarNav,
-  NavbarToggler,
-  Collapse,
-  NavItem,
-  NavLink
-} from "mdbreact";
+import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink } from "mdbreact";
+import { IState } from "../../reducers";
+import { RouteComponentProps } from 'react-router';
+import { logoutUser } from "../../actions/logout/logout.actions";
+import { clearSuccess } from "../../actions/misc/misc.actions";
 
-export class NavComponent extends React.Component<any, any> {
+interface IProps extends RouteComponentProps<{}> {
+  userName: string,
+  logoutUser: () => any
+  clearSuccess: () => any
+}
+
+export class NavComponent extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -18,12 +21,20 @@ export class NavComponent extends React.Component<any, any> {
       isWideEnough: false
     };
     this.onClick = this.onClick.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   public onClick() {
     this.setState({
       collapse: !this.state.collapse
     });
+  }
+
+  public logout(e: any) {
+    e.preventDefault();
+    this.props.logoutUser();
+    this.props.clearSuccess();
+    this.props.history.push("/home");
   }
 
   public render() {
@@ -36,7 +47,7 @@ export class NavComponent extends React.Component<any, any> {
         <Collapse isOpen={this.state.collapse} navbar>
           <NavbarNav left>
             <NavItem>
-              <NavLink to="/view-workout-history">Workout History</NavLink>
+              <NavLink to="/dashboard">Workout History</NavLink>
             </NavItem>
             <NavItem>
               <NavLink to="/new-workout">Create Workout</NavLink>
@@ -47,7 +58,7 @@ export class NavComponent extends React.Component<any, any> {
               <NavLink to="/profile">Profile</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/home">Log Out</NavLink>
+               <NavLink to="" onClick={this.logout}>Log Out</NavLink>
             </NavItem>
           </NavbarNav>
         </Collapse>
@@ -55,3 +66,18 @@ export class NavComponent extends React.Component<any, any> {
     );
   }
 }
+
+const mapStateToProps = (state: IState) => {
+  return {
+      userName: state.user.firstName
+  }
+};
+
+const mapDispatchToProps = {
+  logoutUser,
+  clearSuccess
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NavComponent);

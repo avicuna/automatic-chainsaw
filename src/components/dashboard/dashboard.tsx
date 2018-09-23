@@ -6,7 +6,7 @@ import {
   getWorkoutList,
   getWorkoutHistory
 } from "../../actions/info/info.actions";
-
+import NavComponent from "../navs/nav.component";
 import { WorkoutSnapshot } from "../../models/workout-snapshot";
 import { WorkoutType } from "../../models/workout-type";
 import { ExerciseType } from "../../models/exercise-type";
@@ -50,6 +50,8 @@ export class Dashboard extends React.Component<IProps, any> {
     } else {
       return (
         <div>
+          <NavComponent history={this.props.history} />
+
           <h4>
             HWelcome back, {this.props.firstName} {this.props.lastName}. Ready
             to SWOLE?

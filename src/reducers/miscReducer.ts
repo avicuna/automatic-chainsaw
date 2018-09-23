@@ -2,7 +2,7 @@ import { IMiscState } from "./index";
 import { miscTypes } from "../actions/misc/misc.types";
 import { registerUserTypes } from "../actions/register-user/register-user.types";
 import { infoTypes } from "../actions/info/info.types";
-import { loginTypes} from "../actions/login/login.types"
+import { loginTypes } from "../actions/login/login.types";
 
 const initialState: IMiscState = {
   errorMessage: "",
@@ -10,10 +10,16 @@ const initialState: IMiscState = {
   passwordCheck: "",
   workoutTypeText: "",
   workoutHistoryCalled: false,
-    loginSuccess: false,
+  loginSuccess: false,
+  historyPage: 0
 };
 export const miscReducer = (state: IMiscState = initialState, action: any) => {
   switch (action.type) {
+    case miscTypes.CHANGE_HISTORY_PAGE:
+      return {
+        ...state,
+        historyPage: action.payload.historyPage
+      };
     case infoTypes.GET_WORKOUT_HISTORY:
       return {
         ...state,
@@ -24,11 +30,11 @@ export const miscReducer = (state: IMiscState = initialState, action: any) => {
         ...state,
         passwordCheck: action.payload.passwordCheck
       };
-      case loginTypes.UPDATE_LOGIN_SUCCESS:
-        return {
-            ...state,
-            loginSuccess: action.payload.loginSuccess
-        };
+    case loginTypes.UPDATE_LOGIN_SUCCESS:
+      return {
+        ...state,
+        loginSuccess: action.payload.loginSuccess
+      };
     case miscTypes.UPDATE_ERROR_MESSAGE:
       return {
         ...state,

@@ -2,11 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { IState } from "../reducers";
 import { updateErrorMessage } from "../actions/misc/misc.actions";
-import {
-  updateUserRegister,
-  registerUser,
-  IUserInfo
-} from "../actions/register-user/register-user.actions";
+import { updateUserRegister, registerUser, IUserInfo } from "../actions/register-user/register-user.actions";
 import "../App.css";
 import { Container, Row, Input, Button } from "mdbreact";
 import { RouteComponentProps } from "react-router";
@@ -34,6 +30,7 @@ export class RegisterUser extends React.Component<IProps, any> {
     this.updateRegister = this.updateRegister.bind(this);
     this.registerUser = this.registerUser.bind(this);
   }
+
   public registerUser(e: any) {
     if (this.props.password === this.props.passwordCheck) {
       const info: IUserInfo = {

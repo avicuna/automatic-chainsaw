@@ -18,6 +18,7 @@ import {
 } from "../actions/misc/misc.actions";
 import { getWorkoutList, getExerciseList } from "../actions/info/info.actions";
 import { ExerciseType } from "../models/exercise-type";
+import NavComponent from "./navs/nav.component";
 interface IProps {
   exerciseList: ExerciseType[];
   exerciseTypeText: string;
@@ -282,6 +283,7 @@ class NewWorkout extends React.Component<IProps, any> {
 
     return (
       <div>
+        <NavComponent />
         <div className="dropdown">
           <button
             className="btn btn-secondary dropdown-toggle"
