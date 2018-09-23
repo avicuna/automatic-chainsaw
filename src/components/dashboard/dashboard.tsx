@@ -66,13 +66,25 @@ export class Dashboard extends React.Component<IProps, any> {
           <NavComponent history={this.props.history} />
 
           <h4>
-            Welcome back, {this.props.firstName} {this.props.lastName}. Has your
-            weight changed?
+            Welcome back, {this.props.firstName} {this.props.lastName}.
           </h4>
           <span>
-            <input value={this.props.weight} onChange={this.changeWeight} />
-            <button onClick={this.submitWeight}>UpdateWeight</button>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">Update Weight</span>
+              </div>
+              <input
+                type="number"
+                className="form-control"
+                aria-label="With textarea"
+                id="weight"
+                value={this.props.weight}
+                onChange={this.changeWeight}
+              />
+            </div>
+            <button onClick={this.submitWeight}>Save Change</button>
           </span>
+          <h5>Most Recent Workout</h5>
           <ViewWorkout history={this.props.history} />
         </div>
       );

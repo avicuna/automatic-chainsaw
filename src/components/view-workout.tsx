@@ -93,7 +93,6 @@ class ViewWorkout extends React.Component<IProps, any> {
     } else {
       return (
         <div>
-          <p>{this.props.viewWorkoutId}</p>
           <div id="date-type">
             <p id="order">Workout Number : {this.props.order}</p>
             <p>Date : {this.props.date}</p>
