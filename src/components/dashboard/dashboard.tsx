@@ -6,23 +6,21 @@ import {
   getWorkoutList,
   getWorkoutHistory
 } from "../../actions/info/info.actions";
-// import { HomeNavComponent } from "../navs/home-nav.component";
-// import ViewWorkout from "../view-workout";
+
 import { WorkoutSnapshot } from "../../models/workout-snapshot";
 import { WorkoutType } from "../../models/workout-type";
 import { ExerciseType } from "../../models/exercise-type";
-import ViewWorkoutHistory from "../view-workout-history";
-// import NewWorkout from "../new-workout";
-/**
- * Actually format this a bit, have it display some info.
- * Maybe some user info and some info about the most recent workout
- */
-interface IProps {
+import { RouteComponentProps } from "../../../node_modules/@types/react-router";
+import ViewWorkout from "../view-workout";
+
+interface IProps extends RouteComponentProps<{}> {
   userId: number;
   workoutHistoryCalled: boolean;
   workoutList: WorkoutType[];
   workoutHistory: WorkoutSnapshot[];
   exerciseList: ExerciseType[];
+  firstName: string;
+  lastName: string;
   getExerciseList: () => any;
   getWorkoutList: () => any;
   getWorkoutHistory: (userId: number, workoutList: WorkoutType[]) => any;
@@ -52,7 +50,11 @@ export class Dashboard extends React.Component<IProps, any> {
     } else {
       return (
         <div>
-          <ViewWorkoutHistory />
+          <h4>
+            HWelcome back, {this.props.firstName} {this.props.lastName}. Ready
+            to SWOLE?
+          </h4>
+          <ViewWorkout history={this.props.history} />
         </div>
       );
     }
@@ -63,7 +65,9 @@ const mapStateToProps = (state: IState) => {
     userId: state.user.accountNumber,
     workoutHistoryCalled: state.misc.workoutHistoryCalled,
     workoutList: state.info.workoutList,
-    exerciseList: state.info.exerciseList
+    exerciseList: state.info.exerciseList,
+    firstName: state.user.firstName,
+    lastName: state.user.lastName
   };
 };
 
