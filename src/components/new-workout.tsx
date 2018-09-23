@@ -64,7 +64,6 @@ class NewWorkout extends React.Component<IProps, any> {
   public enterExercise(e: any) {
     e.preventDefault();
     if (
-      this.props.currExercise.weight !== 0 &&
       this.props.currExercise.rep !== 0 &&
       this.props.currExercise.set !== 0 &&
       this.props.currExercise.name !== ""

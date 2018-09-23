@@ -16,6 +16,8 @@ interface IProps extends IState {
   viewWorkout: Workout;
   workoutList: WorkoutType[];
   exerciseList: ExerciseType[];
+  historyPage: number;
+  getWorkoutHistory: (userId: number, list: WorkoutType[]) => any;
   getWorkoutList: (userId: number) => any;
   getUserExerciseList: (
     id: number,
@@ -46,29 +48,45 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
     if (this.props.exerciseList[1] === undefined) {
       this.props.getExerciseList();
     }
-    if (this.props.workoutList[1] === undefined) {
-      this.props.getWorkoutList(this.props.userId);
+    if (this.props.workoutList[1] !== undefined) {
+      this.props.getWorkoutHistory(this.props.userId, this.props.workoutList);
     }
   }
   public render() {
-    const workoutEntries = this.props.workoutHistory.map(
-      (workout: WorkoutSnapshot) => {
-        if (workout.id === this.props.viewWorkoutId) {
-          return <ViewWorkout />;
+    const workoutEntries: any[] = [];
+    for (
+      let dispNum = this.props.historyPage * 10;
+      dispNum < this.props.historyPage * 10 + 10;
+      dispNum++
+    ) {
+      if (this.props.workoutHistory[dispNum] !== undefined) {
+        if (
+          this.props.workoutHistory[dispNum].id === this.props.viewWorkoutId
+        ) {
+          workoutEntries.push(<ViewWorkout />);
+        } else {
+          workoutEntries.push(
+            <tr
+              id={this.props.workoutHistory[dispNum].id.toString()}
+              key={this.props.workoutHistory[dispNum].id.toString()}
+              onClick={this.chooseRow}
+            >
+              <td id={this.props.workoutHistory[dispNum].id.toString()}>
+                {this.props.workoutHistory[dispNum].order}
+              </td>
+              <td id={this.props.workoutHistory[dispNum].id.toString()}>
+                {" "}
+                {this.props.workoutHistory[dispNum].date}
+              </td>
+              <td id={this.props.workoutHistory[dispNum].id.toString()}>
+                {" "}
+                {this.props.workoutHistory[dispNum].type.name}
+              </td>
+            </tr>
+          );
         }
-        return (
-          <tr
-            id={workout.id.toString()}
-            key={workout.id.toString()}
-            onClick={this.chooseRow}
-          >
-            <td id={workout.id.toString()}>{workout.order}</td>
-            <td id={workout.id.toString()}> {workout.date}</td>
-            <td id={workout.id.toString()}> {workout.type.name}</td>
-          </tr>
-        );
       }
-    );
+    }
     return (
       <div>
         <table className="table">
@@ -81,7 +99,7 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
           </thead>
           <tbody>{workoutEntries}</tbody>
         </table>
-        <ViewWorkout />
+        {/* <span><button onClick = {this.push>></button></span> */}
       </div>
     );
   }
@@ -92,7 +110,8 @@ const mapStateToProps = (state: IState) => {
     userId: state.user.accountNumber,
     workoutList: state.info.workoutList,
     workoutHistory: state.info.workoutHistory,
-    exerciseList: state.info.exerciseList
+    exerciseList: state.info.exerciseList,
+    historyPage: state.misc.historyPage
   };
 };
 
