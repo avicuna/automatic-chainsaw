@@ -4,7 +4,7 @@ import { IState } from "../../reducers";
 import {IUpdateInfo, update, updateUser} from "../../actions/register-user/register-user.actions";
 import {RouteComponentProps} from "react-router";
 import {Button, Container, Input, Row} from "mdbreact";
-import {NavComponent} from "../navs/nav.component";
+import NavComponent from "../navs/nav.component";
 
 
 interface IProps extends RouteComponentProps<{}> {
@@ -95,7 +95,7 @@ export class EditProfile extends React.Component<IProps, any> {
     public render() {
         return (
             <div>
-                <NavComponent/>
+                <NavComponent history={this.props.history}/>
                 <br/>
                 <br/>
                 <br/>
