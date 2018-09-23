@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { IState } from "../reducers";
 import {
   getWorkoutHistory,
-  getWorkoutList
+  getWorkoutList,
+  zeroViewWorkout
 } from "../actions/info/info.actions";
 import { WorkoutSnapshot } from "../models/workout-snapshot";
 import { Workout } from "../models/workout";
@@ -26,7 +27,7 @@ interface IProps extends IState {
   historyPage: number;
 
   getWorkoutHistory: (userId: number, list: WorkoutType[]) => any;
-
+  zeroViewWorkout: () => any;
   getWorkoutList: (userId: number) => any;
   getUserExerciseList: (
     id: number,
@@ -48,7 +49,6 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
     this.changeHistoryPage = this.changeHistoryPage.bind(this);
   }
   public changeHistoryPage(e: any) {
-    e.preventDefault();
     this.props.changeHistoryPage(
       this.props.historyPage,
       e.target.id,
@@ -68,6 +68,8 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
   }
 
   public componentDidMount() {
+    this.props.zeroViewWorkout();
+    // this.changeHistoryPage({ target: { id: "fst" } });
     if (this.props.exerciseList[1] === undefined) {
       this.props.getExerciseList();
     }
@@ -129,7 +131,6 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
           <button id="fwd" onClick={this.changeHistoryPage}>{`>`}</button>
           <button id="lst" onClick={this.changeHistoryPage}>{`>>`}</button>
         </span>
-
       </div>
     );
   }
@@ -150,7 +151,8 @@ const mapDispatchToProps = {
   getWorkoutHistory,
   getUserExerciseList,
   getExerciseList,
-  changeHistoryPage
+  changeHistoryPage,
+  zeroViewWorkout
 };
 
 export default connect(

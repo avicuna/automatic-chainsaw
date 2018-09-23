@@ -194,3 +194,12 @@ export const getUserExerciseList = (
       });
     });
 };
+
+export const zeroViewWorkout = () => {
+  return {
+    payload: {
+      viewWorkoutId: 0
+    },
+    type: infoTypes.ZERO_VIEW_WORKOUT
+  };
+};
