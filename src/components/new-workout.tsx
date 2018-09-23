@@ -18,7 +18,7 @@ import {
 } from "../actions/misc/misc.actions";
 import { getWorkoutList, getExerciseList } from "../actions/info/info.actions";
 import { ExerciseType } from "../models/exercise-type";
-import { NavComponent } from "./navs/nav.component";
+import NavComponent from "./navs/nav.component";
 import { Table, TableBody, TableHead } from 'mdbreact';
 
 interface IProps {
