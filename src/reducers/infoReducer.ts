@@ -23,6 +23,11 @@ export const infoReducer = (state: IInfoState = initialState, action: any) => {
         ...state,
         workoutHistory: action.payload.workoutHistory
       };
+    case infoTypes.ZERO_VIEW_WORKOUT:
+      return {
+        ...state,
+        viewWorkoutId: 0
+      };
     case infoTypes.GET_WORKOUT_LIST:
       return {
         ...state,

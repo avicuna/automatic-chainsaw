@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { IState } from "../../reducers";
 import { IUserInfo } from "../../actions/register-user/register-user.actions";
 import { RouteComponentProps } from "react-router";
-import { NavComponent } from "../navs/nav.component";
+import NavComponent from "../navs/nav.component";
 import { Fa } from "mdbreact";
 
 interface IProps extends RouteComponentProps<{}> {
@@ -33,7 +33,7 @@ export class Profile extends React.Component<IProps, any> {
     // const pass = "*".repeat(this.props.password.length);
     return (
       <div>
-        <NavComponent />
+        <NavComponent history={this.props.history}/>
         <br />
         <br />
         <br />

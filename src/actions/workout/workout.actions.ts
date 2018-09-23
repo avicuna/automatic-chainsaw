@@ -109,30 +109,30 @@ export const submitWorkout = (userID: number, workout: Workout) => (
         };
       });
       fetch("http://localhost:6969/users/workout/create/exercises", {
-          body: JSON.stringify(springExercises),
-          headers: {
-            "Content-Type": "application/json",
-            "access-control-allow-origin": "*"
-          },
-          method: "POST"
+        body: JSON.stringify(springExercises),
+        headers: {
+          "Content-Type": "application/json",
+          "access-control-allow-origin": "*"
+        },
+        method: "POST"
       })
-      .then((resp: any) => {
-        return resp;
-      })
-      .catch((err: any) => {
-        console.log(err);
-      })
-    })
-    // .then((resp: any) => {
-    //   if (resp.status === 200 || resp.status === 201) {
-    //     dispatch({
-    //       payload: {
-    //         currWorkout: new Workout(new WorkoutType("", 0, "", []), 0, [], "")
-    //       },
-    //       type: workoutTypes.RESET_WORKOUT
-    //     });
-    //   } else {
-    //     dispatch(updateErrorMessage("Failed to post"));
-    //   }
-    // });
+        .then((resp: any) => {
+          return resp;
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    });
+  // .then((resp: any) => {
+  //   if (resp.status === 200 || resp.status === 201) {
+  //     dispatch({
+  //       payload: {
+  //         currWorkout: new Workout(new WorkoutType("", 0, "", []), 0, [], "")
+  //       },
+  //       type: workoutTypes.RESET_WORKOUT
+  //     });
+  //   } else {
+  //     dispatch(updateErrorMessage("Failed to post"));
+  //   }
+  // });
 };

@@ -19,7 +19,6 @@ import {
 import { getWorkoutList, getExerciseList } from "../actions/info/info.actions";
 import { ExerciseType } from "../models/exercise-type";
 import { NavComponent } from "./navs/nav.component";
-// import { Container, Row, Col, Card, CardHeader, CardBody, TableEditable } from 'mdbreact';
 import { Table, TableBody, TableHead } from 'mdbreact';
 
 interface IProps {
@@ -67,7 +66,6 @@ class NewWorkout extends React.Component<IProps, any> {
   public enterExercise(e: any) {
     e.preventDefault();
     if (
-      this.props.currExercise.weight !== 0 &&
       this.props.currExercise.rep !== 0 &&
       this.props.currExercise.set !== 0 &&
       this.props.currExercise.name !== ""
@@ -370,27 +368,6 @@ class NewWorkout extends React.Component<IProps, any> {
             Enter Exercise
           </button>
         </form>
-        {/* <div className="exercise-form">
-
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <span className="input-group-text">Weight</span>
-            </div>
-
-          </div>
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <span className="input-group-text">Reps</span>
-            </div>
-
-          </div>
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <span className="input-group-text">Sets</span>
-            </div>
-
-          </div>
-        </div> */}
         <p>{this.props.errorMessage}</p>
 
         <div className="create-table-container">
