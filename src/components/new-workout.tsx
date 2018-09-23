@@ -27,6 +27,7 @@ interface IProps {
   workoutList: WorkoutType[];
   errorMessage: string;
   userId: number;
+  getWorkoutList: () => any;
   enterExercise: (exercise: Exercise, workout: Workout) => any;
   changeCurrExercise: (exercise: Exercise) => any;
   removeExercise: (workout: Workout, index: number) => any;
@@ -87,8 +88,6 @@ class NewWorkout extends React.Component<IProps, any> {
   public changeWorkoutType(e: any) {
     const newType =
       this.props.workoutList.find((type: WorkoutType) => {
-        window.console.log(e.target.id);
-        window.console.log(type.id);
         return +e.target.id === type.id;
       }) || this.props.workoutList[0];
 
@@ -99,8 +98,6 @@ class NewWorkout extends React.Component<IProps, any> {
   public changeExerciseType(e: any) {
     const newTypeVal =
       this.props.exerciseList.find((type: ExerciseType) => {
-        window.console.log(e.target.id);
-        window.console.log(type.id);
         return +e.target.id === type.id;
       }) || this.props.exerciseList[0];
 
@@ -119,6 +116,7 @@ class NewWorkout extends React.Component<IProps, any> {
         this.props.currExercise.rep
       )
     );
+
     this.props.updateExerText(newType.name || "No Type");
   }
 
@@ -140,7 +138,6 @@ class NewWorkout extends React.Component<IProps, any> {
         } = this.props.currExercise;
         const exercise1 = new Exercise(name, id, description, weight, set, rep);
         exercise1.weight = +e.target.value;
-        window.console.log(exercise1.weight);
         this.props.changeCurrExercise(exercise1);
         break;
       case "rep":
@@ -175,6 +172,7 @@ class NewWorkout extends React.Component<IProps, any> {
   }
   public componentDidMount() {
     if (this.props.workoutList[0] === undefined) {
+      this.props.getWorkoutList();
       this.props.getExerciseList();
     }
   }
@@ -199,6 +197,7 @@ class NewWorkout extends React.Component<IProps, any> {
               <a
                 className="dropdown-item"
                 key={workType.id}
+                onMouseOver={this.changeWorkoutType}
                 href="#"
                 id={workType.id.toString()}
               >
@@ -236,16 +235,10 @@ class NewWorkout extends React.Component<IProps, any> {
               <a
                 className="dropdown-item"
                 key={exerType.id}
-                href="#"
+                onMouseOver={this.changeExerciseType}
                 id={exerType.id.toString()}
               >
-                <p
-                  key={exerType.id}
-                  onClick={this.changeExerciseType}
-                  id={exerType.id.toString()}
-                >
-                  {exerType.name}
-                </p>
+                {exerType.name}
               </a>
             );
           }
@@ -320,14 +313,14 @@ class NewWorkout extends React.Component<IProps, any> {
             <tr>
               <th scope="row">
                 <div
-                  className="dropdown" 
+                  className="dropdown"
                   id="dropdownMenuButton"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
                   <input
-                      type="text"
+                    type="text"
                     value={this.props.exerciseTypeText}
                     onChange={this.changeExerText}
                   />
