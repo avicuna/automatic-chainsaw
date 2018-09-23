@@ -78,6 +78,12 @@ margin-top: 20px;
   align-items: center;
 }
 
+#home-container {
+    margin-top: 25px;
+    margin-right: 200px;
+    margin-bottom: 100px;
+}
+
 #profile {
     margin-top: 100px;
     margin-left: 25px;
