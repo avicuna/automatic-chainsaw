@@ -1,4 +1,5 @@
 import * as React from "react";
+import gym from "../../assets/gym-background.jpg";
 import { Container, Mask, View, CardGroup, CardBody, CardTitle, Fa } from "mdbreact";
 import { HomeNavComponent } from "../navs/home-nav.component";
 import FooterPage from "../footer/footer";
@@ -26,11 +27,11 @@ export class HomeComponent extends React.Component<any, any> {
           <HomeNavComponent/>
           <View>
             <img
-              src="https://mdbootstrap.com/img/Photos/Others/img%20(40).jpg"
+              src={gym}
               className="img-fluid"
             />
             <Mask
-              overlay="purple-light"
+              overlay="black-light"
               style={{ flexDirection: "column" }}
               className="flex-center  text-white text-center"
             >

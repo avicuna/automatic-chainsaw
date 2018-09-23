@@ -1,14 +1,6 @@
 import * as React from "react";
 // import logo from '../../logo.svg';
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarNav,
-  NavbarToggler,
-  Collapse,
-  NavItem,
-  NavLink
-} from "mdbreact";
+import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Fa} from "mdbreact";
 
 export class HomeNavComponent extends React.Component<any, any> {
   constructor(props: any) {
@@ -37,7 +29,7 @@ export class HomeNavComponent extends React.Component<any, any> {
           <NavbarNav left />
           <NavbarNav right>
             <NavItem>
-              <NavLink to="/login">Log In</NavLink>
+              <NavLink to="/login">Log In <Fa icon="sign-in"/></NavLink>
             </NavItem>
           </NavbarNav>
         </Collapse>
