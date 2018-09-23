@@ -36,35 +36,35 @@ export const changeHistoryPage = (
     case "fwd":
       return {
         payload: {
-          pageHistory: page + 1
+          historyPage: Math.min(page + 1, Math.ceil(history.length / 10) - 1)
         },
         type: miscTypes.CHANGE_HISTORY_PAGE
       };
     case "bwd":
       return {
         payload: {
-          pageHistory: page - 1
+          historyPage: Math.max(0, page - 1)
         },
         type: miscTypes.CHANGE_HISTORY_PAGE
       };
     case "lst":
       return {
         payload: {
-          pageHistory: Math.ceil(history.length / 10) - 1
+          historyPage: Math.ceil(history.length / 10) - 1
         },
         type: miscTypes.CHANGE_HISTORY_PAGE
       };
     case "fst":
       return {
         payload: {
-          pageHistory: 0
+          historyPage: 0
         },
         type: miscTypes.CHANGE_HISTORY_PAGE
       };
     default:
       return {
         payload: {
-          pageHistory: page
+          historyPage: page
         },
         type: miscTypes.CHANGE_HISTORY_PAGE
       };
