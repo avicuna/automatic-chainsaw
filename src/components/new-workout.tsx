@@ -18,7 +18,9 @@ import {
 } from "../actions/misc/misc.actions";
 import { getWorkoutList, getExerciseList } from "../actions/info/info.actions";
 import { ExerciseType } from "../models/exercise-type";
-import NavComponent from "./navs/nav.component";
+import { NavComponent } from "./navs/nav.component";
+import { Table, TableBody, TableHead } from 'mdbreact';
+
 interface IProps {
   exerciseList: ExerciseType[];
   exerciseTypeText: string;
@@ -188,7 +190,7 @@ class NewWorkout extends React.Component<IProps, any> {
           ) {
             if (
               this.props.exerciseTypeText.toLocaleLowerCase() ===
-                workType.name.toLocaleLowerCase() &&
+              workType.name.toLocaleLowerCase() &&
               this.props.workout.type !== workType
             ) {
               this.changeWorkoutType({ target: { id: workType.id } });
@@ -226,7 +228,7 @@ class NewWorkout extends React.Component<IProps, any> {
           ) {
             if (
               this.props.exerciseTypeText.toLocaleLowerCase() ===
-                exerType.name.toLocaleLowerCase() &&
+              exerType.name.toLocaleLowerCase() &&
               this.props.currExercise.name !== exerType.name
             ) {
               this.changeExerciseType({ target: { id: exerType.id } });
@@ -263,17 +265,18 @@ class NewWorkout extends React.Component<IProps, any> {
             <th>{exercise.weight}</th>
             <th>{exercise.rep}</th>
             <th>{exercise.set}</th>
-            <button
-              id={keyVal.toString()}
-              type="button"
-              className="close"
-              aria-label="Close"
-              onClick={this.removeExercise}
-            >
-              <span id={keyVal.toString()} aria-hidden="true">
-                &times;
-              </span>
-            </button>
+            <th>
+              <button
+                id={keyVal.toString()}
+                type="button"
+                className="btn btn-danger btn-sm"
+                aria-label="Close"
+                onClick={this.removeExercise}
+              >
+                Remove
+              </button>
+            </th>
+
           </tr>
         );
         keyVal++;
@@ -283,9 +286,11 @@ class NewWorkout extends React.Component<IProps, any> {
     return (
       <div>
         <NavComponent />
-        <div className="dropdown">
+        <h1 className="text-center create-workout-title">Create Workout</h1>
+        <div className="dropdown text-center">
+          <span>Choose Workout: </span>
           <button
-            className="btn btn-secondary dropdown-toggle"
+            className="btn btn-sm btn-primary dropdown-toggle"
             type="button"
             id="dropdownMenuButton"
             data-toggle="dropdown"
@@ -302,101 +307,91 @@ class NewWorkout extends React.Component<IProps, any> {
             {workList}
           </div>
         </div>
+
+        <form className="form-inline">
+          <label>Choose Exercise: </label>
+          <div
+            className="dropdown form-group mb-2"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <input
+              className="form-control"
+              type="text"
+              value={this.props.exerciseTypeText}
+              onChange={this.changeExerText}
+            />
+
+            <div
+              className="dropdown-menu"
+              aria-labelledby="dropdownMenuButton"
+            >
+              {exerList}
+            </div>
+          </div>
+          <div className="form-group mb-2">
+            <label>Weight: </label>
+            <input
+              type="number"
+              className="form-control"
+              aria-label="With textarea"
+              id="weight"
+              value={this.props.currExercise.weight || ""}
+              onChange={this.changeExercise}
+            />
+          </div>
+          <div className="form-group mb-2">
+            <label>Reps: </label>
+            <input
+              type="number"
+              className="form-control"
+              aria-label="With textarea"
+              id="rep"
+              value={this.props.currExercise.rep || ""}
+              onChange={this.changeExercise}
+            />
+          </div>
+          <div className="form-group mb-2">
+            <label>Sets: </label>
+            <input
+              type="number"
+              className="form-control"
+              aria-label="With textarea"
+              id="set"
+              value={this.props.currExercise.set || ""}
+              onChange={this.changeExercise}
+            />
+          </div>
+          <button className="btn btn-primary btn-sm" onClick={this.enterExercise}>
+            Enter Exercise
+          </button>
+        </form>
         <p>{this.props.errorMessage}</p>
 
-        <button className="btn btn-primary" onClick={this.submit}>
-          submit Workout
-        </button>
-        <table className="table table-dark">
-          <thead>
-            <tr>
-              <th scope="col">exercise</th>
-              <th scope="col">weight</th>
-              <th scope="col">rep</th>
-              <th scope="col">set</th>
-            </tr>
-          </thead>
-          <tbody>
-            {exerciseTable}
-            <tr>
-              <th scope="row">
-                <div
-                  className="dropdown"
-                  id="dropdownMenuButton"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <input
-                    type="text"
-                    value={this.props.exerciseTypeText}
-                    onChange={this.changeExerText}
-                  />
+        <div className="create-table-container">
+          <Table small hover>
+            <TableHead color="primary-color">
+              <tr>
+                <th scope="col"><h5>Exercise</h5></th>
+                <th scope="col"><h5>Weight</h5></th>
+                <th scope="col"><h5>Rep</h5></th>
+                <th scope="col"><h5>Set</h5></th>
+                <th scope="col"></th>
+              </tr>
+            </TableHead>
+            <TableBody>
+              {exerciseTable}
+            </TableBody>
+          </Table>
+        </div>
+        <div className="submit-center">
+          <button className="btn btn-primary" onClick={this.submit}>
+            Submit Workout
+          </button>
+        </div>
 
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    {exerList}
-                  </div>
-                </div>
-              </th>
-              <th>
-                <div className="input-group">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text">Weight</span>
-                  </div>
-                  <input
-                    type="number"
-                    className="form-control"
-                    aria-label="With textarea"
-                    id="weight"
-                    value={this.props.currExercise.weight || ""}
-                    onChange={this.changeExercise}
-                  />
-                </div>
-              </th>
-              <th>
-                <div className="input-group">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text">Reps</span>
-                  </div>
-                  <input
-                    type="number"
-                    className="form-control"
-                    aria-label="With textarea"
-                    id="rep"
-                    value={this.props.currExercise.rep || ""}
-                    onChange={this.changeExercise}
-                  />
-                </div>
-              </th>
-              <th>
-                <div className="input-group">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text">Sets</span>
-                  </div>
-                  <input
-                    type="number"
-                    className="form-control"
-                    aria-label="With textarea"
-                    id="set"
-                    value={this.props.currExercise.set || ""}
-                    onChange={this.changeExercise}
-                  />
-                </div>
-              </th>
-              <th>
-                <button
-                  className="btn btn-primary"
-                  onClick={this.enterExercise}
-                >
-                  Enter Exercise
-                </button>
-              </th>
-            </tr>
-          </tbody>
-        </table>
       </div>
     );
   }

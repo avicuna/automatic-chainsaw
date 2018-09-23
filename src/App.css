@@ -155,6 +155,34 @@ margin-top: 20px;
 /*}*/
 
 /*****************************
+  Create Workout & Exercises
+*****************************/
+.create-table-container {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.create-workout-title {
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+.form-inline {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.form-group {
+  padding: 10px;
+}
+.form-group input{
+  width: 23px;
+}
+.input-group {
+  padding: 0;
+}
+.submit-center {
+  text-align: center;
+}
+
+/*****************************
   Clicker
 *****************************/
 .blue {
