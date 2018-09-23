@@ -25,6 +25,7 @@ export class HomeNavComponent extends React.Component<any, any> {
       collapse: !this.state.collapse
     });
   }
+
   public render() {
     return (
       <Navbar color="transparent" dark expand="md" fixed="top" scrolling>

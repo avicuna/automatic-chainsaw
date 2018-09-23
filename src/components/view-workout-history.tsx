@@ -1,24 +1,14 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { IState } from "../reducers";
-import {
-  getWorkoutHistory,
-  getWorkoutList
-} from "../actions/info/info.actions";
+import { getWorkoutHistory, getWorkoutList } from "../actions/info/info.actions";
 import { WorkoutSnapshot } from "../models/workout-snapshot";
 import { Workout } from "../models/workout";
 import { WorkoutType } from "../models/workout-type";
 import { ExerciseType } from "../models/exercise-type";
-import { NavComponent } from "./navs/nav.component";
 import ViewWorkout from "./view-workout";
-import {
-  getUserExerciseList,
-  getExerciseList
-} from "../actions/info/info.actions";
-/**
- * This is a shell component, don't impliment this!
- * Copy and past the text into new components.
- */
+import { getUserExerciseList, getExerciseList } from "../actions/info/info.actions";
+
 interface IProps extends IState {
   viewWorkoutId: number;
   userId: number;
@@ -81,7 +71,6 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
     );
     return (
       <div>
-        <NavComponent />
         <table className="table">
           <thead>
             <tr>

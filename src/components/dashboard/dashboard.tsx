@@ -1,23 +1,21 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { IState } from "../../reducers";
-import {
-  getExerciseList,
-  getWorkoutList,
-  getWorkoutHistory
-} from "../../actions/info/info.actions";
+import { getExerciseList, getWorkoutList, getWorkoutHistory } from "../../actions/info/info.actions";
 // import { HomeNavComponent } from "../navs/home-nav.component";
 // import ViewWorkout from "../view-workout";
 import { WorkoutSnapshot } from "../../models/workout-snapshot";
 import { WorkoutType } from "../../models/workout-type";
 import { ExerciseType } from "../../models/exercise-type";
 import ViewWorkoutHistory from "../view-workout-history";
+import NavComponent from "../navs/nav.component";
+import {RouteComponentProps} from "react-router";
 // import NewWorkout from "../new-workout";
 /**
  * Actually format this a bit, have it display some info.
  * Maybe some user info and some info about the most recent workout
  */
-interface IProps {
+interface IProps extends RouteComponentProps<{}>{
   userId: number;
   workoutHistoryCalled: boolean;
   workoutList: WorkoutType[];
@@ -52,7 +50,8 @@ export class Dashboard extends React.Component<IProps, any> {
     } else {
       return (
         <div>
-          <ViewWorkoutHistory />
+          <NavComponent history={this.props.history}/>
+          <ViewWorkoutHistory/>
         </div>
       );
     }
