@@ -55,6 +55,16 @@ export const userReducer = (state: IUserState = initialState, action: any) => {
         username: action.payload.username,
         weight: action.payload.weight
       };
+      case registerUserTypes.UPDATE_USER:
+        return {
+            ...state,
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
+            email: action.payload.email,
+            height: action.payload.height,
+            weight: action.payload.weight,
+        }
+
     case registerUserTypes.SUBMIT_REGISTRATION:
       return {
         ...state,

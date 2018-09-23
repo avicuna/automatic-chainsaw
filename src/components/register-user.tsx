@@ -34,6 +34,7 @@ export class RegisterUser extends React.Component<IProps, any> {
     this.updateRegister = this.updateRegister.bind(this);
     this.registerUser = this.registerUser.bind(this);
   }
+
   public registerUser(e: any) {
     if (this.props.password === this.props.passwordCheck) {
       const info: IUserInfo = {

@@ -19,14 +19,14 @@ export interface IUserInfo {
 }
 
 export interface IUpdateInfo {
-    username: string;
-    email: string;
+    accountNumber: number;
     firstName: string;
     lastName: string;
+    email: string;
     height: number;
     weight: number;
-    gender: string;
 }
+
 
 /**
  * Similar to the updateLogin function, this is used to,
@@ -47,6 +47,19 @@ export const updateUserRegister = (info: IUserInfo) => {
     },
     type: registerUserTypes.UPDATE_USER_REGISTER
   };
+};
+
+export const updateUser = (info: IUpdateInfo) => {
+    return {
+        payload: {
+            email: info.email,
+            firstName: info.firstName,
+            height: info.height,
+            lastName: info.lastName,
+            weight: info.weight
+        },
+        type: registerUserTypes.UPDATE_USER
+    };
 };
 
 /**
@@ -87,4 +100,31 @@ export const registerUser = (info: IUserInfo) => (dispatch: any) => {
     .catch((err: any) => {
       dispatch(updateErrorMessage("Something went terribly wrong"));
     });
+};
+
+export const update = (info: IUpdateInfo) => (dispatch: any) => {
+    const req = {
+        id: info.accountNumber,
+        email: info.email,
+        firstname: info.firstName,
+        lastname: info.lastName,
+        height: info.height,
+        weight: info.weight
+    };
+
+    fetch("http://localhost:6969/users", {
+        body: JSON.stringify(req),
+        headers: { "Content-Type": "application/json" },
+        method: "PATCH"
+    })
+        .then((resp: any) => {
+            if(resp.status === 202){
+                return resp;
+            }
+            dispatch(updateErrorMessage("Unable to update information"));
+        })
+        .catch((err: any) => {
+            dispatch(updateErrorMessage("Something went terribly wrong"));
+        });
+
 };
