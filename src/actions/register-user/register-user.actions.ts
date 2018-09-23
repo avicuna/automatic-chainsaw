@@ -55,7 +55,7 @@ export const registerUser = (info: IUserInfo) => (dispatch: any) => {
     username: info.username,
     weight: info.weight
   };
-  fetch("http://localhost:8080/users", {
+  fetch("http://localhost:6969/users", {
     body: JSON.stringify(req),
     headers: { "Content-Type": "application/json" },
     method: "POST"
