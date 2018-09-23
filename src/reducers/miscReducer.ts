@@ -15,6 +15,11 @@ const initialState: IMiscState = {
 };
 export const miscReducer = (state: IMiscState = initialState, action: any) => {
   switch (action.type) {
+    case miscTypes.CHANGE_HISTORY_PAGE:
+      return {
+        ...state,
+        historyPage: action.payload.historyPage
+      };
     case infoTypes.GET_WORKOUT_HISTORY:
       return {
         ...state,

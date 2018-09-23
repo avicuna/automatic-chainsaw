@@ -1,13 +1,20 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { IState } from "../reducers";
-import { getWorkoutHistory, getWorkoutList } from "../actions/info/info.actions";
+import {
+  getWorkoutHistory,
+  getWorkoutList
+} from "../actions/info/info.actions";
 import { WorkoutSnapshot } from "../models/workout-snapshot";
 import { Workout } from "../models/workout";
 import { WorkoutType } from "../models/workout-type";
 import { ExerciseType } from "../models/exercise-type";
 import ViewWorkout from "./view-workout";
-import { getUserExerciseList, getExerciseList } from "../actions/info/info.actions";
+import { changeHistoryPage } from "../actions/misc/misc.actions";
+import {
+  getUserExerciseList,
+  getExerciseList
+} from "../actions/info/info.actions";
 
 interface IProps extends IState {
   viewWorkoutId: number;
@@ -17,7 +24,9 @@ interface IProps extends IState {
   workoutList: WorkoutType[];
   exerciseList: ExerciseType[];
   historyPage: number;
+
   getWorkoutHistory: (userId: number, list: WorkoutType[]) => any;
+
   getWorkoutList: (userId: number) => any;
   getUserExerciseList: (
     id: number,
@@ -25,12 +34,26 @@ interface IProps extends IState {
     viewWorkout: Workout
   ) => any;
   getExerciseList: () => any;
+  changeHistoryPage: (
+    page: number,
+    type: string,
+    history: WorkoutSnapshot[]
+  ) => any;
 }
 
 class ViewWorkoutHistory extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
     this.chooseRow = this.chooseRow.bind(this);
+    this.changeHistoryPage = this.changeHistoryPage.bind(this);
+  }
+  public changeHistoryPage(e: any) {
+    e.preventDefault();
+    this.props.changeHistoryPage(
+      this.props.historyPage,
+      e.target.id,
+      this.props.workoutHistory
+    );
   }
   public chooseRow(e: any) {
     const snapshot =
@@ -99,7 +122,14 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
           </thead>
           <tbody>{workoutEntries}</tbody>
         </table>
-        {/* <span><button onClick = {this.push>></button></span> */}
+
+        <span>
+          <button id="fst" onClick={this.changeHistoryPage}>{`<<`}</button>
+          <button id="bwd" onClick={this.changeHistoryPage}>{`<`}</button>
+          <button id="fwd" onClick={this.changeHistoryPage}>{`>`}</button>
+          <button id="lst" onClick={this.changeHistoryPage}>{`>>`}</button>
+        </span>
+
       </div>
     );
   }
@@ -119,7 +149,8 @@ const mapDispatchToProps = {
   getWorkoutList,
   getWorkoutHistory,
   getUserExerciseList,
-  getExerciseList
+  getExerciseList,
+  changeHistoryPage
 };
 
 export default connect(
