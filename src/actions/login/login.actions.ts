@@ -45,47 +45,43 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
   })
     .then((resp: any) => {
       if (resp.status === 200) {
-          dispatch(updateErrorMessage(``));
-          dispatch({
-              payload: {
-                  loginSuccess: true
-              },
+        dispatch(updateErrorMessage(``));
+        dispatch({
+          payload: {
+            loginSuccess: true
+          },
           type: loginTypes.UPDATE_LOGIN_SUCCESS
-          })
+        });
         return resp;
-      }
-      else if (resp.status === 404) {
+      } else if (resp.status === 404) {
         dispatch(updateErrorMessage(`Username or password are incorrect.`));
-          return;
-      }
-      else if (resp.status === 500) {
+        return;
+      } else if (resp.status === 500) {
         dispatch(
           updateErrorMessage(`Something went pretty wrong${resp.status}`)
         );
         return;
-      }
-      else {
+      } else {
         dispatch(
           updateErrorMessage("it sent but we did something....." + resp.status)
-
         );
-      return;
+        return;
       }
     })
     .then((resp: any) => {
-        if (resp === null || resp === undefined){
-            return;
-        }
+      if (resp === null || resp === undefined) {
+        return;
+      }
       const newresp = resp.json();
       return newresp;
     })
     .then((resp: any) => {
-        if (resp === null || resp === undefined){
-            return;
-        }
+      if (resp === null || resp === undefined) {
+        return;
+      }
       dispatch({
         payload: {
-          accountNumber: resp.id,
+          accountNumber: +resp.id,
           email: resp.email,
           firstName: resp.firstname,
           gender: resp.gender,

@@ -24,22 +24,21 @@ interface IProps {
   workoutHistory: WorkoutSnapshot[];
   exerciseList: ExerciseType[];
   getExerciseList: () => any;
-  getWorkoutList: (userId: number) => any;
+  getWorkoutList: () => any;
   getWorkoutHistory: (userId: number, workoutList: WorkoutType[]) => any;
 }
 
 export class Dashboard extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
-    this.getWork = this.getWork.bind(this);
   }
-  public getWork(e: any) {
-    this.props.getWorkoutHistory(this.props.userId, this.props.workoutList);
-  }
+
   public componentDidMount() {
     if (this.props.exerciseList[1] === undefined) {
       this.props.getExerciseList();
-      this.props.getWorkoutList(this.props.userId);
+    }
+    if (this.props.workoutList[1] === undefined) {
+      this.props.getWorkoutList();
     }
   }
   public render() {
@@ -47,13 +46,16 @@ export class Dashboard extends React.Component<IProps, any> {
       this.props.workoutHistoryCalled === false &&
       this.props.workoutList[1] !== undefined
     ) {
+      window.console.log("Getting history");
       this.props.getWorkoutHistory(this.props.userId, this.props.workoutList);
+      return <div>Loading</div>;
+    } else {
+      return (
+        <div>
+          <ViewWorkoutHistory />
+        </div>
+      );
     }
-    return (
-      <div>
-        <ViewWorkoutHistory />
-      </div>
-    );
   }
 }
 const mapStateToProps = (state: IState) => {

@@ -29,9 +29,10 @@ export const userReducer = (state: IUserState = initialState, action: any) => {
       };
 
     case loginTypes.SUBMIT_LOGIN:
+      window.console.log(+action.payload.accountNumber);
       return {
         ...state,
-        accountNumber: action.payload.accountNumber,
+        accountNumber: +action.payload.accountNumber,
         email: action.payload.email,
         firstName: action.payload.firstName,
         gender: action.payload.gender,
