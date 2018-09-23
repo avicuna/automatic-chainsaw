@@ -18,6 +18,16 @@ export interface IUserInfo {
   gender: string;
 }
 
+export interface IUpdateInfo {
+    username: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    height: number;
+    weight: number;
+    gender: string;
+}
+
 /**
  * Similar to the updateLogin function, this is used to,
  * update info on the account registration screen.
