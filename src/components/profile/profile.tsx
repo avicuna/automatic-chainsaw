@@ -33,7 +33,7 @@ export class Profile extends React.Component<IProps, any> {
     // const pass = "*".repeat(this.props.password.length);
     return (
       <div>
-        <NavComponent />
+        <NavComponent history={this.props.history}/>
         <br />
         <br />
         <br />
