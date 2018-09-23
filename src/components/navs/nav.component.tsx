@@ -1,8 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import logo from "../../logo.svg";
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse,
-        NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from "mdbreact";
+        NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, Fa} from "mdbreact";
 import { IState } from "../../reducers";
 import { RouteComponentProps } from 'react-router';
 import { logoutUser } from "../../actions/logout/logout.actions";
@@ -10,8 +9,6 @@ import { clearSuccess } from "../../actions/misc/misc.actions";
 
 interface IProps extends RouteComponentProps<{}> {
   userName: string,
-  firstName: string,
-  lastName: string,
   logoutUser: () => any
   clearSuccess: () => any
 }
@@ -44,7 +41,7 @@ export class NavComponent extends React.Component<IProps, any> {
     return (
       <Navbar dark color="unique-color" expand="md" scrolling>
         <NavbarBrand>
-          <img className="img-adjust-position rev-logo" src={logo} alt="FT" />
+            <i className="rev-logo fa fa-pied-piper" />
         </NavbarBrand>
         {!this.state.isWideEnough && <NavbarToggler onClick={this.onClick} />}
         <Collapse isOpen={this.state.collapse} navbar>
@@ -57,23 +54,17 @@ export class NavComponent extends React.Component<IProps, any> {
             </NavItem>
           </NavbarNav>
           <NavbarNav right>
-            {/*<NavItem>*/}
-              {/*<NavLink to="/profile">Profile</NavLink>*/}
-            {/*</NavItem>*/}
-              <Dropdown>
-                  <DropdownToggle caret color="primary">
-                      Material dropdown
-                  </DropdownToggle>
-                  <DropdownMenu>
-                      <DropdownItem href="#">Action</DropdownItem>
-                      <DropdownItem href="#">Another Action</DropdownItem>
-                      <DropdownItem href="#">Something else here</DropdownItem>
-                      <DropdownItem href="#">Something else here</DropdownItem>
-                  </DropdownMenu>
-              </Dropdown>
-            <NavItem>
-               <NavLink to="" onClick={this.logout}>Log Out</NavLink>
-            </NavItem>
+              <div id="user">
+                  <Dropdown>
+                      <DropdownToggle caret color="mdb-color" size="sm">
+                          {this.props.userName}
+                      </DropdownToggle>
+                      <DropdownMenu>
+                          <NavLink to="/profile">Profile</NavLink>
+                          <NavLink to="" onClick={this.logout}>Log Out <Fa icon="sign-out"/></NavLink>
+                      </DropdownMenu>
+                  </Dropdown>
+              </div>
           </NavbarNav>
         </Collapse>
       </Navbar>
@@ -83,7 +74,7 @@ export class NavComponent extends React.Component<IProps, any> {
 
 const mapStateToProps = (state: IState) => {
   return {
-      userName: state.user.firstName
+      userName: state.user.username
   }
 };
 
