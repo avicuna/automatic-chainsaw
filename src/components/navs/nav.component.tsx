@@ -1,7 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import logo from "../../logo.svg";
-import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink } from "mdbreact";
+import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse,
+        NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from "mdbreact";
 import { IState } from "../../reducers";
 import { RouteComponentProps } from 'react-router';
 import { logoutUser } from "../../actions/logout/logout.actions";
@@ -9,6 +10,8 @@ import { clearSuccess } from "../../actions/misc/misc.actions";
 
 interface IProps extends RouteComponentProps<{}> {
   userName: string,
+  firstName: string,
+  lastName: string,
   logoutUser: () => any
   clearSuccess: () => any
 }
@@ -54,9 +57,20 @@ export class NavComponent extends React.Component<IProps, any> {
             </NavItem>
           </NavbarNav>
           <NavbarNav right>
-            <NavItem>
-              <NavLink to="/profile">Profile</NavLink>
-            </NavItem>
+            {/*<NavItem>*/}
+              {/*<NavLink to="/profile">Profile</NavLink>*/}
+            {/*</NavItem>*/}
+              <Dropdown>
+                  <DropdownToggle caret color="primary">
+                      Material dropdown
+                  </DropdownToggle>
+                  <DropdownMenu>
+                      <DropdownItem href="#">Action</DropdownItem>
+                      <DropdownItem href="#">Another Action</DropdownItem>
+                      <DropdownItem href="#">Something else here</DropdownItem>
+                      <DropdownItem href="#">Something else here</DropdownItem>
+                  </DropdownMenu>
+              </Dropdown>
             <NavItem>
                <NavLink to="" onClick={this.logout}>Log Out</NavLink>
             </NavItem>
