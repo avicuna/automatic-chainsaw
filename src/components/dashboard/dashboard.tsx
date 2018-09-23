@@ -12,6 +12,7 @@ import { WorkoutType } from "../../models/workout-type";
 import { ExerciseType } from "../../models/exercise-type";
 import { RouteComponentProps } from "../../../node_modules/@types/react-router";
 import ViewWorkout from "../view-workout";
+import { changeWeight, submitWeight } from "../../actions/weight/weight.action";
 
 interface IProps extends RouteComponentProps<{}> {
   userId: number;
@@ -21,6 +22,9 @@ interface IProps extends RouteComponentProps<{}> {
   exerciseList: ExerciseType[];
   firstName: string;
   lastName: string;
+  weight: number;
+  submitWeight: (userId: number, weight: number) => any;
+  changeWeight: (weight: number) => any;
   getExerciseList: () => any;
   getWorkoutList: () => any;
   getWorkoutHistory: (userId: number, workoutList: WorkoutType[]) => any;
@@ -29,8 +33,15 @@ interface IProps extends RouteComponentProps<{}> {
 export class Dashboard extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
+    this.changeWeight = this.changeWeight.bind(this);
+    this.submitWeight = this.submitWeight.bind(this);
   }
-
+  public changeWeight(e: any) {
+    this.props.changeWeight(e.target.value);
+  }
+  public submitWeight(e: any) {
+    this.props.submitWeight(this.props.userId, this.props.weight);
+  }
   public componentDidMount() {
     if (this.props.exerciseList[1] === undefined) {
       this.props.getExerciseList();
@@ -40,12 +51,14 @@ export class Dashboard extends React.Component<IProps, any> {
     }
   }
   public render() {
+    console.log(this.props.workoutHistoryCalled);
     if (
       this.props.workoutHistoryCalled === false &&
       this.props.workoutList[1] !== undefined
     ) {
-      window.console.log("Getting history");
       this.props.getWorkoutHistory(this.props.userId, this.props.workoutList);
+      return <div>Loading</div>;
+    } else if (this.props.workoutHistoryCalled === false) {
       return <div>Loading</div>;
     } else {
       return (
@@ -53,9 +66,13 @@ export class Dashboard extends React.Component<IProps, any> {
           <NavComponent history={this.props.history} />
 
           <h4>
-            HWelcome back, {this.props.firstName} {this.props.lastName}. Ready
-            to SWOLE?
+            Welcome back, {this.props.firstName} {this.props.lastName}. Has your
+            weight changed?
           </h4>
+          <span>
+            <input value={this.props.weight} onChange={this.changeWeight} />
+            <button onClick={this.submitWeight}>UpdateWeight</button>
+          </span>
           <ViewWorkout history={this.props.history} />
         </div>
       );
@@ -69,14 +86,17 @@ const mapStateToProps = (state: IState) => {
     workoutList: state.info.workoutList,
     exerciseList: state.info.exerciseList,
     firstName: state.user.firstName,
-    lastName: state.user.lastName
+    lastName: state.user.lastName,
+    weight: state.user.weight
   };
 };
 
 const mapDispatchToProps = {
   getExerciseList,
   getWorkoutList,
-  getWorkoutHistory
+  getWorkoutHistory,
+  changeWeight,
+  submitWeight
 };
 
 export default connect(
