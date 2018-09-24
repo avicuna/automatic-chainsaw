@@ -45,14 +45,16 @@ export class Dashboard extends React.Component<IProps, any> {
     this.props.submitWeight(this.props.userId, this.props.weight);
   }
   public loading() {
-      return <div id="loading">
-          <Fa icon="refresh" spin size="3x" fixed/>
-          <span className="sr-only">Loading...</span>
-      </div>;
+    return (
+      <div id="loading">
+        <Fa icon="refresh" spin size="3x" fixed />
+        <span className="sr-only">Loading...</span>
+      </div>
+    );
   }
   public componentDidMount() {
-      setTimeout(this.loading, 2000);
-      if (this.props.exerciseList[1] === undefined) {
+    setTimeout(this.loading, 2000);
+    if (this.props.exerciseList[1] === undefined) {
       this.props.getExerciseList();
     }
     if (this.props.workoutList[1] === undefined) {
@@ -65,27 +67,31 @@ export class Dashboard extends React.Component<IProps, any> {
       this.props.workoutList[1] !== undefined
     ) {
       this.props.getWorkoutHistory(this.props.userId, this.props.workoutList);
-      return <div id="loading">
-          <Fa icon="refresh" spin size="3x" fixed/>
+      return (
+        <div id="loading">
+          <Fa icon="refresh" spin size="3x" fixed />
           <span className="sr-only">Loading...</span>
-      </div>;
+        </div>
+      );
     } else if (this.props.workoutHistoryCalled === false) {
-      return <div id="loading">
-            <Fa icon="refresh" spin size="3x" fixed/>
-        <span className="sr-only">Loading...</span>
-    </div>;
+      return (
+        <div id="loading">
+          <Fa icon="refresh" spin size="3x" fixed />
+          <span className="sr-only">Loading...</span>
+        </div>
+      );
     } else {
       return (
         <div>
           <NavComponent history={this.props.history} />
-          <br/>
-          <br/>
+          <br />
+          <br />
           <h2>
-            Welcome back, {this.props.firstName} {this.props.lastName}
+            Welcome back, {this.props.firstName} {this.props.lastName}.
           </h2>
-          <br/>
+          <br />
           <span>
-            <div className="weight-control align-items-center">
+            <div className="weight-change align-items-center">
               <div className="col-auto">
                 <div className="input-group">
                   <div className="input-group-prepend">
@@ -101,12 +107,13 @@ export class Dashboard extends React.Component<IProps, any> {
                   />
                 </div>
               </div>
-              <button onClick={this.submitWeight}>Save Change</button>
+              <button className="btn-primary" onClick={this.submitWeight}>
+                Save Change
+              </button>
             </div>
-
           </span>
-          <br/>
-          <br/>
+          <br />
+          <br />
           <h3>Most Recent Workout</h3>
           <ViewWorkout history={this.props.history} />
         </div>

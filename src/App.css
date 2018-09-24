@@ -57,7 +57,6 @@ a .App-title {
   align-items: center;
 }
 
-<<<<<<< HEAD
 #sign-in-container {
   margin-top: 55px;
   margin-bottom: 100px;
@@ -73,24 +72,6 @@ a .App-title {
   width: 35%;
   padding: 3%;
 }
-=======
-
-margin-top: 55px;
-margin-bottom: 100px;
-border: 1px solid black;
-width: 35%;
-padding: 3%;
-}
-
-#sign-up-container {
-    margin-top: 55px;
-    margin-bottom: 100px;
-    border: 1px solid black;
-    width: 35%;
-    padding: 3%;
- }
-
->>>>>>> b99173661593af34e37e508e421cdc7d0482ef08
 
 #home-header {
   margin-top: 20px;
@@ -111,7 +92,6 @@ padding: 3%;
 }
 
 #user {
-<<<<<<< HEAD
   margin-right: 30px;
 }
 
@@ -120,18 +100,6 @@ padding: 3%;
   width: 50%;
   padding: 200px 0;
   text-align: center;
-=======
-
-    margin-right: 30px;
-}
-
-#loading {
-    margin: auto;
-    width: 50%;
-    padding: 200px 0;
-    text-align: center;
-
->>>>>>> b99173661593af34e37e508e421cdc7d0482ef08
 }
 
 #error-message {
@@ -258,15 +226,8 @@ padding: 3%;
 /*****************************
 Dashboard
 *****************************/
-<<<<<<< HEAD
 h2 {
-  margin: 3%;
-}
-=======
-
->>>>>>> b99173661593af34e37e508e421cdc7d0482ef08
-h4 {
-  margin: 1.2%;
+  margin: 2.3%;
 }
 h3 {
   text-align: center;
