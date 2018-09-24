@@ -4,7 +4,8 @@ import { IState } from "../../reducers";
 import {
   getExerciseList,
   getWorkoutList,
-  getWorkoutHistory
+  getWorkoutHistory,
+  zeroViewWorkout
 } from "../../actions/info/info.actions";
 import NavComponent from "../navs/nav.component";
 import { WorkoutSnapshot } from "../../models/workout-snapshot";
@@ -17,6 +18,7 @@ import { Fa } from "mdbreact";
 
 interface IProps extends RouteComponentProps<{}> {
   userId: number;
+  viewWorkoutId: number;
   workoutHistoryCalled: boolean;
   workoutList: WorkoutType[];
   workoutHistory: WorkoutSnapshot[];
@@ -24,6 +26,7 @@ interface IProps extends RouteComponentProps<{}> {
   firstName: string;
   lastName: string;
   weight: number;
+  zeroViewWorkout: () => any;
   submitWeight: (userId: number, weight: number) => any;
   changeWeight: (weight: number) => any;
   getExerciseList: () => any;
@@ -53,7 +56,7 @@ export class Dashboard extends React.Component<IProps, any> {
     );
   }
   public componentDidMount() {
-    setTimeout(this.loading, 2000);
+    this.props.zeroViewWorkout();
     if (this.props.exerciseList[1] === undefined) {
       this.props.getExerciseList();
     }
@@ -62,6 +65,8 @@ export class Dashboard extends React.Component<IProps, any> {
     }
   }
   public render() {
+    console.log("viewWorkoutId");
+    console.log(this.props.viewWorkoutId);
     if (
       this.props.workoutHistoryCalled === false &&
       this.props.workoutList[1] !== undefined
@@ -129,7 +134,8 @@ const mapStateToProps = (state: IState) => {
     exerciseList: state.info.exerciseList,
     firstName: state.user.firstName,
     lastName: state.user.lastName,
-    weight: state.user.weight
+    weight: state.user.weight,
+    viewWorkoutId: state.info.viewWorkoutId
   };
 };
 
@@ -138,7 +144,8 @@ const mapDispatchToProps = {
   getWorkoutList,
   getWorkoutHistory,
   changeWeight,
-  submitWeight
+  submitWeight,
+  zeroViewWorkout
 };
 
 export default connect(
