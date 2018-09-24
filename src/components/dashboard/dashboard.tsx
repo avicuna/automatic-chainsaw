@@ -13,6 +13,7 @@ import { ExerciseType } from "../../models/exercise-type";
 import { RouteComponentProps } from "../../../node_modules/@types/react-router";
 import ViewWorkout from "../view-workout";
 import { changeWeight, submitWeight } from "../../actions/weight/weight.action";
+import { Fa } from "mdbreact";
 
 interface IProps extends RouteComponentProps<{}> {
   userId: number;
@@ -35,6 +36,7 @@ export class Dashboard extends React.Component<IProps, any> {
     super(props);
     this.changeWeight = this.changeWeight.bind(this);
     this.submitWeight = this.submitWeight.bind(this);
+    this.loading = this.loading.bind(this);
   }
   public changeWeight(e: any) {
     this.props.changeWeight(e.target.value);
@@ -42,8 +44,15 @@ export class Dashboard extends React.Component<IProps, any> {
   public submitWeight(e: any) {
     this.props.submitWeight(this.props.userId, this.props.weight);
   }
+  public loading() {
+      return <div id="loading">
+          <Fa icon="refresh" spin size="3x" fixed/>
+          <span className="sr-only">Loading...</span>
+      </div>;
+  }
   public componentDidMount() {
-    if (this.props.exerciseList[1] === undefined) {
+      setTimeout(this.loading, 3000);
+      if (this.props.exerciseList[1] === undefined) {
       this.props.getExerciseList();
     }
     if (this.props.workoutList[1] === undefined) {
@@ -51,23 +60,30 @@ export class Dashboard extends React.Component<IProps, any> {
     }
   }
   public render() {
-    console.log(this.props.workoutHistoryCalled);
     if (
       this.props.workoutHistoryCalled === false &&
       this.props.workoutList[1] !== undefined
     ) {
       this.props.getWorkoutHistory(this.props.userId, this.props.workoutList);
-      return <div>Loading</div>;
+      return <div id="loading">
+          <Fa icon="refresh" spin size="3x" fixed/>
+          <span className="sr-only">Loading...</span>
+      </div>;
     } else if (this.props.workoutHistoryCalled === false) {
-      return <div>Loading</div>;
+      return <div id="loading">
+            <Fa icon="refresh" spin size="3x" fixed/>
+        <span className="sr-only">Loading...</span>
+    </div>;
     } else {
       return (
         <div>
           <NavComponent history={this.props.history} />
-
-          <h4>
-            Welcome back, {this.props.firstName} {this.props.lastName}.
-          </h4>
+          <br/>
+          <br/>
+          <h2>
+            Welcome back, {this.props.firstName} {this.props.lastName}
+          </h2>
+          <br/>
           <span>
             <div className="input-group">
               <div className="input-group-prepend">
@@ -82,9 +98,12 @@ export class Dashboard extends React.Component<IProps, any> {
                 onChange={this.changeWeight}
               />
             </div>
+            <br/>
             <button onClick={this.submitWeight}>Save Change</button>
           </span>
-          <h5>Most Recent Workout</h5>
+          <br/>
+          <br/>
+          <h3>Most Recent Workout</h3>
           <ViewWorkout history={this.props.history} />
         </div>
       );

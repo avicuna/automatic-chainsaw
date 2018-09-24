@@ -93,6 +93,13 @@ margin-top: 20px;
     margin-right: 15px;
 }
 
+#loading {
+    margin: auto;
+    width: 50%;
+    padding: 200px 0;
+    text-align: center;
+}
+
 #error-message {
   color: red;
 }

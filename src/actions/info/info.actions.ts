@@ -106,6 +106,7 @@ export const getExerciseList = () => (dispatch: any) => {
   })
     .then((resp: any) => {
       if (resp.status === 200) {
+        setInterval({}, 1000);
         return resp.json();
       } else if (resp.status === 403) {
         dispatch(
