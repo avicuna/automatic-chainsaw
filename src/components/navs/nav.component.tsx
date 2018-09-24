@@ -39,13 +39,16 @@ export class NavComponent extends React.Component<IProps, any> {
 
   public render() {
     return (
-      <Navbar dark color="unique-color" expand="md" scrolling>
+      <Navbar dark color="primary-color" expand="md" scrolling>
         <NavbarBrand>
             <i className="rev-logo fa fa-pied-piper" />
         </NavbarBrand>
         {!this.state.isWideEnough && <NavbarToggler onClick={this.onClick} />}
         <Collapse isOpen={this.state.collapse} navbar>
           <NavbarNav left>
+              <NavItem>
+                  <NavLink to="/dashboard">Dashboard</NavLink>
+              </NavItem>
             <NavItem>
               <NavLink to="/view-workout-history">Workout History</NavLink>
             </NavItem>

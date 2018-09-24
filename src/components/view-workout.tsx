@@ -84,7 +84,7 @@ class ViewWorkout extends React.Component<IProps, any> {
               {" "}
               You haven't tracked any workouts with us before.
               <a onClick={this.startWorkout}>
-                Click here to start your first.
+                 Click here to start your first.
               </a>{" "}
             </span>
           </h5>

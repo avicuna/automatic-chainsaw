@@ -1,5 +1,4 @@
 import * as React from "react";
-// import logo from '../../logo.svg';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Fa} from "mdbreact";
 
 export class HomeNavComponent extends React.Component<any, any> {
