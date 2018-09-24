@@ -1,6 +1,7 @@
 import { registerUserTypes } from "./register-user.types";
 import { updateErrorMessage } from "../misc/misc.actions";
 import { submitLogin } from "../login/login.actions";
+import {environment} from "../../environment";
 
 /** This interface is used because accountnumber isn't needed, \
  * and a checkpassword is needed for user registration. It is exported
@@ -78,7 +79,7 @@ export const registerUser = (info: IUserInfo) => (dispatch: any) => {
     username: info.username,
     weight: info.weight
   };
-  fetch("http://localhost:6969/users", {
+  fetch(environment.context + "users", {
     body: JSON.stringify(req),
     headers: { "Content-Type": "application/json" },
     method: "POST"
@@ -112,7 +113,7 @@ export const update = (info: IUpdateInfo) => (dispatch: any) => {
         weight: info.weight
     };
 
-    fetch("http://localhost:6969/users", {
+    fetch(environment.context + "users", {
         body: JSON.stringify(req),
         headers: { "Content-Type": "application/json" },
         method: "PATCH"

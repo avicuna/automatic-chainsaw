@@ -3,6 +3,7 @@ import { Workout } from "../../models/workout";
 import { WorkoutType } from "../../models/workout-type";
 import { Exercise } from "../../models/exercise";
 import { updateErrorMessage } from "../misc/misc.actions";
+import {environment} from "../../environment";
 
 export const updateWorkoutType = (
   workout: Workout,
@@ -68,42 +69,53 @@ export const enterExercise = (exercise: Exercise, workout: Workout) => (
 export const submitWorkout = (userID: number, workout: Workout) => (
   dispatch: any
 ) => {
-  if (workout.type === null) {
-    dispatch(updateErrorMessage("You must choose a workout type"));
-  } else if (workout.exercises === []) {
-    dispatch(updateErrorMessage("Choose at least one exercise."));
-  } else {
-    fetch("http://localhost:6969/users/workout/create", {
-      body: JSON.stringify({
-        userId: userID,
-        workoutId: workout.type.id
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-origin": "*"
-      },
-      method: "POST"
+  fetch(environment.context + "users/workout/create", {
+    body: JSON.stringify({
+      userId: userID,
+      workoutId: workout.type.id
+    }),
+    headers: {
+      "Content-Type": "application/json",
+      "access-control-allow-origin": "*"
+    },
+    method: "POST"
+  })
+    .then((resp: any) => {
+      if (resp.status === 200) {
+        return resp.json();
+      } else if (resp.status === 403) {
+        dispatch(
+          updateErrorMessage(`Something went pretty wrong${resp.status}`)
+        );
+      } else if (resp.status === 401) {
+        dispatch(updateErrorMessage(`Username or password were incoorect.`));
+      } else if (resp.status === 500) {
+        dispatch(
+          updateErrorMessage(`Something went pretty wrong${resp.status}`)
+        );
+      } else {
+        dispatch(
+          updateErrorMessage("it sent but we did something....." + resp.status)
+        );
+      }
     })
-      .then((resp: any) => {
-        if (resp.status === 200) {
-          return resp.json();
-        } else if (resp.status === 403) {
-          dispatch(
-            updateErrorMessage(`Something went pretty wrong${resp.status}`)
-          );
-        } else if (resp.status === 401) {
-          dispatch(updateErrorMessage(`Username or password were incoorect.`));
-        } else if (resp.status === 500) {
-          dispatch(
-            updateErrorMessage(`Something went pretty wrong${resp.status}`)
-          );
-        } else {
-          dispatch(
-            updateErrorMessage(
-              "it sent but we did something....." + resp.status
-            )
-          );
-        }
+    .then((workoutId: any) => {
+      const springExercises = workout.exercises.map((exercise: Exercise) => {
+        return {
+          userWorkoutId: workoutId,
+          exerciseId: exercise.id,
+          weight: exercise.weight,
+          reps: exercise.rep,
+          sets: exercise.set
+        };
+      });
+      fetch(environment.context + "users/workout/create/exercises", {
+        body: JSON.stringify(springExercises),
+        headers: {
+          "Content-Type": "application/json",
+          "access-control-allow-origin": "*"
+        },
+        method: "POST"
       })
       .then((workoutId: any) => {
         const springExercises = workout.exercises.map((exercise: Exercise) => {
