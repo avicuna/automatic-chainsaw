@@ -1,5 +1,6 @@
 import { loginTypes } from "./login.types";
 import { updateErrorMessage } from "../misc/misc.actions";
+import {environment} from "../../environment";
 
 // Simply updates the username and password on the login component
 export const changeUsernameAndPassword = (
@@ -38,7 +39,7 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
   //   status: 200
   // };
 
-  fetch("http://localhost:6969/users/login", {
+  fetch(environment.context + "users/login", {
     body: JSON.stringify({ username: logUsername, password: logPassword }),
     headers: { "Content-Type": "application/json" },
     method: "POST"

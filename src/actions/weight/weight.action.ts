@@ -1,5 +1,6 @@
 import { weightTypes } from "./weight.types";
 import { updateErrorMessage } from "../misc/misc.actions";
+import {environment} from "../../environment";
 
 export const changeWeight = (newWeight: number) => {
   return {
@@ -16,7 +17,7 @@ export const submitWeight = (userId: number, newWeight: number) => (
     id: userId,
     weight: newWeight
   };
-  fetch("http://localhost:6969/users", {
+  fetch(environment.context + "users", {
     body: JSON.stringify(req),
     headers: { "Content-Type": "application/json" },
     method: "PATCH"

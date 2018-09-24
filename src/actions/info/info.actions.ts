@@ -5,12 +5,14 @@ import { ExerciseType } from "../../models/exercise-type";
 import { WorkoutSnapshot } from "../../models/workout-snapshot";
 import { Workout } from "../../models/workout";
 import { Exercise } from "../../models/exercise";
+import {environment} from "../../environment";
+// import { environment } from '../../environment';
 
 export const getWorkoutHistory = (
   userId: number,
   workoutList: WorkoutType[]
 ) => (dispatch: any) => {
-  fetch(`http://localhost:6969/users/${userId}/workouts`, {
+  fetch(environment.context + `users/${userId}/workouts`, {
     headers: { "Content-Type": "application/json" },
     method: "GET"
   })
@@ -54,7 +56,7 @@ export const getWorkoutHistory = (
 };
 
 export const getWorkoutList = () => (dispatch: any) => {
-  fetch("http://localhost:6969/workout", {
+  fetch(environment.context + "workout", {
     headers: { "Content-Type": "application/json" },
     method: "GET"
   })
@@ -100,7 +102,7 @@ export const getWorkoutList = () => (dispatch: any) => {
 };
 
 export const getExerciseList = () => (dispatch: any) => {
-  fetch("http://localhost:6969/exercise", {
+  fetch(environment.context + "exercise", {
     headers: { "Content-Type": "application/json" },
     method: "GET"
   })
@@ -147,7 +149,7 @@ export const getUserExerciseList = (
   exerciseList: ExerciseType[],
   viewWorkout: Workout
 ) => (dispatch: any) => {
-  fetch(`http://localhost:6969/exercise-list/workout/${+workoutId}`, {
+  fetch(environment.context + `exercise-list/workout/${+workoutId}`, {
     headers: { "Content-Type": "application/json" },
     // mode: "no-cors",
     method: "GET"
