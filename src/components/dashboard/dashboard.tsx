@@ -51,7 +51,7 @@ export class Dashboard extends React.Component<IProps, any> {
       </div>;
   }
   public componentDidMount() {
-      setTimeout(this.loading, 3000);
+      setTimeout(this.loading, 2000);
       if (this.props.exerciseList[1] === undefined) {
       this.props.getExerciseList();
     }
