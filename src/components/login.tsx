@@ -57,7 +57,7 @@ export class Login extends React.Component<IProps, any> {
       <div>
         <Container id="sign-in-container">
           <Row>
-            <Col md="6">
+            <Col md="">
               <form>
                 <p className="h5 text-center mb-4">Log in</p>
                 <div className="grey-text">

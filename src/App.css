@@ -60,15 +60,19 @@ align-items: center;
 }
 
 #sign-in-container {
-margin-top: 100px;
+margin-top: 55px;
 margin-bottom: 100px;
-margin-left: 350px;
+border: 1px solid black;
+width: 35%;
+padding: 3%;
 }
 
 #sign-up-container {
-    margin-top: 100px;
+    margin-top: 55px;
     margin-bottom: 100px;
-    margin-left: 450px;
+    border: 1px solid black;
+    width: 35%;
+    padding: 3%;
  }
 
 #home-header {
