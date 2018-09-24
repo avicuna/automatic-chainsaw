@@ -3,6 +3,7 @@ import { miscTypes } from "../actions/misc/misc.types";
 import { registerUserTypes } from "../actions/register-user/register-user.types";
 import { infoTypes } from "../actions/info/info.types";
 import { loginTypes } from "../actions/login/login.types";
+import { workoutTypes } from "../actions/workout/workout.types";
 
 const initialState: IMiscState = {
   errorMessage: "",
@@ -15,6 +16,12 @@ const initialState: IMiscState = {
 };
 export const miscReducer = (state: IMiscState = initialState, action: any) => {
   switch (action.type) {
+    case workoutTypes.SUBMIT_WORKOUT:
+      return {
+        ...state,
+        exerciseTypeText: "",
+        workoutTypeText: ""
+      };
     case miscTypes.CHANGE_HISTORY_PAGE:
       return {
         ...state,

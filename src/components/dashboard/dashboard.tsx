@@ -85,21 +85,25 @@ export class Dashboard extends React.Component<IProps, any> {
           </h2>
           <br/>
           <span>
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text">Update Weight</span>
+            <div className="form-row align-items-center">
+              <div className="col-auto">
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">Update Weight</span>
+                  </div>
+                  <input
+                    type="number"
+                    className="form-control"
+                    aria-label="With textarea"
+                    id="weight"
+                    value={this.props.weight}
+                    onChange={this.changeWeight}
+                  />
+                </div>
               </div>
-              <input
-                type="number"
-                className="form-control"
-                aria-label="With textarea"
-                id="weight"
-                value={this.props.weight}
-                onChange={this.changeWeight}
-              />
+              <button onClick={this.submitWeight}>Save Change</button>
             </div>
-            <br/>
-            <button onClick={this.submitWeight}>Save Change</button>
+
           </span>
           <br/>
           <br/>
