@@ -95,10 +95,6 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
       });
     })
     .catch((err: any) => {
-      dispatch(
-        updateErrorMessage(
-          `Something went terribly wrong ${err} UN: ${logUsername} PW: ${logPassword}`
-        )
-      );
+      dispatch(updateErrorMessage(`Connection to the server is disrupted.`));
     });
 };
