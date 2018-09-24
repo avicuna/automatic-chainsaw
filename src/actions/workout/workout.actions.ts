@@ -3,6 +3,7 @@ import { Workout } from "../../models/workout";
 import { WorkoutType } from "../../models/workout-type";
 import { Exercise } from "../../models/exercise";
 import { updateErrorMessage } from "../misc/misc.actions";
+import {environment} from "../../environment";
 
 export const updateWorkoutType = (
   workout: Workout,
@@ -115,7 +116,7 @@ export const submitWorkout = (userID: number, workout: Workout) => (
             sets: exercise.set
           };
         });
-        fetch("http://localhost:6969/users/workout/create/exercises", {
+        fetch(environment.context + "users/workout/create/exercises", {
           body: JSON.stringify(springExercises),
           headers: {
             "Content-Type": "application/json",
