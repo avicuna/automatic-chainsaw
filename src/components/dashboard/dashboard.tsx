@@ -69,7 +69,7 @@ export class Dashboard extends React.Component<IProps, any> {
             Welcome back, {this.props.firstName} {this.props.lastName}.
           </h4>
           <span>
-            <div className="form-row align-items-center">
+            <div className="weight-control align-items-center">
               <div className="col-auto">
                 <div className="input-group">
                   <div className="input-group-prepend">
