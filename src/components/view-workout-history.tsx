@@ -16,6 +16,7 @@ import {
   getUserExerciseList,
   getExerciseList
 } from "../actions/info/info.actions";
+import NavComponent from "./navs/nav.component";
 
 interface IProps extends IState {
   viewWorkoutId: number;
@@ -114,7 +115,10 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
     }
     return (
       <div>
-        <table className="table">
+          <NavComponent/>
+          <br/>
+          <br/>
+          <table className="table">
           <thead>
             <tr>
               <th scope="col">Order</th>
