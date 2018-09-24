@@ -24,6 +24,8 @@ export const infoReducer = (state: IInfoState = initialState, action: any) => {
         workoutHistory: action.payload.workoutHistory
       };
     case infoTypes.ZERO_VIEW_WORKOUT:
+      console.log(state.viewWorkoutId);
+      console.log(action.payload.viewWorkoutId);
       return {
         ...state,
         viewWorkoutId: 0

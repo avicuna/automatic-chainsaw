@@ -5,7 +5,7 @@ import { ExerciseType } from "../../models/exercise-type";
 import { WorkoutSnapshot } from "../../models/workout-snapshot";
 import { Workout } from "../../models/workout";
 import { Exercise } from "../../models/exercise";
-import {environment} from "../../environment";
+import { environment } from "../../environment";
 // import { environment } from '../../environment';
 
 export const getWorkoutHistory = (
@@ -108,7 +108,6 @@ export const getExerciseList = () => (dispatch: any) => {
   })
     .then((resp: any) => {
       if (resp.status === 200) {
-        setInterval({}, 1000);
         return resp.json();
       } else if (resp.status === 403) {
         dispatch(
