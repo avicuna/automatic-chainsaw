@@ -20,8 +20,9 @@ import { getWorkoutList, getExerciseList } from "../actions/info/info.actions";
 import { ExerciseType } from "../models/exercise-type";
 import NavComponent from "./navs/nav.component";
 import { Table, TableBody, TableHead } from 'mdbreact';
+import {RouteComponentProps} from "react-router";
 
-interface IProps {
+interface IProps extends RouteComponentProps<{}> {
   exerciseList: ExerciseType[];
   exerciseTypeText: string;
   workoutTypeText: string;
@@ -287,7 +288,7 @@ class NewWorkout extends React.Component<IProps, any> {
 
     return (
       <div>
-        <NavComponent />
+        <NavComponent history={this.props.history}/>
         <h1 className="text-center create-workout-title">Create Workout</h1>
         <div className="dropdown text-center">
           <span>Choose Workout: </span>

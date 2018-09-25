@@ -18,8 +18,9 @@ import {
 } from "../actions/info/info.actions";
 import NavComponent from "./navs/nav.component";
 import { Table, TableBody, TableHead } from 'mdbreact';
+import {RouteComponentProps} from "react-router";
 
-interface IProps extends IState {
+interface IProps extends IState, RouteComponentProps<{}> {
   viewWorkoutId: number;
   userId: number;
   workoutHistory: WorkoutSnapshot[];
@@ -116,7 +117,7 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
     }
     return (
       <div>
-        <NavComponent />
+        <NavComponent history={this.props.history}/>
         <div className="workout-history-container ">
           <Table small hover bordered>
             <TableHead color="primary-color">
