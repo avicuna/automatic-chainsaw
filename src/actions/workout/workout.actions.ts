@@ -71,7 +71,7 @@ export const submitWorkout = (userID: number, workout: Workout) => (
 ) => {
   if (workout.type === null) {
     dispatch(updateErrorMessage("You must choose a workout type"));
-  } else if (workout.exercises === []) {
+  } else if (workout.exercises[0] === undefined) {
     dispatch(updateErrorMessage("Choose at least one exercise."));
   } else {
     fetch("http://localhost:6969/users/workout/create", {

@@ -17,6 +17,7 @@ import {
   getExerciseList
 } from "../actions/info/info.actions";
 import NavComponent from "./navs/nav.component";
+import { Table, TableBody, TableHead } from 'mdbreact';
 
 interface IProps extends IState {
   viewWorkoutId: number;
@@ -115,26 +116,27 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
     }
     return (
       <div>
-          <NavComponent/>
-          <br/>
-          <br/>
-          <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Order</th>
-              <th scope="col">Date</th>
-              <th scope="col">Type</th>
-            </tr>
-          </thead>
-          <tbody>{workoutEntries}</tbody>
-        </table>
-
-        <span>
-          <button id="fst" onClick={this.changeHistoryPage}>{`<<`}</button>
-          <button id="bwd" onClick={this.changeHistoryPage}>{`<`}</button>
-          <button id="fwd" onClick={this.changeHistoryPage}>{`>`}</button>
-          <button id="lst" onClick={this.changeHistoryPage}>{`>>`}</button>
-        </span>
+        <NavComponent />
+        <div className="workout-history-container ">
+          <Table small hover bordered>
+            <TableHead color="primary-color">
+              <tr>
+                <th>Order</th>
+                <th>Date</th>
+                <th>Type</th>
+              </tr>
+            </TableHead>
+            <TableBody>{workoutEntries}</TableBody>
+          </Table>
+        </div>
+        <div className="traverse-buttons">
+          <span>
+            <button id="fst" onClick={this.changeHistoryPage}>{`<<`}</button>
+            <button id="bwd" onClick={this.changeHistoryPage}>{`<`}</button>
+            <button id="fwd" onClick={this.changeHistoryPage}>{`>`}</button>
+            <button id="lst" onClick={this.changeHistoryPage}>{`>>`}</button>
+          </span>
+        </div>
       </div>
     );
   }

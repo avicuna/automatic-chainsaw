@@ -61,6 +61,7 @@ class NewWorkout extends React.Component<IProps, any> {
   public submit(e: any) {
     e.preventDefault();
     this.props.submitWorkout(this.props.userId, this.props.workout);
+    this.props.updateErrorMessage("");
   }
 
   public enterExercise(e: any) {
@@ -71,6 +72,7 @@ class NewWorkout extends React.Component<IProps, any> {
       this.props.currExercise.name !== ""
     ) {
       this.props.enterExercise(this.props.currExercise, this.props.workout);
+      this.props.updateErrorMessage("");
     } else {
       this.props.updateErrorMessage(
         "Make sure you selected an exercise type and filled in weight, set, and reps."

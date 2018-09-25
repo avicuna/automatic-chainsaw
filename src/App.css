@@ -121,6 +121,38 @@ a .App-title {
   border-radius: 5px;
   background-color: rgb(30, 143, 30);
 }
+
+/*****************************
+  View A Workout
+*****************************/
+#date-type {
+  margin: 20px;
+  text-align: left;
+}
+
+#title-card-exercise {
+  font-size: 125%;
+  text-align: center;
+}
+
+.specific-exercise {
+  width: 60%;
+  margin: auto;
+}
+
+/*****************************
+  Workout History
+*****************************/
+.workout-history-container {
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-top: 2%;
+}
+
+.traverse-buttons {
+  text-align: center;
+}
+
 /*****************************
   Create Workout & Exercises
 *****************************/
