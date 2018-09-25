@@ -23,7 +23,11 @@ interface IProps extends RouteComponentProps<{}> {
   registerUser: (info: IUserInfo) => any;
   updateErrorMessage: (message: string) => any;
 }
-
+/**
+ * @component
+ * This comonent is used to generate a new user,
+ * all the account information is used for generation.
+ */
 export class RegisterUser extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);

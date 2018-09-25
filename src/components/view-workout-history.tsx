@@ -26,7 +26,10 @@ interface IProps extends IState {
   workoutList: WorkoutType[];
   exerciseList: ExerciseType[];
   historyPage: number;
-
+/**
+ * @component
+ * A table which shows all of the user's previous workouts, and displays one's details when clicked on
+ */
   getWorkoutHistory: (userId: number, list: WorkoutType[]) => any;
   zeroViewWorkout: () => any;
   getWorkoutList: (userId: number) => any;
@@ -115,10 +118,10 @@ class ViewWorkoutHistory extends React.Component<IProps, any> {
     }
     return (
       <div>
-          <NavComponent/>
-          <br/>
-          <br/>
-          <table className="table">
+        <NavComponent />
+        <br />
+        <br />
+        <table className="table">
           <thead>
             <tr>
               <th scope="col">Order</th>

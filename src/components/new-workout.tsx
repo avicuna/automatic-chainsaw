@@ -19,8 +19,10 @@ import {
 import { getWorkoutList, getExerciseList } from "../actions/info/info.actions";
 import { ExerciseType } from "../models/exercise-type";
 import NavComponent from "./navs/nav.component";
-import { Table, TableBody, TableHead } from 'mdbreact';
-
+import { Table, TableBody, TableHead } from "mdbreact";
+/** This component allows user's to create and submit a new workout to the server.
+ * Many elements of the state are needed to generate this functionality.
+ */
 interface IProps {
   exerciseList: ExerciseType[];
   exerciseTypeText: string;
@@ -41,7 +43,9 @@ interface IProps {
   updateWorkoutType: (workout: Workout, workoutType: WorkoutType) => any;
   submitWorkout: (userId: number, workout: Workout) => any;
 }
-
+/** This component allows user's to create and submit a new workout to the server.
+ * Many elements of the state are needed to generate this functionality.
+ */
 class NewWorkout extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
@@ -190,7 +194,7 @@ class NewWorkout extends React.Component<IProps, any> {
           ) {
             if (
               this.props.exerciseTypeText.toLocaleLowerCase() ===
-              workType.name.toLocaleLowerCase() &&
+                workType.name.toLocaleLowerCase() &&
               this.props.workout.type !== workType
             ) {
               this.changeWorkoutType({ target: { id: workType.id } });
@@ -228,7 +232,7 @@ class NewWorkout extends React.Component<IProps, any> {
           ) {
             if (
               this.props.exerciseTypeText.toLocaleLowerCase() ===
-              exerType.name.toLocaleLowerCase() &&
+                exerType.name.toLocaleLowerCase() &&
               this.props.currExercise.name !== exerType.name
             ) {
               this.changeExerciseType({ target: { id: exerType.id } });
@@ -256,7 +260,16 @@ class NewWorkout extends React.Component<IProps, any> {
       </div>
     );
     let keyVal = 0;
-
+    const workTable = this.props.workout.type.exercises.map(
+      (exercise: ExerciseType) => {
+        return (
+          <tr key={exercise.id}>
+            <th scope="row"> {exercise.name}</th>
+            <th>{exercise.description}</th>
+          </tr>
+        );
+      }
+    );
     const exerciseTable = this.props.workout.exercises.map(
       (exercise: Exercise) => {
         return (
@@ -276,13 +289,13 @@ class NewWorkout extends React.Component<IProps, any> {
                 Remove
               </button>
             </th>
-
           </tr>
         );
         keyVal++;
       }
     );
-
+    console.log("asd");
+    console.log(this.props.workout.type);
     return (
       <div>
         <NavComponent />
@@ -307,7 +320,19 @@ class NewWorkout extends React.Component<IProps, any> {
             {workList}
           </div>
         </div>
-
+        <Table small hover>
+          <TableHead color="primary-color">
+            <tr>
+              <th scope="col">
+                <h5>Exercise</h5>
+              </th>
+              <th scope="col">
+                <h5>Description</h5>
+              </th>
+            </tr>
+          </TableHead>
+          <TableBody>{workTable}</TableBody>
+        </Table>
         <form className="form-inline">
           <label>Choose Exercise: </label>
           <div
@@ -324,10 +349,7 @@ class NewWorkout extends React.Component<IProps, any> {
               onChange={this.changeExerText}
             />
 
-            <div
-              className="dropdown-menu"
-              aria-labelledby="dropdownMenuButton"
-            >
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               {exerList}
             </div>
           </div>
@@ -364,7 +386,10 @@ class NewWorkout extends React.Component<IProps, any> {
               onChange={this.changeExercise}
             />
           </div>
-          <button className="btn btn-primary btn-sm" onClick={this.enterExercise}>
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={this.enterExercise}
+          >
             Enter Exercise
           </button>
         </form>
@@ -374,16 +399,22 @@ class NewWorkout extends React.Component<IProps, any> {
           <Table small hover>
             <TableHead color="primary-color">
               <tr>
-                <th scope="col"><h5>Exercise</h5></th>
-                <th scope="col"><h5>Weight</h5></th>
-                <th scope="col"><h5>Rep</h5></th>
-                <th scope="col"><h5>Set</h5></th>
-                <th scope="col"></th>
+                <th scope="col">
+                  <h5>Exercise</h5>
+                </th>
+                <th scope="col">
+                  <h5>Weight</h5>
+                </th>
+                <th scope="col">
+                  <h5>Rep</h5>
+                </th>
+                <th scope="col">
+                  <h5>Set</h5>
+                </th>
+                <th scope="col" />
               </tr>
             </TableHead>
-            <TableBody>
-              {exerciseTable}
-            </TableBody>
+            <TableBody>{exerciseTable}</TableBody>
           </Table>
         </div>
         <div className="submit-center">
@@ -391,7 +422,6 @@ class NewWorkout extends React.Component<IProps, any> {
             Submit Workout
           </button>
         </div>
-
       </div>
     );
   }

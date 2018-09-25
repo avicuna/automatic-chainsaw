@@ -17,7 +17,9 @@ interface IProps extends RouteComponentProps<{}> {
   gender: string;
   updateUserRegister: (info: IUserInfo) => any;
 }
-
+/**
+ * This shows the user's account details, such as username and email.s
+ */
 export class Profile extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
@@ -33,7 +35,7 @@ export class Profile extends React.Component<IProps, any> {
     // const pass = "*".repeat(this.props.password.length);
     return (
       <div>
-        <NavComponent history={this.props.history}/>
+        <NavComponent history={this.props.history} />
         <br />
         <br />
         <br />

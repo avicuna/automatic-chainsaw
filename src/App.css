@@ -148,6 +148,9 @@ a .App-title {
 .submit-center {
   text-align: center;
 }
+table {
+  text-align: center;
+}
 
 /*****************************
   Clicker

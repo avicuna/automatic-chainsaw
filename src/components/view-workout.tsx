@@ -8,6 +8,7 @@ import { Workout } from "../models/workout";
 import { ExerciseType } from "../models/exercise-type";
 import { WorkoutSnapshot } from "../models/workout-snapshot";
 import { RouteComponentProps } from "../../node_modules/@types/react-router";
+
 interface IProps extends RouteComponentProps<{}> {
   date: string;
   exercises: Exercise[];
@@ -23,7 +24,11 @@ interface IProps extends RouteComponentProps<{}> {
     viewWorkout: Workout
   ) => any;
 }
-
+/**
+ * @component
+ * This gives the details of a single wokrout and finds the latest
+ * one if none is specified
+ */
 class ViewWorkout extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);

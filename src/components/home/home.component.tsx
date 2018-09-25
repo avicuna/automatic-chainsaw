@@ -3,7 +3,7 @@ import gym from "../../assets/gym-background.jpg";
 import { Container, Mask, View, CardGroup, CardBody, CardTitle, Fa } from "mdbreact";
 import { HomeNavComponent } from "../navs/home-nav.component";
 import FooterPage from "../footer/footer";
-
+/** The basic screen a user sees when entering the site. */
 export class HomeComponent extends React.Component<any, any> {
   constructor(props: any) {
     super(props);

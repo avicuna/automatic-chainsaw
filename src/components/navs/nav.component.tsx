@@ -12,7 +12,7 @@ interface IProps extends RouteComponentProps<{}> {
   logoutUser: () => any;
   clearSuccess: () => any;
 }
-
+/** This provides the navbar for a sign-ed in user. */
 export class NavComponent extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);

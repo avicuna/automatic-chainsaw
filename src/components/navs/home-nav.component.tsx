@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Fa} from "mdbreact";
-
+/** Naav component for before a login has occured. */
 export class HomeNavComponent extends React.Component<any, any> {
   constructor(props: any) {
     super(props);

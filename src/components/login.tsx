@@ -9,17 +9,23 @@ import { getExerciseList, getWorkoutList } from "../actions/info/info.actions";
 import { Container, Row, Col, Input, Button } from "mdbreact";
 
 interface IProps extends RouteComponentProps<{}> {
+  /** Used to tell the user if login info was wrong  */
   errorMessage: string;
+  /** updated in text field by the user */
   username: string;
+  /** updated in text field by the user */
   password: string;
   accountNumber: string;
   getWorkoutList: () => any;
   loginSuccess: boolean;
   changeUsernameAndPassword: (username: string, password: string) => any;
+  /** uses username and password to fetch login-info from the server */
   submitLogin: (logUsername: string, logPassword: string) => any;
   getExerciseList: any;
 }
-
+/**
+ * This component allows users to login or be redirected to the register-user component.
+ */
 export class Login extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);

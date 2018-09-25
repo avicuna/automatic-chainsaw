@@ -33,7 +33,11 @@ interface IProps extends RouteComponentProps<{}> {
   getWorkoutList: () => any;
   getWorkoutHistory: (userId: number, workoutList: WorkoutType[]) => any;
 }
-
+/**
+ * This component appears after login and holds user info, allows the user to
+ * change weight, displays the user's latest workout, and fetches information
+ * needed by other components to the state.
+ */
 export class Dashboard extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
@@ -65,8 +69,6 @@ export class Dashboard extends React.Component<IProps, any> {
     }
   }
   public render() {
-    console.log("viewWorkoutId");
-    console.log(this.props.viewWorkoutId);
     if (
       this.props.workoutHistoryCalled === false &&
       this.props.workoutList[1] !== undefined
