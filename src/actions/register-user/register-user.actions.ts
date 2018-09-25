@@ -98,6 +98,9 @@ export const registerUser = (info: IUserInfo) => (dispatch: any) => {
         dispatch(updateErrorMessage("Something went pretty wrong"));
       }
     })
+      .then((resp:any)=>{
+          dispatch(submitLogin(req.username,req.password));
+      })
     .catch((err: any) => {
       dispatch(updateErrorMessage("Something went terribly wrong"));
     });

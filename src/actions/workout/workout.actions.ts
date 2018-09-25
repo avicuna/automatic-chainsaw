@@ -74,7 +74,7 @@ export const submitWorkout = (userID: number, workout: Workout) => (
   } else if (workout.exercises[0] === undefined) {
     dispatch(updateErrorMessage("Choose at least one exercise."));
   } else {
-    fetch("http://localhost:6969/users/workout/create", {
+    fetch(environment.context + "users/workout/create", {
       body: JSON.stringify({
         userId: userID,
         workoutId: workout.type.id
