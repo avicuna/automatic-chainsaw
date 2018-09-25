@@ -30,16 +30,6 @@ a .App-title {
   }
 }
 
-#date-type {
-  margin: 20px;
-  text-align: left;
-}
-
-#order {
-  margin: 5px;
-  text-align: right;
-}
-
 #table-title {
   font-size: 125%;
 }
@@ -81,9 +71,11 @@ a .App-title {
 }
 
 #home-container {
-  margin-top: 25px;
-  margin-right: 150px;
-  margin-bottom: 100px;
+  /*margin-top: 25px;*/
+  /*margin-right: 150px;*/
+  /*margin-bottom: 100px;*/
+    margin: auto;
+    margin-left: 17.5%;
 }
 
 #profile {
@@ -159,6 +151,7 @@ a .App-title {
 .create-table-container {
   padding-left: 5%;
   padding-right: 5%;
+  text-align: center;
 }
 .create-workout-title {
   margin-top: 2%;
