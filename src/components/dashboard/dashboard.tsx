@@ -4,57 +4,126 @@ import { IState } from "../../reducers";
 import {
   getExerciseList,
   getWorkoutList,
-  getWorkoutHistory
+  getWorkoutHistory,
+  zeroViewWorkout
 } from "../../actions/info/info.actions";
-// import { HomeNavComponent } from "../navs/home-nav.component";
-// import ViewWorkout from "../view-workout";
+import NavComponent from "../navs/nav.component";
 import { WorkoutSnapshot } from "../../models/workout-snapshot";
 import { WorkoutType } from "../../models/workout-type";
 import { ExerciseType } from "../../models/exercise-type";
-import ViewWorkoutHistory from "../view-workout-history";
-// import NewWorkout from "../new-workout";
+import { RouteComponentProps } from "../../../node_modules/@types/react-router";
+import ViewWorkout from "../view-workout";
+import { changeWeight, submitWeight } from "../../actions/weight/weight.action";
+import { Fa } from "mdbreact";
 
-interface IProps {
-  userId: number; 
+interface IProps extends RouteComponentProps<{}> {
+  userId: number;
+  viewWorkoutId: number;
   workoutHistoryCalled: boolean;
   workoutList: WorkoutType[];
   workoutHistory: WorkoutSnapshot[];
   exerciseList: ExerciseType[];
+  firstName: string;
+  lastName: string;
+  weight: number;
+  zeroViewWorkout: () => any;
+  submitWeight: (userId: number, weight: number) => any;
+  changeWeight: (weight: number) => any;
   getExerciseList: () => any;
-  getWorkoutList: (userId: number) => any;
+  getWorkoutList: () => any;
   getWorkoutHistory: (userId: number, workoutList: WorkoutType[]) => any;
 }
 
 export class Dashboard extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
-    this.getWork = this.getWork.bind(this);
+    this.changeWeight = this.changeWeight.bind(this);
+    this.submitWeight = this.submitWeight.bind(this);
+    this.loading = this.loading.bind(this);
   }
-  public getWork(e: any) {
-    this.props.getWorkoutHistory(this.props.userId, this.props.workoutList);
+  public changeWeight(e: any) {
+    this.props.changeWeight(e.target.value);
+  }
+  public submitWeight(e: any) {
+    this.props.submitWeight(this.props.userId, this.props.weight);
+  }
+  public loading() {
+    return (
+      <div id="loading">
+        <Fa icon="refresh" spin size="3x" fixed />
+        <span className="sr-only">Loading...</span>
+      </div>
+    );
   }
   public componentDidMount() {
+    this.props.zeroViewWorkout();
     if (this.props.exerciseList[1] === undefined) {
-      // window.console.log("getting the exercises");
       this.props.getExerciseList();
-      this.props.getWorkoutList(this.props.userId);
+    }
+    if (this.props.workoutList[1] === undefined) {
+      this.props.getWorkoutList();
     }
   }
   public render() {
-    // window.console.log("exercise list");
-    // window.console.log(this.props.exerciseList);
-    // window.console.log(this.props.workoutHistoryCalled);
+    console.log("viewWorkoutId");
+    console.log(this.props.viewWorkoutId);
     if (
       this.props.workoutHistoryCalled === false &&
       this.props.workoutList[1] !== undefined
     ) {
       this.props.getWorkoutHistory(this.props.userId, this.props.workoutList);
+      return (
+        <div id="loading">
+          <Fa icon="refresh" spin size="3x" fixed />
+          <span className="sr-only">Loading...</span>
+        </div>
+      );
+    } else if (this.props.workoutHistoryCalled === false) {
+      return (
+        <div id="loading">
+          <Fa icon="refresh" spin size="3x" fixed />
+          <span className="sr-only">Loading...</span>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <NavComponent history={this.props.history} />
+          <br />
+          <br />
+          <h2>
+            Welcome back, {this.props.firstName} {this.props.lastName}.
+          </h2>
+          <br />
+          <span>
+            <div className="weight-change align-items-center">
+              <div className="col-auto">
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">Update Weight</span>
+                  </div>
+                  <input
+                    type="number"
+                    className="form-control"
+                    aria-label="With textarea"
+                    id="weight"
+                    value={this.props.weight}
+                    onChange={this.changeWeight}
+                  />
+                </div>
+              </div>
+              <button className="btn-primary" onClick={this.submitWeight}>
+                Save Change
+              </button>
+            </div>
+          </span>
+          <br />
+          <br />
+          <h3>Most Recent Workout</h3>
+          <ViewWorkout history={this.props.history} />
+        </div>
+      );
     }
-    return (
-      <div>
-        <ViewWorkoutHistory />
-      </div>
-    );
   }
 }
 const mapStateToProps = (state: IState) => {
@@ -62,14 +131,21 @@ const mapStateToProps = (state: IState) => {
     userId: state.user.accountNumber,
     workoutHistoryCalled: state.misc.workoutHistoryCalled,
     workoutList: state.info.workoutList,
-    exerciseList: state.info.exerciseList
+    exerciseList: state.info.exerciseList,
+    firstName: state.user.firstName,
+    lastName: state.user.lastName,
+    weight: state.user.weight,
+    viewWorkoutId: state.info.viewWorkoutId
   };
 };
 
 const mapDispatchToProps = {
   getExerciseList,
   getWorkoutList,
-  getWorkoutHistory
+  getWorkoutHistory,
+  changeWeight,
+  submitWeight,
+  zeroViewWorkout
 };
 
 export default connect(

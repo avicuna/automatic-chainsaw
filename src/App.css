@@ -41,41 +41,65 @@ a .App-title {
 }
 
 #table-title {
-
   font-size: 125%;
-
 }
 
 #manager-home-container {
-display: flex;
-justify-content: center;
-align-items: center;
-}
-
-#sign-in-header {
-margin-top: 100px;
-display: flex;
-justify-content: center;
-align-items: center;
-}
-
-#sign-in-container {
-margin-top: 100px;
-margin-bottom: 100px;
-margin-left: 350px;
-}
-
-#sign-up-container {
-    margin-top: 100px;
-    margin-bottom: 100px;
-    margin-left: 450px;
- }
-
-#home-header {
-margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#sign-in-header {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#sign-in-container {
+  margin-top: 55px;
+  margin-bottom: 100px;
+  border: 1px solid black;
+  width: 35%;
+  padding: 3%;
+}
+
+#sign-up-container {
+  margin-top: 55px;
+  margin-bottom: 100px;
+  border: 1px solid black;
+  width: 35%;
+  padding: 3%;
+}
+
+#home-header {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#home-container {
+  margin-top: 25px;
+  margin-right: 150px;
+  margin-bottom: 100px;
+}
+
+#profile {
+  margin-top: 100px;
+  margin-left: 25px;
+}
+
+#user {
+  margin-right: 30px;
+}
+
+#loading {
+  margin: auto;
+  width: 50%;
+  padding: 200px 0;
+  text-align: center;
 }
 
 #error-message {
@@ -90,54 +114,72 @@ margin-top: 20px;
   /*height: 2em;*/
   /*margin-right: 2em;*/
   font-size: 31px;
-    color: rgb(255, 255, 255);
-    height: 30px;
-    width: 30px;
-    text-align: center;
-    border-radius: 5px;
-    background-color: rgb(30, 143, 30)
+  color: rgb(255, 255, 255);
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: rgb(30, 143, 30);
 }
 
-/*.margin-navs {*/
-/*margin-right: 2em*/
-/*}*/
+/*****************************
+  View A Workout
+*****************************/
+#date-type {
+  margin: 20px;
+  text-align: left;
+}
 
-/*.navbar-light .navbar-navs .navs-link:focus, .navbar-light .navbar-navs .navs-link:hover {*/
-/*!*color: rgba(0,0,0,.7);*!*/
-/*color: darkgrey !important;*/
-/*}*/
+#title-card-exercise {
+  font-size: 125%;
+  text-align: center;
+}
 
-/*.navbar-expand-md .navbar-navs .navs-link {*/
-/*padding-right: .75rem !important;*/
-/*padding-left: .75rem !important;*/
-/*}*/
+.specific-exercise {
+  width: 60%;
+  margin: auto;
+}
 
-/*.navbar li a, .navbar {*/
-/*color: #8cb5ce !important;*/
-/*padding: 0 15px;*/
-/*height: 70px;*/
-/*line-height: 80px;*/
-/*}*/
+/*****************************
+  Workout History
+*****************************/
+.workout-history-container {
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-top: 2%;
+}
 
-/*.bg-light {*/
-/*background-color: #ffffff !important;*/
-/*}*/
+.traverse-buttons {
+  text-align: center;
+}
 
-/*navs {*/
-/*min-height: 60px;*/
-/*z-index: 9999;*/
-/*border-bottom: 1px solid #ffffff !important;*/
-/*margin-bottom: 20px;*/
-/*-webkit-box-shadow: 1px -12px 28px -1px rgba(0, 0, 0, 0.87);*/
-/*-moz-box-shadow: 1px -12px 28px -1px rgba(0, 0, 0, 0.87);*/
-/*box-shadow: 1px -12px 28px -1px rgba(0, 0, 0, 0.87);*/
-/*font-size: 15px !important;*/
-/*font-family: Montserrat, sans-serif;*/
-/*}*/
-
-/*#examples-dropdown {*/
-/*cursor: pointer;*/
-/*}*/
+/*****************************
+  Create Workout & Exercises
+*****************************/
+.create-table-container {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.create-workout-title {
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+.form-inline {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.form-group {
+  padding: 10px;
+}
+.form-group input {
+  width: 23px;
+}
+.input-group {
+  padding: 0;
+}
+.submit-center {
+  text-align: center;
+}
 
 /*****************************
   Clicker
@@ -203,13 +245,42 @@ margin-top: 20px;
   Extra stuff
 *****************************/
 .navbar {
-    background-color: transparent;
+  background-color: transparent;
 }
 .top-nav-collapse {
-    background-color: #4285F4;
+  background-color: #4285f4;
 }
 @media only screen and (max-width: 768px) {
-    .navbar {
-        background-color: #4285F4;
-    }
+  .navbar {
+    background-color: #4285f4;
+  }
+}
+/*****************************
+Dashboard
+*****************************/
+h2 {
+  margin: 2.3%;
+}
+h3 {
+  text-align: center;
+}
+h5 {
+  text-align: center;
+}
+.button {
+  margin: 1.2%;
+  color: black;
+}
+.form-control {
+  width: 15%;
+}
+.weight-change {
+  display: flex;
+
+  flex-wrap: wrap;
+  margin-left: 1.2%;
+}
+
+.workout-link {
+  color: blue;
 }

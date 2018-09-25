@@ -7,7 +7,8 @@ import { getUserExerciseList } from "../actions/info/info.actions";
 import { Workout } from "../models/workout";
 import { ExerciseType } from "../models/exercise-type";
 import { WorkoutSnapshot } from "../models/workout-snapshot";
-interface IProps {
+import { RouteComponentProps } from "../../node_modules/@types/react-router";
+interface IProps extends RouteComponentProps<{}> {
   date: string;
   exercises: Exercise[];
   exerciseList: ExerciseType[];
@@ -26,7 +27,12 @@ interface IProps {
 class ViewWorkout extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
+    this.startWorkout = this.startWorkout.bind(this);
   }
+
+  /**
+   * zach, refactor this
+   */
 
   public componentDidMount() {
     if (
@@ -40,10 +46,10 @@ class ViewWorkout extends React.Component<IProps, any> {
       );
     }
   }
+  public startWorkout(e: any) {
+    this.props.history.push("/new-workout");
+  }
   public render() {
-    window.console.log("I'm here workoutS history, and view workout");
-    window.console.log(this.props.workoutHistory);
-    window.console.log(this.props.viewWorkout);
     if (this.props.viewWorkoutId === 0) {
       const viewSnap =
         this.props.workoutHistory.find((snap: WorkoutSnapshot) => {
@@ -57,6 +63,7 @@ class ViewWorkout extends React.Component<IProps, any> {
         );
       }
     }
+
     const exerciseEntries = this.props.exercises.map(exercise => {
       return (
         <tr key={exercise.id}>
@@ -68,29 +75,45 @@ class ViewWorkout extends React.Component<IProps, any> {
         </tr>
       );
     });
-    return (
-      <div>
-        <p>{this.props.viewWorkoutId}</p>
-        <div id="date-type">
-          <p id="order">Workout Number : {this.props.order}</p>
-          <p>Date : {this.props.date}</p>
-          <p>Type : {this.props.type.name}</p>
-        </div>
-        <p id="table-title">Exercise</p>
 
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Weight</th>
-              <th scope="col">Set</th>
-              <th scope="col">Reps</th>
-            </tr>
-          </thead>
-          <tbody>{exerciseEntries}</tbody>
-        </table>
-      </div>
-    );
+    if (this.props.workoutHistory[0] === undefined) {
+      return (
+        <div>
+          <h5>
+            <span>
+              {" "}
+              You haven't tracked any workouts with us before.
+              <span className="workout-link" onClick={this.startWorkout}>
+                Click here to start your first.
+              </span>{" "}
+            </span>
+          </h5>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div id="date-type">
+            <p id="order">Workout Number : {this.props.order}</p>
+            <p>Date : {this.props.date}</p>
+            <p>Type : {this.props.type.name}</p>
+          </div>
+          <p id="table-title">Exercise</p>
+
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Weight</th>
+                <th scope="col">Set</th>
+                <th scope="col">Reps</th>
+              </tr>
+            </thead>
+            <tbody>{exerciseEntries}</tbody>
+          </table>
+        </div>
+      );
+    }
   }
 }
 const mapStateToProps = (state: IState) => {

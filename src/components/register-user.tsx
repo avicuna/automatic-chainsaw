@@ -2,17 +2,12 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { IState } from "../reducers";
 import { updateErrorMessage } from "../actions/misc/misc.actions";
-import {
-  updateUserRegister,
-  registerUser,
-  IUserInfo
-} from "../actions/register-user/register-user.actions";
+import { updateUserRegister, registerUser, IUserInfo } from "../actions/register-user/register-user.actions";
 import "../App.css";
-import { Container, Row, Input, Button} from "mdbreact";
-import {RouteComponentProps} from "react-router";
+import { Container, Row, Input, Button, Col } from "mdbreact";
+import { RouteComponentProps } from "react-router";
 
-
-interface IProps extends RouteComponentProps<{}>{
+interface IProps extends RouteComponentProps<{}> {
   accountNumber: number;
   username: string;
   password: string;
@@ -35,6 +30,7 @@ export class RegisterUser extends React.Component<IProps, any> {
     this.updateRegister = this.updateRegister.bind(this);
     this.registerUser = this.registerUser.bind(this);
   }
+
   public registerUser(e: any) {
     if (this.props.password === this.props.passwordCheck) {
       const info: IUserInfo = {
@@ -49,7 +45,7 @@ export class RegisterUser extends React.Component<IProps, any> {
         weight: this.props.weight
       };
       this.props.registerUser(info);
-      this.props.history.push("/dashboard")
+      this.props.history.push("/dashboard");
     } else {
       this.props.updateErrorMessage(
         "Retyped password didn't match first password."
@@ -131,123 +127,135 @@ export class RegisterUser extends React.Component<IProps, any> {
   }
 
   public render() {
+    if (this.props.accountNumber) {
+      this.props.history.push("/dashboard");
+    }
     return (
       <div>
-          <br/>
-          <br/>
-          <br/>
-          <p className="h3-responsive text-center">Register</p>
-          <Container id="sign-up-container">
-              <Row>
-                  <form>
-                      <div className="row">
-                          <div className="col-md-12">
-                              <Input
-                                  id="UN"
-                                  type="text"
-                                  className="form-control"
-                                  label="Username"
-                                  value={this.props.username}
-                                  onChange={this.updateRegister}/>
-                          </div>
-                      </div>
-                      <div className="row">
-                          <div className="col-md-6">
-                              <Input
-                                  id="PW"
-                                  type="password"
-                                  className="form-control"
-                                  label="Password"
-                                  value={this.props.password}
-                                  onChange={this.updateRegister}/>
-                          </div>
+        <Container id="sign-up-container">
+          <Row>
+            <Col md="12">
+              <form>
+                <p className="h3-responsive text-center">Register</p>
+                <div className="row">
+                  <div className="col-md-12">
+                    <Input
+                      id="UN"
+                      type="text"
+                      className="form-control"
+                      label="Username"
+                      value={this.props.username}
+                      onChange={this.updateRegister}
+                    />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <Input
+                      id="PW"
+                      type="password"
+                      className="form-control"
+                      label="Password"
+                      value={this.props.password}
+                      onChange={this.updateRegister}
+                    />
+                  </div>
 
-                          <div className="col-md-6">
-                              <Input
-                                  id="CPW"
-                                  type="password"
-                                  className="form-control"
-                                  label="Re-type Password"
-                                  value={this.props.passwordCheck}
-                                  onChange={this.updateRegister}/>
-                          </div>
-                      </div>
+                  <div className="col-md-6">
+                    <Input
+                      id="CPW"
+                      type="password"
+                      className="form-control"
+                      label="Re-type Password"
+                      value={this.props.passwordCheck}
+                      onChange={this.updateRegister}
+                    />
+                  </div>
+                </div>
 
-                      <div className="row">
-                          <div className="col-md-12">
-                              <Input
-                                  id="EM"
-                                  type="text"
-                                  className="form-control"
-                                  label="Email"
-                                  value={this.props.email}
-                                  onChange={this.updateRegister}/>
-                          </div>
-                      </div>
+                <div className="row">
+                  <div className="col-md-12">
+                    <Input
+                      id="EM"
+                      type="text"
+                      className="form-control"
+                      label="Email"
+                      value={this.props.email}
+                      onChange={this.updateRegister}
+                    />
+                  </div>
+                </div>
 
-                      <div className="row">
-                          <div className="col-md-6">
-                              <Input
-                                  id="FN"
-                                  type="text"
-                                  className="form-control"
-                                  label="First Name"
-                                  value={this.props.firstName}
-                                  onChange={this.updateRegister} />
-                          </div>
-                          <div className="col-md-6">
-                              <Input
-                                  id="LN"
-                                  type="text"
-                                  className="form-control"
-                                  label="Last Name"
-                                  value={this.props.lastName}
-                                  onChange={this.updateRegister} />
-                          </div>
-                      </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <Input
+                      id="FN"
+                      type="text"
+                      className="form-control"
+                      label="First Name"
+                      value={this.props.firstName}
+                      onChange={this.updateRegister}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <Input
+                      id="LN"
+                      type="text"
+                      className="form-control"
+                      label="Last Name"
+                      value={this.props.lastName}
+                      onChange={this.updateRegister}
+                    />
+                  </div>
+                </div>
 
-                      <div className="row">
-                          <div className="col-md-6">
-                              <Input
-                                  id="HT"
-                                  type="number"
-                                  className="form-control"
-                                  label="Height (in)"
-                                  value={this.props.height}
-                                  onChange={this.updateRegister} />
-                          </div>
-                          <div className="col-md-6">
-                              <Input
-                                  id="WT"
-                                  type="number"
-                                  className="form-control"
-                                  label="Weight (lbs)"
-                                  value={this.props.weight}
-                                  onChange={this.updateRegister}/>
-                          </div>
-                      </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <Input
+                      id="HT"
+                      type="number"
+                      className="form-control"
+                      label="Height (in)"
+                      value={this.props.height}
+                      onChange={this.updateRegister}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <Input
+                      id="WT"
+                      type="number"
+                      className="form-control"
+                      label="Weight (lbs)"
+                      value={this.props.weight}
+                      onChange={this.updateRegister}
+                    />
+                  </div>
+                </div>
 
-                      <div className="row">
-                          <div className="col-md-12">
-                              <Input
-                                  id="GD"
-                                  type="text"
-                                  className="form-control"
-                                  label="Gender"
-                                  value={this.props.gender}
-                                  onChange={this.updateRegister}/>
-                          </div>
-                      </div>
-                      <div className="text-center">
-                          <Button className="btn btn-primary" onClick={this.registerUser}>
-                              Register
-                          </Button>
-                      </div>
-                  </form>
-              </Row>
-          </Container>
+                <div className="row">
+                  <div className="col-md-12">
+                    <Input
+                      id="GD"
+                      type="text"
+                      className="form-control"
+                      label="Gender"
+                      value={this.props.gender}
+                      onChange={this.updateRegister}
+                    />
+                  </div>
+                </div>
+                <div className="text-center">
+                  <Button className="btn btn-primary" onClick={this.registerUser}>
+                    Register
+                </Button>
+                </div>
+              </form>
+            </Col>
 
-        <div className="form-group">
+          </Row>
+        </Container>
+
+        {/* <div className="form-group">
           <label>Username</label>
           <br />
           <input
@@ -355,13 +363,13 @@ export class RegisterUser extends React.Component<IProps, any> {
             value={this.props.gender}
             onChange={this.updateRegister}
           />
-        </div>
-        <br />
+        </div> */}
+        {/* <br />
         <button className="btn btn-primary" onClick={this.registerUser}>
           Register User
         </button>
         <p>{this.props.errorMessage}</p>
-        <p>{this.props.accountNumber}</p>
+        <p>{this.props.accountNumber}</p> */}
       </div>
     );
   }

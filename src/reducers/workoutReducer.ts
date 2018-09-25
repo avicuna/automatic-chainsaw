@@ -3,6 +3,7 @@ import { Exercise } from "../models/exercise";
 import { WorkoutType } from "../models/workout-type";
 import { Workout } from "../models/workout";
 import { workoutTypes } from "../actions/workout/workout.types";
+
 /**
  * See the index.ts file for an explanation of all state properties
  * See the index.ts file for an explanation of all state properties, and model files for explanation of
@@ -38,6 +39,12 @@ export const workoutReducer = (
       return {
         ...state,
         currWorkout: action.payload.currWorkout
+      };
+    case workoutTypes.SUBMIT_WORKOUT:
+      return {
+        ...state,
+        currWorkout: action.payload.currWorkout,
+        changeCurrExercise: action.payload.currExercise
       };
     default:
       return state;

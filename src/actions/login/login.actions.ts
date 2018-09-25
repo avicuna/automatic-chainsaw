@@ -1,5 +1,6 @@
 import { loginTypes } from "./login.types";
 import { updateErrorMessage } from "../misc/misc.actions";
+import {environment} from "../../environment";
 
 // Simply updates the username and password on the login component
 export const changeUsernameAndPassword = (
@@ -38,56 +39,50 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
   //   status: 200
   // };
 
-  fetch("http://localhost:6969/users/login", {
+  fetch(environment.context + "users/login", {
     body: JSON.stringify({ username: logUsername, password: logPassword }),
     headers: { "Content-Type": "application/json" },
     method: "POST"
   })
     .then((resp: any) => {
       if (resp.status === 200) {
-          dispatch(updateErrorMessage(``));
-          dispatch({
-              payload: {
-                  loginSuccess: true
-              },
+        dispatch(updateErrorMessage(``));
+        dispatch({
+          payload: {
+            loginSuccess: true
+          },
           type: loginTypes.UPDATE_LOGIN_SUCCESS
-          })
+        });
         return resp;
-      }
-      else if (resp.status === 404) {
-          window.console.log("Incorrect login reached")
+      } else if (resp.status === 404) {
         dispatch(updateErrorMessage(`Username or password are incorrect.`));
-          return;
-      }
-      else if (resp.status === 500) {
+        return;
+      } else if (resp.status === 500) {
         dispatch(
           updateErrorMessage(`Something went pretty wrong${resp.status}`)
         );
         return;
-      }
-      else {
+      } else {
         dispatch(
           updateErrorMessage("it sent but we did something....." + resp.status)
-
         );
-      return;
+        return;
       }
     })
     .then((resp: any) => {
-        if (resp === null || resp === undefined){
-            return;
-        }
+      if (resp === null || resp === undefined) {
+        return;
+      }
       const newresp = resp.json();
-      // window.console.log(newresp);
       return newresp;
     })
     .then((resp: any) => {
-        if (resp === null || resp === undefined){
-            return;
-        }
+      if (resp === null || resp === undefined) {
+        return;
+      }
       dispatch({
         payload: {
-          accountNumber: resp.id,
+          accountNumber: +resp.id,
           email: resp.email,
           firstName: resp.firstname,
           gender: resp.gender,
@@ -100,10 +95,6 @@ export const submitLogin = (logUsername: string, logPassword: string) => (
       });
     })
     .catch((err: any) => {
-      dispatch(
-        updateErrorMessage(
-          `Something went terribly wrong ${err} UN: ${logUsername} PW: ${logPassword}`
-        )
-      );
+      dispatch(updateErrorMessage(`Connection to the server is disrupted.`));
     });
 };

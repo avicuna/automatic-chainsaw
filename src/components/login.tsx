@@ -4,16 +4,16 @@ import { IState } from "../reducers";
 import { changeUsernameAndPassword } from "../actions/login/login.actions";
 import { submitLogin } from "../actions/login/login.actions";
 import "../App.css";
-import {RouteComponentProps} from "react-router";
-import {getExerciseList,getWorkoutList} from "../actions/info/info.actions";
-import { Container, Row, Col, Input, Button } from 'mdbreact';
+import { RouteComponentProps } from "react-router";
+import { getExerciseList, getWorkoutList } from "../actions/info/info.actions";
+import { Container, Row, Col, Input, Button } from "mdbreact";
 
-interface IProps extends RouteComponentProps<{}>{
+interface IProps extends RouteComponentProps<{}> {
   errorMessage: string;
   username: string;
   password: string;
   accountNumber: string;
-  getWorkoutList:() => any;
+  getWorkoutList: () => any;
   loginSuccess: boolean;
   changeUsernameAndPassword: (username: string, password: string) => any;
   submitLogin: (logUsername: string, logPassword: string) => any;
@@ -30,9 +30,6 @@ export class Login extends React.Component<IProps, any> {
   public login(e: any) {
     e.preventDefault();
     this.props.submitLogin(this.props.username, this.props.password);
-    if(this.props.errorMessage === "") {
-        this.props.history.push("/dashboard");
-    }
   }
   public updateLogin(e: any) {
     e.preventDefault();
@@ -44,55 +41,62 @@ export class Login extends React.Component<IProps, any> {
   }
 
   public route(e: any) {
-      e.preventDefault();
-      this.props.history.push("/sign-up");
+    e.preventDefault();
+    this.props.history.push("/sign-up");
   }
 
-  public componentDidMount() {
+  public componentWillUnmount() {
     this.props.getExerciseList();
-
     this.props.getWorkoutList();
   }
   public render() {
-      // window.console.log(this.props.loginSuccess);
-      if(this.props.loginSuccess){
-          this.props.history.push("/dashboard");
-      }
+    if (this.props.loginSuccess) {
+      this.props.history.push("/dashboard");
+    }
     return (
       <div>
-
-          <Container id="sign-in-container">
-              <Row>
-                  <Col md="6">
-                      <form>
-                          <p className="h5 text-center mb-4">Log in</p>
-                          <div className="grey-text">
-                              <Input label="Enter username"
-                                     id="UN"
-                                     icon="user"
-                                     group type="text"
-                                     validate error="wrong"
-                                     success="right"
-                                     value={this.props.username}
-                                     onChange={this.updateLogin}
-                              />
-                              <Input label="Enter password"
-                                     icon="lock"
-                                     group type="password"
-                                     validate
-                                     value={this.props.password}
-                                     onChange={this.updateLogin}
-                              />
-                          </div>
-                          <div className="text-center">
-                              <p className="font-small blue-text d-flex justify-content-end pb-3">Not a member?<a onClick={this.route} className="blue-text ml-1">Sign up here</a></p>
-                              <p id="error-message">{this.props.errorMessage}</p>
-                              <Button onClick={this.login}>Login</Button>
-                          </div>
-                      </form>
-                  </Col>
-              </Row>
-          </Container>
+        <Container id="sign-in-container">
+          <Row>
+            <Col md="">
+              <form>
+                <p className="h5 text-center mb-4">Log in</p>
+                <div className="grey-text">
+                  <Input
+                    label="Enter username"
+                    id="UN"
+                    icon="user"
+                    group
+                    type="text"
+                    validate
+                    error="wrong"
+                    success="right"
+                    value={this.props.username}
+                    onChange={this.updateLogin}
+                  />
+                  <Input
+                    label="Enter password"
+                    icon="lock"
+                    group
+                    type="password"
+                    validate
+                    value={this.props.password}
+                    onChange={this.updateLogin}
+                  />
+                </div>
+                <div className="text-center">
+                  <p className="font-small blue-text d-flex justify-content-end pb-3">
+                    Not a member?
+                    <a onClick={this.route} className="blue-text ml-1">
+                      Sign up here
+                    </a>
+                  </p>
+                  <p id="error-message">{this.props.errorMessage}</p>
+                  <Button onClick={this.login}>Login</Button>
+                </div>
+              </form>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
@@ -104,11 +108,15 @@ const mapStateToProps = (state: IState) => {
     password: state.user.password,
     username: state.user.username,
     loginSuccess: state.misc.loginSuccess
-
   };
 };
 
-const mapDispatchToProps = { getExerciseList, submitLogin,getWorkoutList, changeUsernameAndPassword };
+const mapDispatchToProps = {
+  getExerciseList,
+  submitLogin,
+  getWorkoutList,
+  changeUsernameAndPassword
+};
 
 export default connect(
   mapStateToProps,

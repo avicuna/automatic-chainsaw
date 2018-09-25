@@ -1,6 +1,8 @@
 import { IUserState } from ".";
 import { loginTypes } from "../actions/login/login.types";
 import { registerUserTypes } from "../actions/register-user/register-user.types";
+import { logoutTypes } from "../actions/logout/logout.types";
+import { weightTypes } from "../actions/weight/weight.types";
 /**
  * See the index.ts file for an explanation of all state properties
  * See the index.ts file for an explanation of all state properties, and model files for explanation of
@@ -27,11 +29,16 @@ export const userReducer = (state: IUserState = initialState, action: any) => {
         password: action.payload.password,
         username: action.payload.username
       };
-
-    case loginTypes.SUBMIT_LOGIN:
+    case weightTypes.CHANGE_WEIGHT:
       return {
         ...state,
-        accountNumber: action.payload.accountNumber,
+        weight: action.payload.weight
+      };
+    case loginTypes.SUBMIT_LOGIN:
+      window.console.log(+action.payload.accountNumber);
+      return {
+        ...state,
+        accountNumber: +action.payload.accountNumber,
         email: action.payload.email,
         firstName: action.payload.firstName,
         gender: action.payload.gender,
@@ -54,10 +61,32 @@ export const userReducer = (state: IUserState = initialState, action: any) => {
         username: action.payload.username,
         weight: action.payload.weight
       };
+    case registerUserTypes.UPDATE_USER:
+      return {
+        ...state,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        email: action.payload.email,
+        height: action.payload.height,
+        weight: action.payload.weight
+      };
+
     case registerUserTypes.SUBMIT_REGISTRATION:
       return {
         ...state,
         accountNumber: action.payload.accountNumber
+      };
+    case logoutTypes.Logout_User:
+      return {
+        accountNumber: action.payload.accountNumber,
+        email: action.payload.email,
+        firstName: action.payload.firstName,
+        gender: action.payload.gender,
+        height: action.payload.height,
+        lastName: action.payload.lastName,
+        password: action.payload.password,
+        username: action.payload.username,
+        weight: action.payload.weight
       };
     default:
       return state;
